@@ -10,17 +10,17 @@ export default function ResetPassword() {
     const [otp, setOtp] = useState("")
     const [time, setTime] = useState(60)
 
-    // useEffect(() => {
-    //     if (time === 0) {
-    //         setTime(60)
-    //     }
+    useEffect(() => {
+        if (time === 0) {
+            setTime(60)
+        }
 
-    //     const interval = setInterval(() => {
-    //         setTime((prevTime) => prevTime - 1)
-    //     }, 1000)
+        const interval = setInterval(() => {
+            setTime((prevTime) => prevTime - 1)
+        }, 1000)
 
-    //     return () => clearInterval(interval)
-    // }, [time])
+        return () => clearInterval(interval)
+    }, [time])
 
     return (
         <div className="w-screen h-screen flex flex-col justify-center items-center bg-[#F5F5F5]">

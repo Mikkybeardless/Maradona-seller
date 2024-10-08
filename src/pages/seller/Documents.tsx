@@ -62,7 +62,7 @@ export default function Documents() {
         getRootProps,
         getInputProps,
         isDragActive,
-        acceptedFiles,
+        // acceptedFiles,
         // fileRejections,
     } = useDropzone({
         accept: {
@@ -72,16 +72,16 @@ export default function Documents() {
         maxSize: 20000000,
     })
 
-    const files = acceptedFiles.map((file, index) => {
-        return (
-            <img
-                key={index}
-                className="w-full h-[5rem] object-fill rounded-lg bg-gray-100"
-                src={URL.createObjectURL(file)}
-                alt="Car"
-            />
-        )
-    })
+    // const files = acceptedFiles.map((file, index) => {
+    //     return (
+    //         <img
+    //             key={index}
+    //             className="w-full h-[5rem] object-fill rounded-lg bg-gray-100"
+    //             src={URL.createObjectURL(file)}
+    //             alt="Car"
+    //         />
+    //     )
+    // })
 
     function openUploadModal() {
         setUploadModal(true)

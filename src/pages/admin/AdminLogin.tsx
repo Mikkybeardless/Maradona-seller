@@ -17,6 +17,10 @@ export default function AdminLogin() {
         setTogglePasswordShow(!togglePasswordShow)
     }
 
+    function resetTime() {
+        setTime(60)
+    }
+
     return (
         <div className="w-screen h-screen flex flex-col gap-y-5 justify-center items-center bg-[#F5F5F5]">
             {phase !== 5 ? (
@@ -145,7 +149,10 @@ export default function AdminLogin() {
 
                     <p className="text-secondaryTextColor text-sm text-center mt-12 max-w-[75%]">
                         Didn't get a code?{" "}
-                        <span className="font-medium cursor-pointer hover:underline">
+                        <span
+                            onClick={resetTime}
+                            className="font-medium cursor-pointer hover:underline"
+                        >
                             send again
                         </span>
                     </p>
