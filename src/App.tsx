@@ -23,18 +23,28 @@ import TrackShipment from "./pages/admin/TrackShipment";
 import TransactionHistory from "./pages/admin/TransactionHistory";
 import AddCustomer from "./pages/seller/AddCustomer";
 import AddProducts from "./pages/seller/AddProducts";
+import AdsSummary from "./pages/seller/AdsSummary";
+import CreateAdsPage from "./pages/seller/CreateAdsPage";
+import CreatePromotion from "./pages/seller/CreatePromoPage";
 import Customer from "./pages/seller/Customer";
 import Customers from "./pages/seller/Customers";
 import Dashboard from "./pages/seller/Dashboard";
 import Documents from "./pages/seller/Documents";
+import ExpensesReport from "./pages/seller/ExpensesReport";
+import FinancialTracking from "./pages/seller/FinancialTracking";
 import Order from "./pages/seller/Order";
 import Orders from "./pages/seller/Orders";
 import PaymentMethods from "./pages/seller/PaymentMethods";
 import ProductDetails from "./pages/seller/ProductDetails";
 import Products from "./pages/seller/Products";
 import ProfileInfo from "./pages/seller/ProfileInfo";
+import ProfilePage from "./pages/seller/ProfilePage";
+import PromoAndAdsPayment from "./pages/seller/PromoAndAdsPayment";
+import PromoSummary from "./pages/seller/PromoSummary";
 import Promotions from "./pages/seller/Promotions";
 import Reports from "./pages/seller/Reports";
+import RevenueReport from "./pages/seller/RevenueReport";
+import SaleReport from "./pages/seller/SaleReport";
 import Security from "./pages/seller/Security";
 import Settings from "./pages/seller/Settings";
 import Shipments from "./pages/seller/Shipments";
@@ -69,16 +79,51 @@ function App() {
             <Route index element={<Orders />} />
             <Route path="order" element={<Order />} />
           </Route>
-          <Route path="reports" element={<Reports />} />
-          <Route path="promotions" element={<Promotions />} />
+          <Route path="/seller/reports" element={<Reports />} />
+          <Route path="/seller/reports/sale-report" element={<SaleReport />} />
+          <Route
+            path="/seller/reports/revenue-report"
+            element={<RevenueReport />}
+          />
+          <Route
+            path="/seller/reports/expenses-report"
+            element={<ExpensesReport />}
+          />
+          <Route
+            path="/seller/reports/financial-tracking"
+            element={<FinancialTracking />}
+          />
+          <Route path="/seller/promotions" element={<Promotions />} />
+          <Route
+            path="/seller/promotions/create-promotion"
+            element={<CreatePromotion />}
+          />
+          <Route
+            path="/seller/promotions/promotion-summary"
+            element={<PromoSummary />}
+          />{" "}
+          <Route
+            path="/seller/promotions/ads-summary"
+            element={<AdsSummary />}
+          />
+          <Route
+            path="/seller/promotions/promo&ads-payment"
+            element={<PromoAndAdsPayment />}
+          />
+          <Route
+            path="/seller/promotions/create-ads"
+            element={<CreateAdsPage />}
+          />
           <Route path="shipments" element={<Shipments />} />
           <Route path="/seller/settings" element={<Settings />}>
-          <Route index element={<ProfileInfo />} /> 
-          <Route path="profile-info" element={<ProfileInfo />} />            <Route path="security" element={<Security />} />
+            <Route index element={<ProfileInfo />} />
+            <Route path="profile-info" element={<ProfileInfo />} />{" "}
+            <Route path="security" element={<Security />} />
             <Route path="verification" element={<VerificationPage />} />{" "}
             <Route path="payment-method" element={<PaymentMethods />} />
             <Route path="documents" element={<Documents />} />
           </Route>
+          <Route path="profile" element={<ProfilePage />} />
         </Route>
 
         <Route path="/admin" element={<LoggedInAuthenticator />}>

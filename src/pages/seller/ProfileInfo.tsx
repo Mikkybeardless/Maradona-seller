@@ -1,15 +1,11 @@
-import { Avatar, Badge, Box, IconButton, Typography } from "@mui/material";
-import React, { useState } from "react";
-import { BsCamera } from "react-icons/bs";
-import { MdContentCopy } from "react-icons/md";
+import { Box, Typography } from "@mui/material";
 
 import { RiShieldKeyholeLine } from "react-icons/ri";
-import defaultPic from "../../assets/profilePic.png";
 
 import { CiLaptop, CiMobile3 } from "react-icons/ci";
-import { RiEyeLine, RiEyeOffLine } from "react-icons/ri";
-
-const DEFAULT_IMAGE = defaultPic; // Replace with your actual default image
+import CopyableText from "../../components/CopyableText";
+import PasswordBox from "../../components/PasswordBox";
+import ProfilePictureUpload from "../../components/ProfilePictureUpload";
 
 function ProfileInfo() {
   return (
@@ -115,103 +111,6 @@ function LoginSectionCom({
         </Typography>
       </Box>
     </Box>
-  );
-}
-
-function PasswordBox({ label }: { label: string }) {
-  const [visible, setVisible] = useState(false);
-
-  return (
-    <Box
-      display="flex"
-      justifyContent="space-between"
-      alignItems="center"
-      alignContent="center"
-      sx={{ background: "#F7F7F7", padding: "20px", marginBottom: "30px" }}
-    >
-      <Box>
-        <Typography>{label}</Typography>
-        <Typography fontSize="14px" color="#150A13">
-          {visible ? "YourPassword123" : "••••••••"}
-        </Typography>
-      </Box>
-
-      <IconButton onClick={() => setVisible(!visible)}>
-        {visible ? (
-          <RiEyeOffLine size={20} color="#14199C" />
-        ) : (
-          <RiEyeLine size={20} color="#14199C" />
-        )}
-      </IconButton>
-    </Box>
-  );
-}
-
-function ProfilePictureUpload() {
-  const [image, setImage] = useState<string>(DEFAULT_IMAGE);
-
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setImage(imageUrl);
-    }
-  };
-
-  return (
-    <Badge
-      overlap="circular"
-      anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-      badgeContent={
-        <IconButton
-          component="label"
-          sx={{
-            backgroundColor: "white",
-            boxShadow: 1,
-            width: 32,
-            height: 32,
-            "&:hover": { backgroundColor: "#ddd" },
-          }}
-        >
-          <BsCamera size={18} color="#E65800" />
-          <input
-            type="file"
-            accept="image/*"
-            hidden
-            onChange={handleImageUpload}
-          />
-        </IconButton>
-      }
-    >
-      <Avatar
-        src={image}
-        alt="Profile Picture"
-        sx={{ width: 120, height: 120 }}
-      />
-    </Badge>
-  );
-}
-
-function CopyableText({
-  textColor,
-  variant,
-  text,
-}: {
-  textColor: string;
-  variant: string;
-  text: string;
-}) {
-  const handleCopy = () => {
-    navigator.clipboard.writeText(text);
-  };
-
-  return (
-    <Typography variant={variant} fontWeight={400} color={textColor}>
-      {text}{" "}
-      <IconButton size="small" onClick={handleCopy}>
-        <MdContentCopy size={18} color="#E65800" />
-      </IconButton>
-    </Typography>
   );
 }
 
