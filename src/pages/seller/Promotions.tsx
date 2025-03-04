@@ -143,172 +143,80 @@ export default function Promotions() {
   ];
 
   return (
-    <div className="w-full h-full overflow-y-auto flex flex-col custom-scrollbar pb-7">
-      {/* {promotionModal && (
-        <div className="w-screen h-screen flex justify-center items-center fixed top-0 left-0 z-30 bg-black/50 backdrop-blur-sm">
-          <div
-            ref={promotionModalRef}
-            className="w-[40%] h-[95%] flex flex-col gap-y-3 p-8 rounded-[24px] bg-white"
-          >
-            <div className="flex justify-between">
-              <h2 className="text-xl font-semibold">Create a promotion</h2>
-              <FaTimes
-                onClick={() => setPromotionModal(false)}
-                className="cursor-pointer"
-                size={24}
-              />
-            </div>
-
-            <div className="flex-1 flex flex-col gap-y-6 mt-3 overflow-y-auto custom-scrollbar-low-opacity">
-              <div className="flex flex-col gap-y-1 text-sm">
-                <label className="font-medium">Promotion Name:</label>
-                <input
-                  className="p-3 rounded-lg border border-[#B0B0B0]"
-                  type="text"
-                  placeholder="Type"
-                />
-              </div>
-              <div className="flex flex-col gap-y-1 text-sm">
-                <label className="font-medium">Discount Type:</label>
-                <select className="p-3 rounded-lg border border-[#B0B0B0]">
-                  <option>Percentage</option>
-                  <option>Flat Amount</option>
-                </select>
-              </div>
-              <div className="grid grid-cols-2 gap-x-2 gap-y-3">
-                <div className="flex flex-col gap-y-1 text-sm">
-                  <label className="font-medium">Discount Code:</label>
-                  <input
-                    className="p-3 rounded-lg border border-[#B0B0B0]"
-                    type="text"
-                    placeholder="Type"
-                  />
-                </div>
-                <div className="flex flex-col gap-y-1 text-sm">
-                  <label className="font-medium">Discount Value:</label>
-                  <input
-                    className="p-3 rounded-lg border border-[#B0B0B0]"
-                    type="text"
-                    placeholder="Type"
-                  />
-                </div>
-                <div className="flex flex-col gap-y-1 text-sm">
-                  <label className="font-medium">Start Date:</label>
-                  <input
-                    className="p-3 rounded-lg border border-[#B0B0B0]"
-                    type="date"
-                    placeholder="Type"
-                  />
-                </div>
-                <div className="flex flex-col gap-y-1 text-sm">
-                  <label className="font-medium">End Date:</label>
-                  <input
-                    className="p-3 rounded-lg border border-[#B0B0B0]"
-                    type="date"
-                    placeholder="Type"
-                  />
-                </div>
-              </div>
-              <div className="flex flex-col gap-y-1 text-sm">
-                <label className="font-medium">Usage limit:</label>
-                <input
-                  className="p-3 rounded-lg border border-[#B0B0B0]"
-                  type="text"
-                  placeholder="Type"
-                />
-              </div>
-              <div className="flex flex-col gap-y-1 text-sm">
-                <label className="font-medium">
-                  Applicable Products/Categories:
-                </label>
-                <select className="p-3 rounded-lg border border-[#B0B0B0]">
-                  <option></option>
-                </select>
-              </div>
-              <div className="flex flex-col gap-y-1 text-sm">
-                <label className="font-medium">Usage limit:</label>
-                <textarea
-                  className="p-3 rounded-lg resize-none outline-none custom-scrollbar border border-[#B0B0B0]"
-                  placeholder="Type"
-                  rows={4}
-                />
-              </div>
-            </div>
-
-            <div className="flex justify-end gap-x-2.5 text-sm">
-              <button className="p-2.5 rounded-lg text-defaultOrange bg-gray-100">
-                Cancel
-              </button>
-              <button className="p-2.5 rounded-lg text-white bg-defaultOrange hover:bg-defaultOrangeHover">
-                Save
-              </button>
-            </div>
-          </div>
-        </div>
-      )} */}
-      <div className="w-full py-5 px-24 border-b border-b-primaryBorder">
+    <div className="w-full h-full overflow-y-auto flex flex-col custom-scrollbar md-pb-10 pb-36 bg-[#F5F5F5]">
+      <div className="w-full py-5 px-4 md:px-8 lg:px-24 border-b border-b-primaryBorder max-w-[1200px] mx-auto">
         <DashboardSearchBar />
       </div>
 
-      <div className="px-20 w-full mt-4 flex flex-col flex-1">
-        <div className="flex justify-between items-center mt-1">
-          <h1 className="text-3xl font-bold flex items-start">
-            Promotions & Ads
-          </h1>
+      <div className="px-4 sm:px-8 md:px-12 lg:px-20 w-full mt-4 flex flex-col flex-1">
+        {/* Header Section */}
+        <div className="flex flex-col md:flex-row justify-between items-center mt-1 gap-4">
+          <h1 className="text-2xl sm:text-3xl font-bold">Promotions & Ads</h1>
           <div className="flex gap-3">
             <button
               onClick={handleAddPromotionsPage}
-              className="rounded-lg flex items-center gap-x-2 px-5 py-2.5 text-white text-sm bg-defaultOrange hover:bg-defaultOrangeHover"
+              className="rounded-lg flex items-center gap-x-2 px-4 sm:px-5 py-2 sm:py-2.5 text-white text-sm bg-defaultOrange hover:bg-defaultOrangeHover"
             >
               <FaPlus />
-              New promotion
+              New Promotion
             </button>
             <button
               onClick={handleAddAdsPage}
-              className="rounded-lg flex items-center gap-x-2 px-5 py-2.5 text-defaultOrange text-sm border-defaultOrange border-[1px] hover:bg-defaultOrangeHover hover:text-white"
+              className="rounded-lg flex items-center gap-x-2 px-4 sm:px-5 py-2 sm:py-2.5 text-defaultOrange text-sm border-defaultOrange border-[1px] hover:bg-defaultOrangeHover hover:text-white"
             >
               <FaPlus />
               New Ads
             </button>
           </div>
         </div>
-        <div className="flex justify-between mt-6 items-center ">
-          <ResponsiveContainer width={491.78076171875} height={250}>
-            <BarChart data={data}>
-              <XAxis
-                dataKey="time"
-                domain={[0, 7]}
-                label={{ value: "Time", position: "insideBottom", offset: -5 }}
-              />
-              <YAxis
-                domain={[0, 6]}
-                ticks={[0, 1, 2, 3, 4, 5, 6]}
-                axisLine={false}
-                tickLine={false}
-                label={{
-                  value: "User Count",
-                  angle: -90,
-                  position: "insideLeft",
-                }}
-              />
-              <Tooltip />
-              <Legend />
-              <Bar
-                dataKey="userCount1"
-                barSize={26}
-                fill="#E65800"
-                radius={[4, 4, 0, 0]}
-              />
-              <Bar
-                dataKey="userCount2"
-                barSize={26}
-                fill="#008000"
-                radius={[4, 4, 0, 0]}
-              />
-            </BarChart>
-          </ResponsiveContainer>
-          <div className="w-[370px]">
-            <p className="font-bold text-base text-[#14199C] mb-6">
+
+        {/* Chart and Metrics Section */}
+        <div className="flex flex-col md:flex-row justify-between mt-6 items-center gap-6">
+          {/* Chart */}
+          <div className="w-full md:w-[50%] h-[250px] sm:h-[300px] md:h-[350px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={data}>
+                <XAxis
+                  dataKey="time"
+                  domain={[0, 7]}
+                  label={{
+                    value: "Time",
+                    position: "insideBottom",
+                    offset: -5,
+                  }}
+                />
+                <YAxis
+                  domain={[0, 6]}
+                  ticks={[0, 1, 2, 3, 4, 5, 6]}
+                  axisLine={false}
+                  tickLine={false}
+                  label={{
+                    value: "User Count",
+                    angle: -90,
+                    position: "insideLeft",
+                  }}
+                />
+                <Tooltip />
+                <Legend />
+                <Bar
+                  dataKey="userCount1"
+                  barSize={26}
+                  fill="#E65800"
+                  radius={[4, 4, 0, 0]}
+                />
+                <Bar
+                  dataKey="userCount2"
+                  barSize={26}
+                  fill="#008000"
+                  radius={[4, 4, 0, 0]}
+                />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+
+          {/* Performance Metrics */}
+          <div className="w-full md:w-[45%]">
+            <p className="font-bold text-base text-[#14199C] mb-4 md:mb-6">
               Performance Metrics
             </p>
             <div className="flex justify-between">
@@ -342,8 +250,9 @@ export default function Promotions() {
           </div>
         </div>
 
-        <div className="flex justify-between items-end mt-5 w-full">
-          <div className="flex gap-x-5 items-center">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mt-5 w-full gap-4">
+          {/* Filters Section */}
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-x-5 items-start sm:items-center w-full sm:w-auto">
             <div className="flex flex-col gap-y-1">
               <p className="text-xs">ID:</p>
               <select className="p-2.5 text-sm rounded-lg border border-primaryBorder bg-white outline-none">
@@ -358,7 +267,8 @@ export default function Promotions() {
             </div>
           </div>
 
-          <div className="flex gap-x-2 px-3 basis-[25%] rounded-lg border border-primaryBorder">
+          {/* Search Bar */}
+          <div className="flex gap-x-2 px-3 w-full sm:w-auto rounded-lg border border-primaryBorder">
             <CiSearch className="h-fit w-fit my-auto" size={24} />
             <input
               className="flex-1 py-2.5 outline-none border-none text-sm bg-transparent"
@@ -368,7 +278,8 @@ export default function Promotions() {
           </div>
         </div>
 
-        <div className="mt-3 flex h-[25rem] w-full overflow-hidden bg-white">
+        {/* Table Section */}
+        <div className="mt-3 flex h-[25rem] w-full overflow-x-auto bg-white">
           <MuiTableComponent
             columns={columns}
             rows={rows()}

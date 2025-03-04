@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import { GridColDef } from "@mui/x-data-grid";
@@ -12,7 +13,6 @@ import LineChartComponent from "../../components/seller/LineChart";
 import MuiTableComponent from "../../components/seller/TableComponent";
 import { generateLineChartData1SellerDashboard } from "../../helper/generateFillData";
 import { generateRandomNumber } from "../../helper/helperFunctions";
-import { Box } from "@mui/material";
 
 type UserTableType = {
   id: number;
@@ -155,100 +155,112 @@ export default function Orders() {
         });
 
   return (
-    <div className="w-full h-full overflow-y-auto flex flex-col custom-scrollbar pb-3">
+    <div className="w-full h-full overflow-y-auto flex flex-col custom-scrollbar md:pb-3 pb-32 ">
       {exportModal ? (
-        <div className="w-screen h-screen flex justify-center items-center fixed top-0 left-0 z-30 bg-black/50 backdrop-blur-sm">
+        <div className="w-screen h-screen flex justify-center items-center fixed top-0 left-0 z-30 bg-black/50 backdrop-blur-sm px-4">
           <div
             ref={exportModalRef}
-            className="w-[30%] rounded-[24px] flex flex-col p-8 bg-white"
+            className="w-[95%] sm:w-[70%] md:w-[50%] lg:w-[30%] rounded-[24px] flex flex-col p-4 sm:p-6 md:p-8 bg-white"
           >
-            <h2 className="text-2xl font-bold">Export Products</h2>
-            <h6 className="font-medium mt-5">Export</h6>
+            <h2 className="text-base sm:text-lg md:text-2xl font-bold">
+              Export Products
+            </h2>
+            <h6 className="font-medium mt-3 sm:mt-5">Export</h6>
+
+            {/* Export Options */}
             <div className="flex flex-col gap-y-2 mt-2">
-              <div className="flex gap-x-3 items-center text-sm">
-                <input type="radio" name="export-select" id="export-select1" />
-                <label htmlFor="export-select1" className="opacity-70">
-                  Current page
-                </label>
-              </div>
-              <div className="flex gap-x-3 items-center text-sm">
-                <input type="radio" name="export-select" id="export-select2" />
-                <label htmlFor="export-select2" className="opacity-70">
-                  All products
-                </label>
-              </div>
-              <div className="flex gap-x-3 items-center text-sm">
-                <input type="radio" name="export-select" id="export-select3" />
-                <label htmlFor="export-select3" className="opacity-70">
-                  Selection(0 products selected)
-                </label>
-              </div>
+              {[
+                { id: "export-select1", label: "Current page" },
+                { id: "export-select2", label: "All products" },
+                {
+                  id: "export-select3",
+                  label: "Selection(0 products selected)",
+                },
+              ].map((option) => (
+                <div
+                  key={option.id}
+                  className="flex gap-x-2 sm:gap-x-3 items-center text-sm"
+                >
+                  <input type="radio" name="export-select" id={option.id} />
+                  <label htmlFor={option.id} className="opacity-70">
+                    {option.label}
+                  </label>
+                </div>
+              ))}
             </div>
-            <h6 className="font-medium mt-5">Export As</h6>
+
+            <h6 className="font-medium mt-3 sm:mt-5">Export As</h6>
+
+            {/* Export Format Options */}
             <div className="flex flex-col gap-y-2 mt-2">
-              <div className="flex gap-x-3 items-center text-sm">
-                <input type="radio" name="export-as" id="export-as1" />
-                <label htmlFor="export-as1" className="opacity-70">
-                  CSV
-                </label>
-              </div>
-              <div className="flex gap-x-3 items-center text-sm">
-                <input type="radio" name="export-as" id="export-as2" />
-                <label htmlFor="export-as2" className="opacity-70">
-                  PDF
-                </label>
-              </div>
-              <div className="flex gap-x-3 items-center text-sm">
-                <input type="radio" name="export-as" id="export-as3" />
-                <label htmlFor="export-as3" className="opacity-70">
-                  Plain Text
-                </label>
-              </div>
+              {[
+                { id: "export-as1", label: "CSV" },
+                { id: "export-as2", label: "PDF" },
+                { id: "export-as3", label: "Plain Text" },
+              ].map((option) => (
+                <div
+                  key={option.id}
+                  className="flex gap-x-2 sm:gap-x-3 items-center text-sm"
+                >
+                  <input type="radio" name="export-as" id={option.id} />
+                  <label htmlFor={option.id} className="opacity-70">
+                    {option.label}
+                  </label>
+                </div>
+              ))}
             </div>
-            <div className="mt-5 flex items-center justify-end gap-x-3 text-sm">
+
+            {/* Buttons */}
+            <div className="mt-3 sm:mt-5 flex items-center justify-end gap-x-2 sm:gap-x-3 text-sm">
               <button
                 onClick={closeExportModal}
                 className="rounded-lg hover:underline"
               >
                 Cancel
               </button>
-              <button className="px-5 py-3 rounded-lg text-white bg-defaultOrange">
+              <button className="px-4 sm:px-5 py-2 sm:py-3 rounded-lg text-white bg-defaultOrange">
                 Export
               </button>
             </div>
           </div>
         </div>
       ) : null}
-      <div className="w-full py-3.5 px-24 border-b border-b-primaryBorder">
+
+      {/* Search Bar */}
+      <div className="w-full py-3.5 px-6 sm:px-12 md:px-24 border-b border-b-primaryBorder">
         <DashboardSearchBar />
       </div>
 
-      <div className="px-24 w-full mt-3 flex flex-col flex-1">
-        <div className="flex justify-between items-center">
-          <h1 className="text-3xl font-bold flex items-start">Orders </h1>
+      <div className="px-4 sm:px-12 md:px-24 w-full mt-3 flex flex-col flex-1">
+        {/* Header Section */}
+        <div className="flex flex-wrap justify-between items-center gap-y-4">
+          <h1 className="text-2xl sm:text-3xl font-bold flex items-start">
+            Orders
+          </h1>
 
-          <div className="flex items-center gap-x-5">
-            <button className="text-sm flex items-center gap-x-2 rounded-lg px-4 py-2.5 bg-[#FFF4EE] text-defaultOrange">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-3">
+            <button className="text-sm sm:text-base flex items-center gap-x-2 rounded-lg px-4 py-2.5 bg-[#FFF4EE] text-defaultOrange">
               <FaRegEyeSlash color="#e65800" />
               <span>Hide analytics</span>
             </button>
             <button
               onClick={openExportModal}
-              className="text-sm rounded-lg px-4 py-2.5 bg-defaultOrange hover:bg-defaultOrangeHover text-white"
+              className="text-sm sm:text-base rounded-lg px-4 py-2.5 bg-defaultOrange hover:bg-defaultOrangeHover text-white"
             >
               Export
             </button>
           </div>
         </div>
 
-        <div className="w-full flex justify-between items-end pb-3 mt-4 border-b border-b-primaryBorder">
+        {/* Earnings Section */}
+        <div className="w-full flex flex-wrap justify-between items-end pb-3 mt-4 border-b border-b-primaryBorder">
           <div className="flex flex-col gap-y-2">
             <div className="flex items-center gap-x-2">
               <PiCoinVerticalDuotone size={22} color="#686677" />
               <span className="text-xs text-[#686677]">Total earnings</span>
             </div>
             <div className="flex items-baseline gap-x-2">
-              <span className="text-3xl text-defaultOrange font-semibold">
+              <span className="text-2xl sm:text-3xl text-defaultOrange font-semibold">
                 $450,000
               </span>
               <span className="text-xs text-[#686677]">+5,300 this week</span>
@@ -257,12 +269,15 @@ export default function Orders() {
         </div>
 
         <div className="mt-4">
+          {/* Responsive Tabs Section */}
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
             <Tabs
               value={activeTab}
               onChange={(e, newValue) => setActiveTab(newValue)}
               textColor="primary"
               indicatorColor="primary"
+              variant="scrollable"
+              scrollButtons="auto"
             >
               <Tab
                 label="New"
@@ -293,8 +308,10 @@ export default function Orders() {
           </Box>
         </div>
 
-        <div className="flex justify-between items-end mt-5 w-full">
-          <div className="flex gap-x-5 items-center">
+        {/* Filters & Search Bar */}
+        <div className="flex flex-wrap justify-between items-center gap-y-4 mt-5 w-full">
+          {/* Filters */}
+          <div className="flex flex-wrap gap-x-5 gap-y-3 items-center">
             <div className="flex flex-col gap-y-1">
               <p className="text-xs">Customer:</p>
               <select className="p-2.5 text-sm rounded-lg border border-primaryBorder bg-white outline-none">
@@ -324,7 +341,8 @@ export default function Orders() {
             </div>
           </div>
 
-          <div className="flex gap-x-2 px-3 basis-[25%] rounded-lg border border-primaryBorder">
+          {/* Responsive Search Bar */}
+          <div className="flex items-center gap-x-2 px-3 w-full sm:w-auto sm:basis-[25%] rounded-lg border border-primaryBorder">
             <CiSearch className="h-fit w-fit my-auto" size={24} />
             <input
               className="flex-1 py-2.5 outline-none border-none text-sm bg-transparent"
@@ -337,8 +355,10 @@ export default function Orders() {
         {activeTab === "Analytical" ? (
           <div className="w-full mt-5">
             <h2 className="text-2xl font-bold mb-4">Order Analytics</h2>
+
             <div className="p-3.5 rounded-lg border border-primaryBorder mt-7">
-              <div className="flex w-full justify-between items-center">
+              {/* Title & Select Dropdown (Responsive) */}
+              <div className="flex flex-wrap w-full justify-between items-center gap-3">
                 <h5 className="text-lg font-medium">Income</h5>
                 <select className="text-sm rounded-lg outline-none p-2.5 border border-primaryBorder">
                   <option>Monthly</option>
@@ -346,7 +366,8 @@ export default function Orders() {
                 </select>
               </div>
 
-              <div className="mt-2 flex gap-x-8 items-center">
+              {/* Income & Expenditure (Responsive) */}
+              <div className="mt-2 flex flex-wrap gap-x-8 gap-y-2 items-center">
                 <p className="text-xs text-[#585858]">
                   Total income:{" "}
                   <span className="text-lg text-defaultOrange">
@@ -359,6 +380,7 @@ export default function Orders() {
                 </p>
               </div>
 
+              {/* Responsive Chart */}
               <div className="w-full h-[15rem] mt-5">
                 <LineChartComponent
                   chartData={generateLineChartData1SellerDashboard()}
@@ -385,7 +407,8 @@ export default function Orders() {
             </div>
           </div>
         ) : (
-          <div className="mt-3 flex flex-1 w-full overflow-hidden">
+          /* Responsive Table */
+          <div className="mt-3 flex flex-1 w-full overflow-x-auto">
             <MuiTableComponent
               columns={columns}
               showCheckbox={false}

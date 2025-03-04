@@ -94,15 +94,17 @@ export default function Customers() {
   return (
     <div className="w-full h-full overflow-y-auto flex flex-col custom-scrollbar pb-7 bg-[#F5F5F5]">
       {exportModal && (
-        <div className="w-screen h-screen flex justify-center items-center fixed top-0 left-0 z-30 bg-black/50 backdrop-blur-sm">
+        <div className="w-screen h-screen flex justify-center items-center fixed top-0 left-0 z-30 bg-black/50 backdrop-blur-sm px-4">
           <div
             ref={exportModalRef}
-            className="w-[30%] rounded-[24px] flex flex-col p-8 bg-white"
+            className="w-[90%] sm:w-[70%] md:w-[50%] lg:w-[30%] rounded-[24px] flex flex-col p-6 sm:p-8 bg-white"
           >
-            <h2 className="text-2xl font-bold">Export Customers</h2>
+            <h2 className="text-lg sm:text-xl md:text-2xl font-bold">
+              Export Customers
+            </h2>
             <button
               onClick={() => setExportModal(false)}
-              className="mt-5 px-5 py-3 rounded-lg text-white bg-defaultOrange"
+              className="mt-5 px-4 sm:px-5 py-2 sm:py-3 rounded-lg text-white bg-defaultOrange"
             >
               Close
             </button>
@@ -110,36 +112,37 @@ export default function Customers() {
         </div>
       )}
 
-      <div className="w-full py-5 px-24 border-b border-b-primaryBorder">
+      <div className="w-full py-4 sm:py-5 px-4 sm:px-6 md:px-8 lg:px-24 border-b border-b-primaryBorder">
         <DashboardSearchBar />
       </div>
 
-      <div className="px-24 w-full mt-4 flex flex-col flex-1">
-        <div className="flex justify-between items-center mt-1">
-          <h1 className="text-3xl font-bold">Customers</h1>
-          <div className="flex items-center gap-x-5">
+      <div className="px-4 sm:px-6 md:px-8 lg:px-24 w-full mt-4 flex flex-col flex-1">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mt-1 gap-y-3 sm:gap-y-0">
+          <h1 className="text-2xl sm:text-3xl font-bold">Customers</h1>
+          <div className="flex items-center gap-x-3 sm:gap-x-5">
             <button
               onClick={() => setExportModal(true)}
-              className="text-sm hover:underline text-defaultOrange"
+              className="text-sm sm:text-base hover:underline text-defaultOrange"
             >
               Export
             </button>
             <Link
               to={`/${pathname.split("/")[1]}/customers/add-customer`}
-              className="rounded-lg px-5 py-2.5 text-white text-sm bg-defaultOrange hover:bg-defaultOrangeHover"
+              className="rounded-lg px-4 sm:px-5 py-2 sm:py-2.5 text-white text-sm sm:text-base bg-defaultOrange hover:bg-defaultOrangeHover"
             >
               Add Customer
             </Link>
           </div>
         </div>
 
-        <div className="flex justify-between items-end mt-5 w-full">
-          <div className="flex gap-x-5 items-center">
-           
-            <div className="flex flex-col gap-y-1">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mt-5 w-full gap-y-4 sm:gap-y-0">
+          {/* Sort Options */}
+          <div className="flex flex-col sm:flex-row gap-x-3 sm:gap-x-5 items-start sm:items-center w-full sm:w-auto">
+            {/* Sort by Dropdown */}
+            <div className="flex flex-col gap-y-1 w-full sm:w-auto">
               <p className="text-xs">Sort by:</p>
               <select
-                className="p-2.5 text-sm rounded-lg border border-primaryBorder bg-white outline-none"
+                className="p-2.5 text-sm rounded-lg border border-primaryBorder bg-white outline-none w-full sm:w-auto"
                 onChange={handleSortChange}
                 value={sortCriteria}
               >
@@ -151,12 +154,12 @@ export default function Customers() {
             </div>
 
             {/* Sort Order Dropdown */}
-            <div className="flex flex-col gap-y-1">
+            <div className="flex flex-col gap-y-1 w-full sm:w-auto">
               <p className="text-xs">Order:</p>
-              <div className="px-2.5 relative flex items-center gap-x-1 rounded-lg border border-primaryBorder bg-white">
+              <div className="px-2.5 relative flex items-center gap-x-1 rounded-lg border border-primaryBorder bg-white w-full sm:w-auto">
                 <HiSortDescending />
                 <select
-                  className="text-sm outline-none h-full py-2.5"
+                  className="text-sm outline-none h-full py-2.5 w-full sm:w-auto"
                   onChange={handleSortOrderChange}
                   value={sortOrder}
                 >
@@ -168,7 +171,7 @@ export default function Customers() {
           </div>
 
           {/* Search Bar */}
-          <div className="flex gap-x-2 px-3 basis-[25%] rounded-lg border border-primaryBorder">
+          <div className="flex gap-x-2 px-3 w-full sm:w-[25%] rounded-lg border border-primaryBorder">
             <CiSearch className="h-fit w-fit my-auto" size={24} />
             <input
               className="flex-1 py-2.5 outline-none border-none text-sm bg-transparent"

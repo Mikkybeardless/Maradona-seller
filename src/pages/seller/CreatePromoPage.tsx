@@ -36,33 +36,32 @@ const CreatePromotion = () => {
   };
 
   return (
-    <div className="h-screen overflow-auto">
-      <div className="w-full py-3.5 px-24 border-b border-b-primaryBorder">
+    <div className="h-screen overflow-auto md:pb-10 pb-36 ">
+      {/* Top Section with Search Bar */}
+      <div className="w-full py-3.5 px-6 md:px-24 border-b border-b-primaryBorder">
         <DashboardSearchBar />
       </div>
-      <div style={{ padding: "20px", maxWidth: "800px", margin: "auto" }}>
-        <div className="flex gap-x-4 items-center mb-12">
-          <Link
-            to="/seller/promotions"
-            className="text-[15px] font-normal font-sans text-[#262626]"
-          >
+
+      {/* Container */}
+      <div className="px-6 md:px-20 max-w-4xl mx-auto py-10">
+        {/* Breadcrumb */}
+        <div className="flex gap-x-4 items-center mb-6 text-sm">
+          <Link to="/seller/promotions" className="text-[#262626]">
             Promotions & Ads
           </Link>
-          <FaChevronRight size={20} />
-          <span className="text-sm font-normal font-sans text-[#040421]">
-            Create Promotion
-          </span>
+          <FaChevronRight size={16} />
+          <span className="text-[#040421]">Create Promotion</span>
         </div>
 
-        <p className="font-semibold text-[32px] font-sans mb-10">
+        <p className="font-semibold text-2xl md:text-3xl mb-6">
           Create Promotion
         </p>
 
         {/* Form */}
-        <form onSubmit={handleSubmit}>
-          <div style={{ display: "flex", gap: "20px" }}>
-            {/* Left Side */}
-            <div style={{ flex: 1 }}>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Left Column */}
+            <div className="flex flex-col space-y-4">
               <label className="text-base text-[#111111]">
                 Promotion Name:
               </label>
@@ -72,7 +71,6 @@ const CreatePromotion = () => {
                 value={formData.promotionName}
                 onChange={handleChange}
                 required
-                style={{ marginBottom: "15px", height: "48px" }}
               />
 
               <label className="text-base text-[#111111]">
@@ -85,7 +83,6 @@ const CreatePromotion = () => {
                 value={formData.promotionType}
                 onChange={handleChange}
                 required
-                style={{ marginBottom: "15px" }}
               >
                 {promotionTypes.map((type) => (
                   <MenuItem key={type} value={type}>
@@ -94,86 +91,47 @@ const CreatePromotion = () => {
                 ))}
               </TextField>
 
-              <div style={{ display: "flex", gap: "10px" }}>
-                <div style={{ flex: 1 }}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
                   <label className="text-base text-[#111111]">
                     Start Date:
                   </label>
                   <TextField
                     fullWidth
                     type="date"
-                    name="endDate"
-                    InputLabelProps={{ shrink: true }}
-                    value={formData.endDate}
+                    name="startDate"
+                    value={formData.startDate}
                     onChange={handleChange}
                     required
-                    sx={{
-                      marginBottom: "15px",
-                      "& input": {
-                        borderColor: "#B0B0B0", // Input border color
-                      },
-                      "& fieldset": {
-                        borderColor: "#B0B0B0", // Default border
-                      },
-                      "&:hover fieldset": {
-                        borderColor: "#B0B0B0", // Border color on hover
-                      },
-                      "&.Mui-focused fieldset": {
-                        borderColor: "#B0B0B0", // Border color when focused
-                      },
-                      "& input::-webkit-calendar-picker-indicator": {
-                        filter:
-                          "invert(15%) sepia(93%) saturate(3345%) hue-rotate(227deg) brightness(89%) contrast(95%)",
-                      },
-                    }}
                   />
                 </div>
-                <div style={{ flex: 1 }}>
+                <div>
                   <label className="text-base text-[#111111]">End Date:</label>
                   <TextField
                     fullWidth
                     type="date"
                     name="endDate"
-                    InputLabelProps={{ shrink: true }}
                     value={formData.endDate}
                     onChange={handleChange}
                     required
-                    sx={{
-                      marginBottom: "15px",
-                      "& input": {
-                        borderColor: "#B0B0B0", // Input border color
-                      },
-                      "& fieldset": {
-                        borderColor: "#B0B0B0", // Default border
-                      },
-                      "&:hover fieldset": {
-                        borderColor: "#B0B0B0", // Border color on hover
-                      },
-                      "&.Mui-focused fieldset": {
-                        borderColor: "#B0B0B0", // Border color when focused
-                      },
-                      "& input::-webkit-calendar-picker-indicator": {
-                        filter:
-                          "invert(15%) sepia(93%) saturate(3345%) hue-rotate(227deg) brightness(89%) contrast(95%)",
-                      },
-                    }}
                   />
                 </div>
               </div>
 
-              <div style={{ display: "flex", gap: "10px" }}>
-                <div style={{ flex: 1 }}>
-                  <label>Discount Value</label>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="text-base text-[#111111]">
+                    Discount Value:
+                  </label>
                   <TextField
                     fullWidth
                     name="discountValue"
                     value={formData.discountValue}
                     onChange={handleChange}
                     required
-                    style={{ marginBottom: "15px" }}
                   />
                 </div>
-                <div style={{ flex: 1 }}>
+                <div>
                   <label className="text-base text-[#111111]">
                     Promo Code:
                   </label>
@@ -183,10 +141,10 @@ const CreatePromotion = () => {
                     value={formData.promoCode}
                     onChange={handleChange}
                     required
-                    style={{ marginBottom: "15px" }}
                   />
                 </div>
               </div>
+
               <label className="text-base text-[#111111]">Usage Limit:</label>
               <TextField
                 fullWidth
@@ -194,11 +152,11 @@ const CreatePromotion = () => {
                 value={formData.usageLimit}
                 onChange={handleChange}
                 required
-                style={{ marginBottom: "15px" }}
               />
             </div>
 
-            <div style={{ flex: 1 }}>
+            {/* Right Column */}
+            <div className="flex flex-col space-y-4">
               <label className="text-base text-[#111111]">Product Type:</label>
               <TextField
                 fullWidth
@@ -206,21 +164,19 @@ const CreatePromotion = () => {
                 value={formData.productType}
                 onChange={handleChange}
                 required
-                style={{ marginBottom: "15px" }}
               />
 
-              <label className="text-base text-[#111111] mb-2">
+              <label className="text-base text-[#111111]">
                 Promotion Description:
               </label>
               <TextField
                 fullWidth
                 multiline
-                rows={9}
+                rows={5}
                 name="promotionDescription"
                 value={formData.promotionDescription || ""}
                 onChange={handleChange}
                 required
-                style={{ marginBottom: "15px" }}
               />
 
               <label className="text-base text-[#111111]">
@@ -233,7 +189,6 @@ const CreatePromotion = () => {
                 value={formData.productCategory}
                 onChange={handleChange}
                 required
-                style={{ marginBottom: "15px" }}
               >
                 {productCategories.map((category) => (
                   <MenuItem key={category} value={category}>
@@ -244,7 +199,8 @@ const CreatePromotion = () => {
             </div>
           </div>
 
-          <div style={{ textAlign: "right", marginTop: "20px" }}>
+          {/* Buttons */}
+          <div className="flex justify-end space-x-4 mt-6">
             <Link to="/seller/promotions">
               <Button
                 variant="contained"
@@ -252,14 +208,12 @@ const CreatePromotion = () => {
                   background: "#F2F2F2",
                   color: "#14199C",
                   borderRadius: "12px",
-                  marginRight: "10px",
                 }}
-                type="submit"
               >
                 Cancel
               </Button>
             </Link>
-            <Link to={"/seller/promotions/promotion-summary"}>
+            <Link to="/seller/promotions/promotion-summary">
               <Button
                 variant="contained"
                 color="primary"

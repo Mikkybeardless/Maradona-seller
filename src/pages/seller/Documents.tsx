@@ -111,13 +111,13 @@ export default function Documents() {
   }
 
   return (
-    <div className="bg-white pt-5 pl-7 pr-3 h-full flex flex-col custom-scrollbar pb-10">
+    <div className="bg-white pt-5 px-3 md:pl-7 md:pr-3 h-full flex flex-col custom-scrollbar pb-10">
       {/* Upload Modal */}
       {uploadModal && (
-        <div className="w-screen h-screen flex justify-center items-center fixed top-0 left-0 z-30 bg-black/50 backdrop-blur-sm">
-          <div className="w-[50%] flex flex-col p-8 rounded-lg bg-white">
+        <div className="fixed inset-0 flex justify-center items-center z-30 bg-black/50 backdrop-blur-sm">
+          <div className="w-[90%] md:w-[50%] flex flex-col p-4 md:p-8 rounded-lg bg-white">
             <div className="flex justify-between items-center">
-              <h3 className="font-semibold text-xl">Upload Files</h3>
+              <h3 className="font-semibold text-lg md:text-xl">Upload Files</h3>
             </div>
 
             {/* Embed Media Button */}
@@ -131,16 +131,16 @@ export default function Documents() {
             {/* Drag and Drop Area */}
             <div
               {...getRootProps()}
-              className="w-full h-[10rem] mt-3 flex flex-col justify-center items-center gap-y-1 rounded-lg cursor-pointer border border-[#B0B0B0] border-dashed bg-[#F5F5F5]"
+              className="w-full h-[8rem] md:h-[10rem] mt-3 flex flex-col justify-center items-center gap-y-1 rounded-lg cursor-pointer border border-[#B0B0B0] border-dashed bg-[#F5F5F5]"
             >
               <input {...getInputProps()} />
               {!isDragActive ? (
                 <>
                   <IoCloudUploadOutline size={30} />
-                  <p className="text-lg font-semibold text-center">
+                  <p className="text-md md:text-lg font-semibold text-center">
                     Drag files here or click to select
                   </p>
-                  <p className="text-sm text-[#898989]">
+                  <p className="text-xs md:text-sm text-[#898989]">
                     Images, PDFs, Videos, Word docs (Max: 50MB)
                   </p>
                 </>
@@ -150,7 +150,7 @@ export default function Documents() {
             </div>
 
             {/* Display Selected Files */}
-            <div className="mt-3">
+            <div className="mt-3 flex flex-wrap gap-2">
               {uploadedFiles.map((file, index) => (
                 <div
                   key={index}
@@ -160,13 +160,13 @@ export default function Documents() {
                     <img
                       src={URL.createObjectURL(file)}
                       alt="Preview"
-                      className="w-16 h-16 object-cover rounded-lg"
+                      className="w-12 h-12 md:w-16 md:h-16 object-cover rounded-lg"
                     />
                   ) : (
-                    <p>{file.name}</p>
+                    <p className="text-sm md:text-base">{file.name}</p>
                   )}
                   <button
-                    className="text-red-500"
+                    className="text-red-500 text-xs md:text-sm"
                     onClick={() => removeFile(index)}
                   >
                     Remove
@@ -178,13 +178,13 @@ export default function Documents() {
             <div className="flex justify-end gap-x-3 text-sm mt-4">
               <button
                 onClick={() => setUploadModal(false)}
-                className="py-3 px-5 rounded-lg border border-primaryBorder"
+                className="py-2 px-4 md:py-3 md:px-5 rounded-lg border border-primaryBorder"
               >
                 Cancel
               </button>
               <button
                 onClick={uploadFiles}
-                className="py-3 px-5 rounded-lg text-white bg-defaultOrange"
+                className="py-2 px-4 md:py-3 md:px-5 rounded-lg text-white bg-defaultOrange"
               >
                 Upload
               </button>
@@ -195,26 +195,28 @@ export default function Documents() {
 
       {/* Embed Media Modal */}
       {embedModal && (
-        <div className="w-screen h-screen flex justify-center items-center fixed top-0 left-0 z-30 bg-black/50 backdrop-blur-sm">
-          <div className="w-[30%] flex flex-col p-6 rounded-lg bg-white">
-            <h3 className="font-semibold text-xl">Embed Media</h3>
+        <div className="fixed inset-0 flex justify-center items-center z-30 bg-black/50 backdrop-blur-sm">
+          <div className="w-[90%] md:w-[50%] lg:w-[30%] flex flex-col p-4 md:p-6 rounded-lg bg-white">
+            <h3 className="font-semibold text-lg md:text-xl">Embed Media</h3>
+
             <input
               type="text"
               placeholder="Enter media URL"
               value={embedURL}
               onChange={(e) => setEmbedURL(e.target.value)}
-              className="w-full mt-3 p-2 border border-gray-300 rounded-lg outline-none"
+              className="w-full mt-3 p-2 md:p-3 border border-gray-300 rounded-lg outline-none text-sm md:text-base"
             />
+
             <div className="flex justify-end gap-x-3 text-sm mt-4">
               <button
                 onClick={() => setEmbedModal(false)}
-                className="py-2 px-4 rounded-lg border border-gray-400"
+                className="py-2 px-4 md:py-3 md:px-5 rounded-lg border border-gray-400"
               >
                 Cancel
               </button>
               <button
                 onClick={saveEmbedURL}
-                className="py-2 px-4 rounded-lg text-white bg-defaultOrange"
+                className="py-2 px-4 md:py-3 md:px-5 rounded-lg text-white bg-defaultOrange"
               >
                 Save
               </button>
@@ -225,34 +227,37 @@ export default function Documents() {
 
       {/* Page Content */}
       <div className="mt-4 flex flex-col gap-y-5 flex-1">
-        <div className="flex justify-between items-center">
-          <h1 className="text-3xl font-semibold">Documents</h1>
+        {/* Header: Title & Upload Button */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
+          <h1 className="text-2xl md:text-3xl font-semibold">Documents</h1>
           <button
             onClick={() => setUploadModal(true)}
-            className="rounded-lg text-sm flex items-center gap-x-3 p-3 px-4 text-white bg-defaultOrange hover:bg-defaultOrangeHover"
+            className="rounded-lg text-sm md:text-base flex items-center gap-x-3 p-2 md:p-3 px-4 text-white bg-defaultOrange hover:bg-defaultOrangeHover"
           >
             <FaPlus size={18} />
             Upload File
           </button>
         </div>
 
-        <div className="flex gap-x-2 px-3 w-[25%] ml-auto rounded-lg border border-primaryBorder">
-          <CiSearch className="h-fit w-fit my-auto" size={24} />
+        {/* Search Bar */}
+        <div className="flex gap-x-2 px-3 w-full sm:w-[50%] md:w-[25%] ml-auto rounded-lg border border-primaryBorder">
+          <CiSearch className="h-fit w-fit my-auto" size={20} />
           <input
-            className="w-full py-2.5 outline-none border-none text-sm bg-transparent"
+            className="w-full py-2 outline-none border-none text-sm md:text-base bg-transparent"
             placeholder="Search documents"
             type="text"
           />
         </div>
-
-        <div className="w-full flex flex-1 mt-4">
-          <MuiTableComponent
-            columns={documentsColumn}
-            rows={documentsRow()}
-            paginationActive={true}
-            rowHeight={80}
-            pageSize={10}
-          />
+        <div className="w-full flex flex-1 mt-4 overflow-x-auto">
+          <div className="w-full min-h-[300px] sm:min-h-[400px] md:min-h-[500px]">
+            <MuiTableComponent
+              columns={documentsColumn}
+              rows={documentsRow()}
+              paginationActive={true}
+              rowHeight={80}
+              pageSize={10}
+            />
+          </div>
         </div>
       </div>
     </div>

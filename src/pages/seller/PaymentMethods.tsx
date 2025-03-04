@@ -55,7 +55,7 @@ function PaymentMethods() {
       </div>
 
       {/* Add New Card Button */}
-      <div className="w-[90%] m-auto">
+      <div className="w-full sm:w-[90%] m-auto">
         <Button
           variant="contained"
           fullWidth
@@ -110,9 +110,12 @@ export function CardItem({
   };
 
   return (
-    <div className="cursor-pointer pb-3" onClick={onSelect}>
+    <div
+      className="cursor-pointer pb-3 px-2 sm:px-4 lg:px-6"
+      onClick={onSelect}
+    >
       <Divider className="!w-[98%] m-auto" />
-      <div className="flex justify-between text-center mt-3 font-medium">
+      <div className="flex flex-wrap items-center justify-between mt-3 font-medium text-center gap-2">
         <IoCheckmarkCircleSharp
           size={24}
           color={isSelected ? "#1BB66E" : "#5E5E5E"}
@@ -123,7 +126,7 @@ export function CardItem({
         <p className="text-sm text-[#5E5E5E] flex-1">EXP DATE</p>
       </div>
 
-      <div className="flex justify-between items-center text-center mt-2">
+      <div className="flex flex-wrap items-center justify-between mt-2 gap-2">
         <IoCardOutline size={24} />
         <p className="text-base font-medium text-[#000000] flex-1">{bank}</p>
         <p className="text-base font-medium text-[#000000] flex-1">

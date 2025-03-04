@@ -270,19 +270,20 @@ export default function Reports() {
 
   return (
     <div className="w-full h-full overflow-y-auto flex flex-col custom-scrollbar pb-10">
-      <div className="w-full py-3.5 px-24 border-b border-b-primaryBorder">
+      {/* Responsive Padding for Search Bar */}
+      <div className="w-full py-3.5 px-6 sm:px-12 md:px-24 border-b border-b-primaryBorder">
         <DashboardSearchBar />
       </div>
       <div className="bg-[#F2F2F2]">
         <div className="w-[95%] mx-auto">
           {/* first */}
-          <div className="flex justify-between gap-5 mb-5">
-            <div className="bg-white py-5 px-5 mt-6 rounded-2xl flex-[4]">
-              <div className="flex justify-between mb-5 ">
-                <p className="font-bold text-3xl text-[#05004E]">
+          <div className="flex flex-wrap gap-5 mb-5">
+            <div className="bg-white py-5 px-5 mt-6 rounded-2xl flex-[4] w-full md:w-auto">
+              <div className="flex justify-between mb-5 flex-wrap">
+                <p className="font-bold text-3xl text-[#05004E] mb-2 md:mb-0">
                   Reports Summary
                 </p>
-                <div>
+                <div className="flex gap-2">
                   <Button
                     variant="outlined"
                     sx={{
@@ -309,14 +310,14 @@ export default function Reports() {
                       textTransform: "capitalize",
                     }}
                   >
-                    {" "}
                     <LuRefreshCw size={16} />
                     Refresh
                   </Button>
                 </div>
               </div>
-              <div className="flex justify-between ">
-                <div className="w-[230px] h-[184px] bg-[#1137D033] pl-7 pt-4 rounded-[16px]">
+
+              <div className="flex flex-wrap gap-5">
+                <div className="w-full sm:w-[230px] h-[184px] bg-[#1137D033] pl-7 pt-4 rounded-[16px]">
                   <div className="w-[40px] h-[40px] bg-[#1137D0] flex items-center justify-center rounded-full">
                     <AiFillFileText size={24} color="#ffffff" />
                   </div>
@@ -327,8 +328,9 @@ export default function Reports() {
                     Total Orders
                   </p>
                 </div>
-                <div className="w-[230px] h-[184px] bg-[#04979E33] pl-7 pt-4 rounded-[16px]">
-                  <div className="flex justify-between w-[90%]">
+
+                <div className="w-full sm:w-[230px] h-[184px] bg-[#04979E33] pl-7 pt-4 rounded-[16px]">
+                  <div className="flex justify-between w-full">
                     <div className="w-[40px] h-[40px] bg-[#04979E] flex items-center justify-center rounded-full">
                       <HiMiniChartBarSquare size={24} color="#ffffff" />
                     </div>
@@ -336,7 +338,6 @@ export default function Reports() {
                       +8% Yesterday
                     </p>
                   </div>
-
                   <p className="font-semibold text-2xl text-[#151D48] mt-4 mb-6">
                     N 12,500,000
                   </p>
@@ -344,8 +345,9 @@ export default function Reports() {
                     Total Revenue
                   </p>
                 </div>
-                <div className="w-[289px] h-[184px] bg-[#FD610033] pl-7 pt-4 rounded-[16px]">
-                  <div className="flex justify-between w-[90%]">
+
+                <div className="w-full sm:w-[289px] h-[184px] bg-[#FD610033] pl-7 pt-4 rounded-[16px]">
+                  <div className="flex justify-between w-full">
                     <div className="w-[40px] h-[40px] bg-[#FD6100] flex items-center justify-center rounded-full">
                       <HiTag size={24} color="#ffffff" />
                     </div>
@@ -363,19 +365,18 @@ export default function Reports() {
                 </div>
               </div>
             </div>
-            <div className="bg-white py-5 px-5 mt-6 rounded-2xl flex-[1]">
+
+            <div className="bg-white py-5 px-5 mt-6 rounded-2xl flex-1">
               <p className="font-bold text-base text-center mb-5">
                 Top Performing Categories
               </p>
               <div className="mb-3">
                 <div className="flex items-center mb-2">
                   <VscCircleFilled size={10} color="#FD6100" />
-                  <div>
-                    <p className="font-normal text-base text-[#5C4D58]">
+                  <div className="ml-2">
+                    <p className="font-normal text-sm sm:text-base text-[#5C4D58]">
                       Cars:{" "}
-                      <span className="font-bold text-base text-[#E65800]">
-                        64%
-                      </span>
+                      <span className="font-bold text-[#E65800]">64%</span>
                     </p>
                     <p className="font-normal text-xs text-[#5C4D58]">
                       800 units sold
@@ -389,15 +390,14 @@ export default function Reports() {
                   wholePercent={"36%"}
                 />
               </div>
+
               <div className="mb-3">
                 <div className="flex items-center mb-2">
                   <VscCircleFilled size={10} color="#14199C" />
-                  <div>
-                    <p className="font-normal text-base text-[#5C4D58]">
+                  <div className="ml-2">
+                    <p className="font-normal text-sm sm:text-base text-[#5C4D58]">
                       Houses:{" "}
-                      <span className="font-bold text-base text-[#14199C]">
-                        24%
-                      </span>
+                      <span className="font-bold text-[#14199C]">24%</span>
                     </p>
                     <p className="font-normal text-xs text-[#5C4D58]">
                       300 units sold
@@ -411,15 +411,14 @@ export default function Reports() {
                   wholePercent={"76%"}
                 />
               </div>
+
               <div className="mb-3">
                 <div className="flex items-center mb-2">
                   <VscCircleFilled size={10} color="#04979E" />
-                  <div>
-                    <p className="font-normal text-base text-[#5C4D58]">
+                  <div className="ml-2">
+                    <p className="font-normal text-sm sm:text-base text-[#5C4D58]">
                       Lands:{" "}
-                      <span className="font-bold text-base text-[#04979E]">
-                        12%
-                      </span>
+                      <span className="font-bold text-[#04979E]">12%</span>
                     </p>
                     <p className="font-normal text-xs text-[#5C4D58]">
                       150 units sold
@@ -435,14 +434,15 @@ export default function Reports() {
               </div>
             </div>
           </div>
-          {/* second */}
-          <div className="flex justify-between gap-5 mb-6">
-            <div className="bg-white py-5 px-5 mt-6 rounded-2xl flex-[3]">
-              <div className="flex justify-between mb-12">
+
+          <div className="flex flex-col md:flex-row justify-between gap-5 mb-6">
+            {/* Left Section */}
+            <div className="bg-white py-5 px-5 mt-6 rounded-2xl flex-1 md:flex-[3] w-full">
+              <div className="flex flex-col md:flex-row justify-between mb-12">
                 <p className="font-bold text-base text-[#1E1A1C]">
                   Sales Performance
                 </p>
-                <div className="flex gap-3 items-center">
+                <div className="flex flex-wrap gap-3 items-center">
                   <Button
                     variant="outlined"
                     sx={{
@@ -521,6 +521,8 @@ export default function Reports() {
                 />
               </div>
             </div>
+
+            {/* Right Section */}
             <div className="bg-white py-5 px-5 mt-6 rounded-2xl w-full flex-[2]">
               <p className="font-bold text-base mb-8">
                 Major Sales by Location
@@ -584,6 +586,8 @@ export default function Reports() {
               </div>
             </div>
           </div>
+
+          {/* View More Button */}
           {showMore === false && (
             <div className="text-right mb-14">
               <Button
@@ -599,12 +603,13 @@ export default function Reports() {
               </Button>
             </div>
           )}
+
           {/* showMore */}
           {showMore === true && (
-            <div className="flex justify-between gap-4 mb-56">
+            <div className="flex flex-col lg:flex-row justify-between gap-4 mb-56">
               {/* partOne  */}
-              <div className="flex-[3]">
-                <div className="bg-white py-9 px-7 mt-6 rounded-2xl w-full ">
+              <div className="flex-[3] w-full lg:w-3/5">
+                <div className="bg-white py-9 px-7 mt-6 rounded-2xl w-full">
                   <div className="flex justify-between items-center mb-7">
                     <p className="font-bold text-base text-[#1E1A1C]">
                       Monthly Revenue
@@ -622,15 +627,13 @@ export default function Reports() {
                       View more
                     </Button>
                   </div>
-                  <div style={{ width: "100%", height: "400px" }}>
+                  <div className="w-full h-[300px] md:h-[400px]">
                     <ResponsiveContainer width="100%" height="100%">
                       <BarChart data={data1}>
                         <XAxis dataKey="month" />
                         <YAxis
                           tickFormatter={(value) => `${value / 1000}k`}
                           domain={[0, "auto"]}
-                          tickCount={6}
-                          interval={0}
                         />
                         <Tooltip formatter={(value) => `${value / 1000}k`} />
                         <Legend />
@@ -639,98 +642,114 @@ export default function Reports() {
                     </ResponsiveContainer>
                   </div>
                 </div>
-                <div>
-                  <div className="bg-white  mt-6 rounded-2xl w-full ">
-                    <div className="bg-[#04979E] flex justify-between py-6 rounded-t-2xl px-7 items-center">
-                      <p className="font-bold text-base text-[#ffffff]">
-                        Financial Summaries
-                      </p>
-                      <div>
-                        <Button
-                          variant="outlined"
-                          sx={{
-                            fontSize: "14px",
-                            fontWeight: 400,
-                            color: "#ffffff",
-                            borderColor: "#ffffff",
-                            padding: "5px 8px",
-                            marginRight: "15px",
-                            textTransform: "capitalize",
-                          }}
-                        >
-                          Print
-                        </Button>
-                        <Button
-                          variant="outlined"
-                          sx={{
-                            fontSize: "14px",
-                            fontWeight: 400,
-                            color: "#ffffff",
-                            borderColor: "#ffffff",
-                            padding: "5px 8px",
-                            textTransform: "capitalize",
-                          }}
-                          onClick={handleToFinancialTracking}
-                        >
-                          View More
-                        </Button>
-                      </div>
+
+                <div className="bg-white mt-6 rounded-2xl w-full">
+                  <div className="bg-[#04979E] flex justify-between py-4 px-5 md:px-7 rounded-t-2xl items-center">
+                    <p className="font-bold text-base text-white">
+                      Financial Summaries
+                    </p>
+                    <div>
+                      <Button
+                        variant="outlined"
+                        sx={{
+                          fontSize: "14px",
+                          fontWeight: 400,
+                          color: "#ffffff",
+                          borderColor: "#ffffff",
+                          padding: "5px 8px",
+                          marginRight: "10px",
+                          textTransform: "capitalize",
+                        }}
+                      >
+                        Print
+                      </Button>
+                      <Button
+                        variant="outlined"
+                        sx={{
+                          fontSize: "14px",
+                          fontWeight: 400,
+                          color: "#ffffff",
+                          borderColor: "#ffffff",
+                          padding: "5px 8px",
+                          textTransform: "capitalize",
+                        }}
+                        onClick={handleToFinancialTracking}
+                      >
+                        View More
+                      </Button>
                     </div>
-                    <div className="flex justify-between px-7 mt-5">
-                      <div>
-                        <p className="text-sm font-normal text-[#040421] mb-5">
-                          Gross Revenue:
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4 px-5 md:px-7 mt-5">
+                    <div>
+                      {[
+                        "Gross Revenue:",
+                        "Net Revenue:",
+                        "Commission to Platform",
+                        "Commission to Agents",
+                        "Promotion to Cost",
+                        "Returns and Refunds:",
+                      ].map((item, index) => (
+                        <p
+                          key={index}
+                          className="text-sm font-normal text-[#040421] mb-3 flex items-center gap-1"
+                        >
+                          {item}{" "}
+                          {[
+                            "Commission to Platform",
+                            "Commission to Agents",
+                          ].includes(item) && (
+                            <MdInfo size={14} color="#838383" />
+                          )}
                         </p>
-                        <p className="text-sm font-normal text-[#040421] mb-5">
-                          Net Revenue:
+                      ))}
+                    </div>
+                    <div className="text-right">
+                      {[
+                        "₦350,000,000",
+                        "₦320,000,000",
+                        "3.5%",
+                        "10%",
+                        "₦30,000,000",
+                        "₦8,000,000 (100 returns)",
+                      ].map((value, index) => (
+                        <p
+                          key={index}
+                          className="text-sm font-normal text-[#585858] mb-3"
+                        >
+                          {value}
                         </p>
-                        <p className="text-sm font-normal text-[#040421] mb-5 flex items-center gap-1">
-                          Commission to Platform{" "}
-                          <MdInfo size={14} color="#838383" />
-                        </p>
-                        <p className="text-sm font-normal text-[#040421] mb-5 flex items-center gap-1">
-                          Commission to Agents
-                          <MdInfo size={14} color="#838383" />
-                        </p>{" "}
-                        <p className="text-sm font-normal text-[#040421] mb-5">
-                          Promotion to Cost
-                        </p>{" "}
-                        <p className="text-sm font-normal text-[#040421] mb-5">
-                          Returns and Refunds:
-                        </p>
-                      </div>
-                      <div className="text-right">
-                        <p className="text-sm font-normal text-[#585858] mb-5">
-                          ₦350,000,000
-                        </p>
-                        <p className="text-sm font-normal text-[#585858] mb-5">
-                          ₦320,000,000
-                        </p>
-                        <p className="text-sm font-normal text-[#585858] mb-5">
-                          3.5%
-                        </p>
-                        <p className="text-sm font-normal text-[#585858] mb-5">
-                          10%
-                        </p>{" "}
-                        <p className="text-sm font-normal text-[#585858] mb-5">
-                          ₦30,000,000
-                        </p>{" "}
-                        <p className="text-sm font-normal text-[#585858] mb-5">
-                          ₦8,000,000 (100 returns)
-                        </p>
-                      </div>
+                      ))}
                     </div>
                   </div>
                 </div>
               </div>
 
               {/* partTwo */}
-              <div className="flex-[2]">
-                <div>
-                  <div className="bg-white  mt-6 rounded-2xl w-full pb-32 ">
-                    <div className="bg-[#1137D0] flex justify-between py-6 rounded-t-2xl px-7 items-center">
-                      <p className="font-bold text-base text-[#ffffff]">
-                        Revenue Tracking
+              <div className="flex-[2] w-full lg:w-2/5">
+                {[
+                  {
+                    title: "Revenue Tracking",
+                    bg: "#1137D0",
+                    handler: handleToRevenuReport,
+                    color: "#14199C",
+                  },
+                  {
+                    title: "Expenses",
+                    bg: "#FD6100",
+                    handler: handleToExpensesReport,
+                    color: "#FD6100",
+                  },
+                ].map((section, index) => (
+                  <div
+                    key={index}
+                    className="bg-white mt-6 rounded-2xl w-full pb-16"
+                  >
+                    <div
+                      className={`bg-[${section.bg}] flex justify-between py-4 px-5 md:px-7 rounded-t-2xl items-center`}
+                    >
+                      <p className="font-bold text-base text-white">
+                        {section.title}
                       </p>
                       <div>
                         <Button
@@ -738,10 +757,10 @@ export default function Reports() {
                           sx={{
                             fontSize: "14px",
                             fontWeight: 400,
-                            color: "#ffffff",
-                            borderColor: "#ffffff",
+                            color: "white",
+                            borderColor: "white",
                             padding: "5px 8px",
-                            marginRight: "15px",
+                            marginRight: "10px",
                             textTransform: "capitalize",
                           }}
                         >
@@ -752,145 +771,69 @@ export default function Reports() {
                           sx={{
                             fontSize: "14px",
                             fontWeight: 400,
-                            color: "#ffffff",
-                            borderColor: "#ffffff",
+                            color: "white",
+                            borderColor: "white",
                             padding: "5px 8px",
                             textTransform: "capitalize",
                           }}
-                          onClick={handleToRevenuReport}
+                          onClick={section.handler}
                         >
                           View More
                         </Button>
                       </div>
                     </div>
-                    <div className="flex justify-between px-7 mt-5">
+
+                    <div className="grid grid-cols-3 gap-4 px-5 md:px-7 mt-5 text-center">
                       <div>
-                        <p className="text-sm font-bold text-[#14199C] mb-5">
+                        <p
+                          className={`text-sm font-bold text-[${section.color}] mb-3`}
+                        >
                           Category
                         </p>
-                        <p className="text-sm font-normal text-[#040421] mb-5">
-                          Cars
-                        </p>
-                        <p className="text-sm font-normal text-[#040421] mb-5">
-                          Houses
-                        </p>{" "}
-                        <p className="text-sm font-normal text-[#040421] mb-5">
-                          Lands
-                        </p>
+                        {["Cars", "Houses", "Lands"].map((item, i) => (
+                          <p
+                            key={i}
+                            className="text-sm font-normal text-[#040421] mb-3"
+                          >
+                            {item}
+                          </p>
+                        ))}
                       </div>
-                      <div className="text-center">
-                        <p className="text-sm font-bold text-[#14199C] mb-5">
+                      <div>
+                        <p
+                          className={`text-sm font-bold text-[${section.color}] mb-3`}
+                        >
                           Revenue
                         </p>
-                        <p className="text-sm font-normal text-[#585858] mb-5">
-                          ₦320,000,000
-                        </p>
-                        <p className="text-sm font-normal text-[#585858] mb-5">
-                          ₦30,000,000
-                        </p>{" "}
-                        <p className="text-sm font-normal text-[#585858] mb-5">
-                          ₦8,000,000
-                        </p>
+                        {["₦320,000,000", "₦30,000,000", "₦8,000,000"].map(
+                          (item, i) => (
+                            <p
+                              key={i}
+                              className="text-sm font-normal text-[#585858] mb-3"
+                            >
+                              {item}
+                            </p>
+                          )
+                        )}
                       </div>
-
                       <div>
-                        <p className="text-sm font-bold text-[#14199C] mb-5">
+                        <p
+                          className={`text-sm font-bold text-[${section.color}] mb-3`}
+                        >
                           Percentage
                         </p>
-                        <p className="text-sm font-normal text-[#040421] mb-5">
-                          62.9%
-                        </p>
-                        <p className="text-sm font-normal text-[#040421] mb-5">
-                          25.7%
-                        </p>{" "}
-                        <p className="text-sm font-normal text-[#040421] mb-5">
-                          11.4%
-                        </p>
+                        {["62.9%", "25.7%", "11.4%"].map((item, i) => (
+                          <p
+                            key={i}
+                            className="text-sm font-normal text-[#040421] mb-3"
+                          >
+                            {item}
+                          </p>
+                        ))}
                       </div>
                     </div>
                   </div>
-                </div>
-                <div>
-                  <div className="bg-white  mt-6 rounded-2xl w-full  pb-32">
-                    <div className="bg-[#FD6100] flex justify-between py-6 rounded-t-2xl px-7 items-center">
-                      <p className="font-bold text-base text-[#ffffff]">
-                        Expenses
-                      </p>
-                      <div>
-                        <Button
-                          variant="outlined"
-                          sx={{
-                            fontSize: "14px",
-                            fontWeight: 400,
-                            color: "#ffffff",
-                            borderColor: "#ffffff",
-                            padding: "5px 8px",
-                            marginRight: "15px",
-                            textTransform: "capitalize",
-                          }}
-                        >
-                          Print
-                        </Button>
-                        <Button
-                          variant="outlined"
-                          sx={{
-                            fontSize: "14px",
-                            fontWeight: 400,
-                            color: "#ffffff",
-                            borderColor: "#ffffff",
-                            padding: "5px 8px",
-                            textTransform: "capitalize",
-                          }}
-                          onClick={handleToExpensesReport}
-                        >
-                          View More
-                        </Button>
-                      </div>
-                    </div>
-                    <div className="flex justify-between px-7 mt-5">
-                      <div>
-                        <p className="text-sm font-bold text-[#FD6100] mb-5">
-                          Expense Type
-                        </p>
-                        <p className="text-sm font-normal text-[#585858] mb-5">
-                          Marketing
-                        </p>
-                        <p className="text-sm font-normal text-[#585858] mb-5">
-                          Marketing
-                        </p>
-                        <p className="text-sm font-normal text-[#585858] mb-5">
-                          Marketing
-                        </p>{" "}
-                        <p className="text-sm font-normal text-[#585858] mb-5">
-                          Marketing
-                        </p>{" "}
-                        <p className="text-sm font-normal text-[#585858] mb-5">
-                          Marketing
-                        </p>
-                      </div>
-                      <div className="">
-                        <p className="text-sm font-bold text-[#FD6100] mb-5">
-                          Amount
-                        </p>
-                        <p className="text-sm font-normal text-[#585858] mb-5">
-                          ₦320,000,000
-                        </p>
-                        <p className="text-sm font-normal text-[#585858] mb-5">
-                          3.5%
-                        </p>
-                        <p className="text-sm font-normal text-[#585858] mb-5">
-                          10%
-                        </p>{" "}
-                        <p className="text-sm font-normal text-[#585858] mb-5">
-                          ₦30,000,000
-                        </p>{" "}
-                        <p className="text-sm font-normal text-[#585858] mb-5">
-                          ₦8,000,000 (100 returns)
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           )}

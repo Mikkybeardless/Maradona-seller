@@ -162,38 +162,41 @@ export default function Products() {
 
   return (
     <div className="w-full h-full overflow-y-auto flex flex-col custom-scrollbar pb-10 bg-[#F5F5F5]">
-      <div className="w-full py-5 px-24 border-b border-b-primaryBorder">
+      <div className="w-full py-5 px-6 md:px-12 lg:px-24 border-b border-b-primaryBorder">
         <DashboardSearchBar />
       </div>
 
-      <div className="px-24 w-full mt-4 flex flex-col flex-1">
-        <div className="flex gap-x-4 items-center">
+      <div className="px-6 md:px-12 lg:px-24 w-full mt-4 flex flex-col flex-1">
+        <div className="flex gap-x-2 md:gap-x-4 items-center flex-wrap">
           <Link
             to={`/${pathname.split("/")[1]}/dashboard`}
             className="text-sm opacity-60"
           >
             Dashboard
           </Link>
-          <FaChevronRight size={18} />
+          <FaChevronRight size={14} className="hidden sm:inline" />
           <span className="text-sm">Products</span>
         </div>
 
-        <div className="flex justify-between items-center mt-1">
-          <h1 className="text-3xl font-bold">Products</h1>
+        <div className="flex flex-col sm:flex-row sm:justify-between items-center mt-1 gap-y-3">
+          {/* Title */}
+          <h1 className="text-2xl sm:text-3xl font-bold">Products</h1>
+
+          {/* Add Product Button */}
           <Link
             to={`/${pathname.split("/")[1]}/products/add-product`}
-            className="rounded-lg px-10 py-4 text-white text-sm bg-defaultOrange hover:bg-defaultOrangeHover"
+            className="rounded-lg px-6 sm:px-10 py-3 sm:py-4 text-white text-sm bg-defaultOrange hover:bg-defaultOrangeHover w-full sm:w-auto text-center"
           >
             Add product
           </Link>
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-x-4 mt-4 border-b-2 border-gray-300 pb-2">
+        <div className="flex flex-wrap justify-center sm:justify-start gap-x-2 sm:gap-x-4 mt-4 border-b-2 border-gray-300 pb-2">
           {["All", "Published", "Draft"].map((tab) => (
             <button
               key={tab}
-              className={`px-4 py-2 rounded-t-md text-sm font-medium ${
+              className={`px-3 sm:px-4 py-2 rounded-t-md text-sm font-medium ${
                 activeTab === tab
                   ? "border-b-2 border-blue-500 text-blue-500"
                   : "text-gray-500"
@@ -205,20 +208,23 @@ export default function Products() {
           ))}
         </div>
 
-        <div className="flex justify-between items-end mt-5 w-full">
-          <div className="flex gap-x-5 items-center">
+        <div className="flex flex-wrap justify-between items-end mt-5 w-full gap-4">
+          {/* Filters Section */}
+          <div className="flex flex-wrap gap-3 sm:gap-x-5 items-center">
             <div className="flex flex-col gap-y-1">
               <p className="text-xs">Category:</p>
               <select className="p-2.5 text-sm rounded-lg border border-primaryBorder bg-white outline-none">
                 <option>Car</option>
               </select>
             </div>
+
             <div className="flex flex-col gap-y-1">
               <p className="text-xs">Stock:</p>
               <select className="p-2.5 text-sm rounded-lg border border-primaryBorder bg-white outline-none">
                 <option>2</option>
               </select>
             </div>
+
             <div className="flex flex-col gap-y-1">
               <p className="text-xs">Sort by name:</p>
               <div className="px-2.5 relative flex items-center gap-x-1 rounded-lg border border-primaryBorder bg-white">
@@ -233,7 +239,8 @@ export default function Products() {
             </div>
           </div>
 
-          <div className="flex gap-x-2 px-3 basis-[25%] rounded-lg border border-primaryBorder">
+          {/* Search Input */}
+          <div className="flex gap-x-2 px-3 w-full sm:w-auto rounded-lg border border-primaryBorder">
             <CiSearch className="h-fit w-fit my-auto" size={24} />
             <input
               className="flex-1 py-2.5 outline-none border-none text-sm bg-transparent"

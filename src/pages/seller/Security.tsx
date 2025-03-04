@@ -9,14 +9,15 @@ function Security() {
   };
 
   return (
-    <div className="bg-white p-4">
-      <p className="font-[600] text-[32px] mb-[12px] ">
+    <div className="bg-white p-4 sm:p-6 md:p-8 min-h-screen flex flex-col justify-center">
+      <p className="font-[600] text-[24px] sm:text-[28px] md:text-[32px] mb-3 sm:mb-4 md:mb-5 text-center sm:text-left">
         Two Factor Authentication
       </p>
-      <p className="text-sm">
+      <p className="text-sm text-center sm:text-left max-w-md sm:max-w-lg">
         Enter the email address you used to sign up and we’ll send you
-        instructions to reset your password
+        instructions to reset your password.
       </p>
+
       <div className="mt-[30px] flex flex-col">
         <div>
           <p className="font-inter text-base text-[#040421] mb-[8px]">Email</p>
@@ -30,13 +31,15 @@ function Security() {
         <Button
           variant="contained"
           sx={{
-            width: "439px",
+            width: { xs: "100%", sm: "80%", md: "70%", lg: "439px" },
             background: "#14199C",
             color: "#ffffff",
-            margin: "87px auto",
+            display: "flex",
+            justifyContent: "center",
+            margin: { xs: "40px auto", md: "87px auto" },
             fontSize: "16px",
             fontWeight: 700,
-            padding: "15px auto",
+            padding: "12px",
           }}
           onClick={handleNext}
         >

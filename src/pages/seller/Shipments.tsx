@@ -279,13 +279,15 @@ export default function Shipments() {
   return (
     <div className="w-full h-full overflow-y-auto flex flex-col custom-scrollbar pb-7 bg-[#F5F5F5]">
       {shipmentModal && (
-        <div className="w-screen h-screen flex justify-center items-center fixed top-0 left-0 z-30 bg-black/50 backdrop-blur-sm">
+        <div className="fixed inset-0 flex justify-center items-center bg-black/50 backdrop-blur-sm z-50">
           <div
             ref={promotionModalRef}
-            className="w-[40%] h-[95%] flex flex-col gap-y-3 p-8 rounded-[24px] bg-white"
+            className="w-[90%] md:w-[60%] lg:w-[40%] h-[95%] md:h-auto flex flex-col gap-4 p-6 md:p-8 rounded-2xl bg-white overflow-y-auto shadow-lg"
           >
-            <div className="flex justify-between">
-              <h2 className="text-xl font-semibold">Create Shipment</h2>
+            <div className="flex justify-between items-center">
+              <h2 className="text-lg md:text-xl font-semibold">
+                Create Shipment
+              </h2>
               <FaTimes
                 onClick={() => setShipmentModal(false)}
                 className="cursor-pointer"
@@ -293,96 +295,104 @@ export default function Shipments() {
               />
             </div>
 
-            <div className="flex-1 flex flex-col gap-y-6 mt-3 overflow-y-auto custom-scrollbar-low-opacity">
-              <div className="flex flex-col gap-y-1 text-sm">
+            <div className="flex-1 flex flex-col gap-4 overflow-y-auto custom-scrollbar-low-opacity">
+              <div className="flex flex-col gap-1 text-sm">
                 <label className="font-medium">Customer Name:</label>
                 <input
-                  className="p-3 rounded-lg border border-[#B0B0B0]"
+                  className="p-3 rounded-lg border border-gray-300 w-full"
                   type="text"
                   placeholder="Type"
                 />
               </div>
-              <div className="flex flex-col gap-y-1 text-sm">
+
+              <div className="flex flex-col gap-1 text-sm">
                 <label className="font-medium">Phone:</label>
-                <div className="w-full flex items-end gap-x-6">
+                <div className="w-full flex flex-wrap items-end gap-4">
                   <PhoneInput
-                    className="!w-full gap-x-5"
+                    className="!w-full"
                     countrySelectorStyleProps={{
                       className: "w-[20%]",
                       buttonClassName:
-                        "!h-[auto] w-full py-3 !rounded-lg border-[#B0B0B0]",
+                        "!h-auto w-full py-3 !rounded-lg border-gray-300",
                     }}
                     defaultCountry="ng"
                     onChange={setPhone}
                     value={phone}
-                    inputClassName="w-full !h-[unset] !py-3 !rounded-lg outline-none !border !border-[#B0B0B0] !text-base"
+                    inputClassName="w-full !h-auto !py-3 !rounded-lg outline-none !border !border-gray-300 !text-base"
                   />
                 </div>
               </div>
-              <div className="flex flex-col gap-y-1 text-sm">
+
+              <div className="flex flex-col gap-1 text-sm">
                 <label className="font-medium">Address:</label>
                 <input
-                  className="p-3 rounded-lg border border-[#B0B0B0]"
+                  className="p-3 rounded-lg border border-gray-300 w-full"
                   type="text"
                   placeholder="Type"
                 />
               </div>
-              <div className="flex flex-col gap-y-1 text-sm">
+
+              <div className="flex flex-col gap-1 text-sm">
                 <label className="font-medium">Product:</label>
                 <input
-                  className="p-3 rounded-lg border border-[#B0B0B0]"
+                  className="p-3 rounded-lg border border-gray-300 w-full"
                   type="text"
                   placeholder="Type"
                 />
               </div>
-              <div className="flex flex-col gap-y-1 text-sm">
-                <label className="font-medium">Product description:</label>
+
+              <div className="flex flex-col gap-1 text-sm">
+                <label className="font-medium">Product Description:</label>
                 <textarea
-                  className="p-3 rounded-lg resize-none outline-none custom-scrollbar border border-[#B0B0B0]"
+                  className="p-3 rounded-lg resize-none outline-none custom-scrollbar border border-gray-300 w-full"
                   placeholder="Type"
                   rows={4}
                 />
               </div>
-              <div className="flex flex-col gap-y-1 text-sm">
-                <label className="font-medium">Shipping carrier:</label>
+
+              <div className="flex flex-col gap-1 text-sm">
+                <label className="font-medium">Shipping Carrier:</label>
                 <input
-                  className="p-3 rounded-lg border border-[#B0B0B0]"
+                  className="p-3 rounded-lg border border-gray-300 w-full"
                   type="text"
                   placeholder="Type"
                 />
               </div>
-              <div className="flex flex-col gap-y-1 text-sm">
+
+              <div className="flex flex-col gap-1 text-sm">
                 <label className="font-medium">Tracking Number:</label>
                 <input
-                  className="p-3 rounded-lg border border-[#B0B0B0]"
+                  className="p-3 rounded-lg border border-gray-300 w-full"
                   type="text"
                   placeholder="Type"
                 />
               </div>
-              <div className="flex flex-col gap-y-1 text-sm">
+
+              <div className="flex flex-col gap-1 text-sm">
                 <label className="font-medium">E.D.D:</label>
                 <input
-                  className="p-3 rounded-lg border border-[#B0B0B0]"
+                  className="p-3 rounded-lg border border-gray-300 w-full"
                   type="date"
                   placeholder="Type"
                 />
               </div>
             </div>
 
-            <div className="flex justify-end gap-x-2.5 text-sm">
-              <button className="p-2.5 rounded-lg text-white bg-defaultOrange hover:bg-defaultOrangeHover">
+            <div className="flex justify-end gap-2 text-sm mt-4">
+              <button className="p-3 rounded-lg text-white bg-orange-500 hover:bg-orange-600">
                 Create
               </button>
             </div>
           </div>
         </div>
       )}
-      <div className="w-full py-5 px-24 border-b border-b-primaryBorder">
+
+      <div className="w-full py-5 px-6 md:px-24 border-b border-gray-300 bg-white shadow-sm">
         <DashboardSearchBar />
       </div>
 
       {shipment.active ? (
-        <div className="px-24 w-full mt-4 flex flex-col gap-y-6 flex-1">
+        <div className="px-4 sm:px-8 md:px-16 lg:px-24 w-full mt-4 flex flex-col gap-y-6 flex-1">
           <button
             onClick={() =>
               setShipment({
@@ -400,107 +410,97 @@ export default function Shipments() {
                 },
               })
             }
-            className="flex gap-x-3 items-center text-sm hover:underline w-fit"
+            className="flex gap-x-2 sm:gap-x-3 items-center text-xs sm:text-sm hover:underline w-fit"
           >
             <FaArrowLeftLong />
-            <span className="">Back to shipments</span>
+            <span>Back to shipments</span>
           </button>
 
-          <div className="flex-1 rounded-[16px] p-6 flex flex-col border border-primaryBorder bg-white">
-            <div className="flex justify-between items-center">
+          <div className="flex-1 rounded-[16px] p-4 sm:p-6 flex flex-col border border-primaryBorder bg-white">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
               <div className="flex flex-col gap-y-1">
-                <h2 className="text-2xl font-semibold">Shipment 73KJFHIUDF4</h2>
-                <p className="text-sm">
+                <h2 className="text-lg sm:text-2xl font-semibold">
+                  Shipment 73KJFHIUDF4
+                </h2>
+                <p className="text-xs sm:text-sm">
                   Jun 2, 2023{" "}
-                  <span className="rounded-[100px] px-2 py-0.5 bg-[#FBF5D6]">
+                  <span className="rounded-[100px] px-2 py-0.5 bg-[#FBF5D6] text-xs">
                     In transit
                   </span>
                 </p>
               </div>
-              <div className="flex gap-x-2">
+              <div className="flex gap-x-2 mt-3 sm:mt-0">
                 {pathname.split("/")[1] === "admin" ? (
                   <Link
                     to="/admin/shipments/track-shipment"
-                    className="rounded-lg text-sm px-5 py-2.5 text-white bg-defaultOrange"
+                    className="rounded-lg text-xs sm:text-sm px-4 sm:px-5 py-2 text-white bg-defaultOrange"
                   >
                     Track
                   </Link>
                 ) : (
-                  <button className="rounded-lg text-sm px-5 py-2.5 text-white bg-defaultOrange">
+                  <button className="rounded-lg text-xs sm:text-sm px-4 sm:px-5 py-2 text-white bg-defaultOrange">
                     Track
                   </button>
                 )}
-                <button className="rounded-lg text-sm px-5 py-2.5 text-defaultOrange border border-defaultOrange">
+                <button className="rounded-lg text-xs sm:text-sm px-4 sm:px-5 py-2 text-defaultOrange border border-defaultOrange">
                   Contact carrier
                 </button>
               </div>
             </div>
 
-            <div className="flex flex-col flex-1 mt-7">
-              <h5 className="text-lg font-semibold mb-3">
+            {/* Shipment Information */}
+            <div className="flex flex-col flex-1 mt-5 sm:mt-7">
+              <h5 className="text-sm sm:text-lg font-semibold mb-3">
                 Shipment information
               </h5>
-              <div className="flex items-center gap-x-2 text-sm border-b border-b-primaryBorder py-2">
-                <span className="opacity-60">Client Account Number:</span>
-                <span className="font-medium">
-                  {shipment.data.accountNumber}
-                </span>
-              </div>
-              <div className="flex items-center gap-x-2 text-sm border-b border-b-primaryBorder py-2">
-                <span className="opacity-60">Customer Name:</span>
-                <span className="font-medium">{shipment.data.name}</span>
-              </div>
-              <div className="flex items-center gap-x-2 text-sm border-b border-b-primaryBorder py-2">
-                <span className="opacity-60">Item:</span>
-                <span className="font-medium">{shipment.data.itemName}</span>
-              </div>
-              <div className="flex items-center gap-x-2 text-sm border-b border-b-primaryBorder py-2">
-                <span className="opacity-60">Tracking Number:</span>
-                <span className="font-medium">
-                  {shipment.data.trackingNumber}
-                </span>
-              </div>
-              <div className="flex items-center gap-x-2 text-sm border-b border-b-primaryBorder py-2">
-                <span className="opacity-60">Shipping carrier:</span>
-                <span className="font-medium">
-                  {shipment.data.shippingCenter}
-                </span>
-              </div>
-              <div className="flex items-center gap-x-2 text-sm border-b border-b-primaryBorder py-2">
-                <span className="opacity-60">Status:</span>
-                <span className="font-medium">{shipment.data.status}</span>
-              </div>
-              <div className="flex items-center gap-x-2 text-sm border-b border-b-primaryBorder py-2">
-                <span className="opacity-60">E.D.D:</span>
-                <span className="">{shipment.data.edd}</span>
-              </div>
-              <div className="flex items-center gap-x-2 text-sm border-b border-b-primaryBorder py-2">
-                <span className="opacity-60">Delivery Address:</span>
-                <span className="font-medium">
-                  {shipment.data.deliveryAddress}
-                </span>
-              </div>
-              <div className="flex items-center gap-x-2 text-sm border-b border-b-primaryBorder py-2">
-                <span className="opacity-60">Phone:</span>
-                <span className="font-medium">{shipment.data.phone}</span>
-              </div>
+              {[
+                {
+                  label: "Client Account Number",
+                  value: shipment.data.accountNumber,
+                },
+                { label: "Customer Name", value: shipment.data.name },
+                { label: "Item", value: shipment.data.itemName },
+                {
+                  label: "Tracking Number",
+                  value: shipment.data.trackingNumber,
+                },
+                {
+                  label: "Shipping carrier",
+                  value: shipment.data.shippingCenter,
+                },
+                { label: "Status", value: shipment.data.status },
+                { label: "E.D.D", value: shipment.data.edd },
+                {
+                  label: "Delivery Address",
+                  value: shipment.data.deliveryAddress,
+                },
+                { label: "Phone", value: shipment.data.phone },
+              ].map((item, index) => (
+                <div
+                  key={index}
+                  className="flex flex-col sm:flex-row gap-x-2 text-xs sm:text-sm border-b border-b-primaryBorder py-2"
+                >
+                  <span className="opacity-60">{item.label}:</span>
+                  <span className="font-medium">{item.value}</span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       ) : (
-        <div className="px-24 w-full mt-4 flex flex-col flex-1">
-          <div className="flex justify-between items-center mt-1">
-            <h1 className="text-3xl font-bold flex items-start">Shipments</h1>
-
+        <div className="px-4 sm:px-8 md:px-16 lg:px-24 w-full mt-4 flex flex-col flex-1">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mt-1">
+            <h1 className="text-2xl sm:text-3xl font-bold">Shipments</h1>
             <button
               onClick={openShipmentModal}
-              className="rounded-lg flex items-center gap-x-3 text-sm px-5 py-2.5 text-white bg-defaultOrange hover:bg-defaultOrangeHover"
+              className="rounded-lg flex items-center gap-x-2 sm:gap-x-3 text-xs sm:text-sm px-4 sm:px-5 py-2 text-white bg-defaultOrange hover:bg-defaultOrangeHover"
             >
               <FaPlus />
               New Shipment
             </button>
           </div>
 
+          {/* Tabs */}
           <Tabs
             value={selectedTab}
             onChange={(_, newValue) => setSelectedTab(newValue)}
@@ -520,35 +520,38 @@ export default function Shipments() {
               })`}
             />
           </Tabs>
-          <div className="flex justify-between items-end mt-5 w-full">
-            <div className="flex gap-x-5 items-center">
+
+          {/* Filters */}
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mt-5 w-full">
+            <div className="flex gap-x-3 sm:gap-x-5 items-center">
               <div className="flex flex-col gap-y-1">
                 <p className="text-xs">Status:</p>
-                <select className="p-2.5 text-sm rounded-lg border border-primaryBorder bg-white outline-none">
+                <select className="p-2 text-xs sm:text-sm rounded-lg border border-primaryBorder bg-white outline-none">
                   <option>In transit</option>
                 </select>
               </div>
               <div className="flex flex-col gap-y-1">
                 <p className="text-xs">Date:</p>
-                <select className="p-2.5 text-sm rounded-lg border border-primaryBorder bg-white outline-none">
+                <select className="p-2 text-xs sm:text-sm rounded-lg border border-primaryBorder bg-white outline-none">
                   <option>Today</option>
                   <option>Yesterday</option>
                 </select>
               </div>
             </div>
 
-            <div className="flex gap-x-2 px-3 basis-[25%] rounded-lg border border-primaryBorder">
-              <CiSearch className="h-fit w-fit my-auto" size={24} />
+            <div className="flex gap-x-2 px-3 basis-full sm:basis-[25%] rounded-lg border border-primaryBorder mt-3 sm:mt-0">
+              <CiSearch className="h-fit w-fit my-auto" size={20} />
               <input
-                className="flex-1 py-2.5 outline-none border-none text-sm bg-transparent"
+                className="flex-1 py-2 outline-none border-none text-xs sm:text-sm bg-transparent"
                 placeholder="Search shipments"
                 type="text"
               />
             </div>
           </div>
 
-          {selectedTab === 0 && (
-            <div className="mt-3 flex flex-1 w-full overflow-hidden bg-white">
+          {/* Shipment Table */}
+          <div className="mt-3 flex flex-1 w-full overflow-x-auto bg-white">
+            {selectedTab === 0 ? (
               <MuiTableComponent
                 columns={columns}
                 rows={rows.filter((row) => row.status === "Active")}
@@ -557,10 +560,7 @@ export default function Shipments() {
                 rowHeight={60}
                 pageSize={10}
               />
-            </div>
-          )}
-          {selectedTab === 1 && (
-            <div className="mt-3 flex flex-1 w-full overflow-hidden bg-white">
+            ) : (
               <MuiTableComponent
                 columns={columns}
                 rows={rows.filter((row) => row.status === "Complete")}
@@ -569,8 +569,8 @@ export default function Shipments() {
                 rowHeight={60}
                 pageSize={10}
               />
-            </div>
-          )}
+            )}
+          </div>
         </div>
       )}
     </div>
