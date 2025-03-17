@@ -26,6 +26,7 @@ function ExpensesReport() {
       status: "Completed",
     }));
   };
+  console.log("testing");
 
   const columns: GridColDef[] = [
     {
