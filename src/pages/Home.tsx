@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { BiLogoFacebookSquare } from "react-icons/bi";
+import { FiChevronRight } from "react-icons/fi";
 import { CiHeart, CiLocationOn, CiSearch } from "react-icons/ci";
 import {
   FaApple,
@@ -74,7 +75,7 @@ export default function Home() {
   return (
     <div className="w-full h-screen overflow-y-auto overflow-x-hidden custom-scrollbar flex flex-col bg-[#F7F7F7]">
       <div className="px-3 sm:px-4 w-full">
-        <nav className="flex justify-between items-center py-2 w-full px-3 sm:px-4 md:px-[8%]">
+        <nav className="flex justify-around items-center py-2 w-full px-3 sm:px-4 md:px-[8%]">
           {/* Left side - Logo and Mobile Menu Button */}
           <div className="flex items-center gap-3 sm:gap-4">
             {/* Mobile Menu Button */}
@@ -96,7 +97,13 @@ export default function Home() {
                 href="#about"
                 className="hover:text-defaultOrange text-xs sm:text-sm"
               >
-                About
+                Our Services
+              </a>
+              <a
+                href="#featured-categories"
+                className="hover:text-defaultOrange text-xs sm:text-sm"
+              >
+                Featured Categories
               </a>
               <a
                 href="#testimonials"
@@ -114,11 +121,11 @@ export default function Home() {
           </div>
 
           {/* Right side - Icons & Buttons */}
-          <div className="flex gap-2 xs:gap-3 sm:gap-4 md:gap-6 items-center">
-            <FaRegUser className="w-4 h-4 sm:w-5 sm:h-5 cursor-pointer hover:text-defaultOrange" />
-            <FaRegHeart className="w-4 h-4 sm:w-5 sm:h-5 cursor-pointer hover:text-defaultOrange" />
-            <FaRegBell className="w-4 h-4 sm:w-5 sm:h-5 cursor-pointer hover:text-defaultOrange" />
-            <GrCart className="w-4 h-4 sm:w-5 sm:h-5 cursor-pointer hover:text-defaultOrange" />
+          <div className="flex gap-2 xs:gap-3 sm:gap-4 md:gap-4 items-center">
+            <FaRegUser className="w-4 h-4 cursor-pointer hover:text-defaultOrange" />
+            <FaRegHeart className="w-4 h-4 cursor-pointer hover:text-defaultOrange" />
+            <FaRegBell className="w-4 h-4 cursor-pointer hover:text-defaultOrange" />
+            <GrCart className="w-4 h-4 cursor-pointer hover:text-defaultOrange" />
 
             {/* Desktop Login/Register Buttons (Hidden on small screens) */}
             <div className="hidden md:flex gap-3 lg:gap-4">
@@ -165,7 +172,10 @@ export default function Home() {
                 Home
               </a>
               <a href="#about" className="hover:text-defaultOrange text-sm">
-                About
+                Our Services
+              </a>
+              <a href="#featured-categories" className="hover:text-defaultOrange text-xs sm:text-sm">
+                Featured Categories
               </a>
               <a
                 href="#testimonials"
@@ -260,12 +270,12 @@ export default function Home() {
           <div className="flex flex-col md:flex-row justify-between gap-10 md:gap-24 my-10 items-center">
             {/* Left Side */}
             <div className="flex items-start">
-              <div className="w-[5px] bg-[#14199C] h-[42px] mr-2"></div>
+              <div className="w-[12px] bg-[#14199C] h-[42px] mr-2"></div>
               <div>
                 <p className="font-semibold text-[24px] sm:text-[32px] text-[#292D32]">
-                  Service
+                  Services
                 </p>
-                <p className="font-normal text-sm text-[#292D32] mt-1 max-w-[450px]">
+                <p className="font-normal text-xs text-[#292D32] mt-1">
                   Find unbeatable deals on lands, houses, and cars with
                   Marathona, your trusted platform for distress sales. Explore,
                   compare, and secure your next property or vehicle
@@ -277,28 +287,28 @@ export default function Home() {
             {/* Right Side - Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               <div className="border rounded-lg text-center px-4 pt-5 pb-10 shadow-sm">
-                <p className="font-semibold text-base text-[#292D32] mb-2">
+                <p className="font-semibold text-sm text-[#292D32] mb-2">
                   Quality Cars at Discount Prices
                 </p>
-                <p className="font-normal text-sm text-[#292D32]">
+                <p className="font-normal text-xs text-[#292D32]">
                   Explore a wide range of vehicles, from economy to luxury cars,
                   all available at significantly reduced prices.
                 </p>
               </div>
               <div className="border rounded-lg text-center px-4 pt-5 pb-10 shadow-sm">
-                <p className="font-semibold text-base text-[#292D32] mb-2">
+                <p className="font-semibold text-sm text-[#292D32] mb-2">
                   Affordable Housing Deals
                 </p>
-                <p className="font-normal text-sm text-[#292D32]">
+                <p className="font-normal text-xs text-[#292D32]">
                   Get the best prices on houses, from budget-friendly homes to
                   luxury estates, all at distress-sale prices.
                 </p>
               </div>
               <div className="border rounded-lg text-center px-4 pt-5 pb-10 shadow-sm">
-                <p className="font-semibold text-base text-[#292D32] mb-2">
+                <p className="font-semibold text-sm text-[#292D32] mb-2">
                   Verified Land Sales
                 </p>
-                <p className="font-normal text-sm text-[#292D32]">
+                <p className="font-normal text-xs text-[#292D32]">
                   Secure land investments with verified titles, ensuring peace
                   of mind and secure transactions.
                 </p>
@@ -334,16 +344,18 @@ export default function Home() {
         </div>
 
         {/* feature cat */}
-        <div className="mt-20">
-          <h1 className="text-[32px] font-semibold  text-[#040421]">
-            Featured Categories
-          </h1>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8">
-            <FeatureCard /> <FeatureCard /> <FeatureCard /> <FeatureCard />{" "}
-            <FeatureCard /> <FeatureCard /> <FeatureCard /> <FeatureCard />{" "}
-            <FeatureCard /> <FeatureCard /> <FeatureCard /> <FeatureCard />{" "}
-            <FeatureCard /> <FeatureCard /> <FeatureCard /> <FeatureCard />{" "}
-            <FeatureCard /> <FeatureCard />
+        <div className="mt-20 m-2 lg:m-10">
+          <div className="flex justify-between items-center">
+            <h1 className="text-[28px] font-semibold  text-[#040421]">
+              Featured Categories
+            </h1>
+
+            <p className="flex justify-between items-center text-[#14199C] text-xs">View all <FiChevronRight className="text-base ml-4" /> </p>
+          </div>
+          <div className="m-2 lg:m-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-8">
+            <FeatureCard /> <FeatureCard /> <FeatureCard /> <FeatureCard />
+            <FeatureCard /> <FeatureCard /> <FeatureCard /> <FeatureCard />
+            <FeatureCard /> <FeatureCard /> <FeatureCard /> <FeatureCard />
           </div>
         </div>
 
@@ -352,29 +364,29 @@ export default function Home() {
           <div className="absolute inset-0 discount-bg bg-cover bg-center opacity-20"></div>
 
           {/* Content Container */}
-          <div className="relative z-10 max-w-6xl mx-auto px-6 py-12 grid md:grid-cols-2 gap-8 text-white my-6">
+          <div className="relative z-2 max-w-6xl mx-auto px-6 py-12 p-28 grid md:grid-cols-2 gap-8 text-white my-6">
             {/* Left Content */}
             <div>
-              <h3 className="text-base font-medium text-[#FFFFFF]">
+              <h3 className="text-sm font-medium text-[#FFFFFF]">
                 How it works
               </h3>
-              <ul className="mt-3 space-y-2 text-[#FFFFFF] font-medium text-base">
+              <ul className="mt-3 space-y-2 text-[#FFFFFF] font-medium text-sm">
                 <li>
-                  <span className="text-[#5FC4FD] font-medium text-base">
+                  <span className="text-[#5FC4FD] font-medium text-sm">
                     • Browse Listings:
                   </span>{" "}
                   Visit our auction section and look for items marked with the
                   special <b>10% discount</b> badge.
                 </li>
                 <li>
-                  <span className="text-[#5FC4FD] font-medium text-base">
+                  <span className="text-[#5FC4FD] font-medium text-sm">
                     • Place Your Bids:
                   </span>{" "}
                   Participate in live auctions and place bids on your desired
                   items.
                 </li>
                 <li>
-                  <span className="text-[#5FC4FD] font-medium text-base">
+                  <span className="text-[#5FC4FD] font-medium text-sm">
                     • Win and Save:
                   </span>{" "}
                   If you win, the additional <b>10% discount</b> will apply
@@ -382,13 +394,13 @@ export default function Home() {
                 </li>
               </ul>
 
-              <p className="my-8 font-bold text-2xl">
+              <p className="my-8 font-bold text-xl">
                 Hurry! This limited-time offer won’t last long. Visit our
                 auction section now and start bidding!
               </p>
 
-              <p className="mt-2 text-base text-[#ffffff] font-normal">
-                <span className="text-blue-300 text-base font-bold">Note:</span>{" "}
+              <p className="mt-2 text-sm text-[#ffffff] font-normal">
+                <span className="text-blue-300 text-sm font-bold">Note:</span>{" "}
                 Terms and conditions apply. Discount applies only to selected
                 auction items. Offer valid while supplies last.
               </p>
@@ -396,24 +408,24 @@ export default function Home() {
 
             {/* Right Content */}
             <div className="">
-              <h3 className="text-2xl font-bold">
+              <h3 className="text-xl font-bold">
                 Exclusive Auction Event: 10% Off on Selected Auction Listings
               </h3>
-              <p className="mt-2 mb-7 text-[#ffffff] text-base">
+              <p className="mt-2 mb-7 text-[#ffffff] text-sm">
                 Get an additional <b>10% discount</b> on selected auction items.
                 Limited time offer!
               </p>
 
-              <h4 className="mt-4 text-base  font-medium">What's included:</h4>
+              <h4 className="mt-4 text-sm  font-medium">What's included:</h4>
               <ul className="mt-2 mb-7 space-y-2 text-[#ffffff] font-normal">
                 <li>
-                  <span className="text-[#5FC4FD] font-medium text-base">
+                  <span className="text-[#5FC4FD] font-medium text-sm">
                     • Luxury Cars:
                   </span>{" "}
                   High-end models with significant savings.
                 </li>
                 <li>
-                  <span className="text-[#5FC4FD] font-medium text-base">
+                  <span className="text-[#5FC4FD] font-medium text-sm">
                     • Real Estate:
                   </span>{" "}
                   Prime houses and land parcels ready for bidding.
@@ -421,20 +433,24 @@ export default function Home() {
               </ul>
 
               {/* CTA Button */}
-              <button className="mt-6 bg-[#14199C] hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg">
+              <button className="mt-6 bg-[#E65800] hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg">
                 Auction
               </button>
             </div>
           </div>
         </div>
         {/* review */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8">
-          <FeatureCard /> <FeatureCard /> <FeatureCard /> <FeatureCard />{" "}
-          <FeatureCard /> <FeatureCard /> <FeatureCard /> <FeatureCard />{" "}
-          <FeatureCard /> <FeatureCard /> <FeatureCard /> <FeatureCard />{" "}
-          <FeatureCard /> <FeatureCard /> <FeatureCard /> <FeatureCard />{" "}
-          <FeatureCard /> <FeatureCard />
-        </div>
+       <div className="m-2 lg:m-12">
+        <div className="m-2 lg:m-10 mb-1 mt-14 flex justify-end items-center">
+            <p className="flex justify-between items-center text-[#14199C] text-xs">View all <FiChevronRight className="text-base ml-4" /> </p>
+          </div>
+
+          <div className="m-2 lg:m-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-8">
+            <FeatureCard /> <FeatureCard /> <FeatureCard /> <FeatureCard />
+            <FeatureCard /> <FeatureCard /> <FeatureCard /> <FeatureCard />
+            <FeatureCard /> <FeatureCard /> <FeatureCard /> <FeatureCard />
+          </div>
+       </div>
         <div className="mt-20 flex flex-col md:flex-row items-center gap-6">
           {/* Left Section */}
           <div className="rounded-[48px] flex flex-col items-center p-6 sm:p-8 md:p-12 pb-0 w-full md:w-[55%] bg-[#F5F5F5] text-center">
@@ -488,99 +504,93 @@ export default function Home() {
 
           <div className="w-full z-20 bg-transparent px-6 md:px-12">
             {/* Footer Links Section */}
-            <div className="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 text-[#FFEFE6]">
+            <div className="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 text-[#FFEFE6]">
               <div className="flex flex-col gap-y-3 footerTags">
-                <h5>Payment Gateways</h5>
+                <h5 className="text-sm">Payment Gateways</h5>
                 <img
-                  className="w-[6rem] sm:w-[8rem]"
+                  className="w-[4rem] sm:w-[6rem]"
                   src={PaymentCards}
                   alt="payment methods"
                 />
               </div>
               <div className="flex flex-col gap-y-3 footerTags">
-                <h5>Get to know us</h5>
-                <div className="font-light text-sm space-y-1">
-                  <p>Careers</p>
-                  <p>Blog</p>
-                  <p>About us</p>
+                <h5  className="text-sm mb-2">Company</h5>
+                <div className="font-light text-xs space-y-1">
+                  <p>Terms and Conditions</p>
+                  <p>Returns and Refunds</p>
+                  <p>Help Center</p>
                 </div>
               </div>
               <div className="flex flex-col gap-y-3 footerTags">
-                <h5>Make money with us</h5>
-                <div className="font-light text-sm space-y-1">
-                  <p>Sell products on DistressSales</p>
-                  <p>Become an Affiliate</p>
-                </div>
-              </div>
-              <div className="flex flex-col gap-y-3 footerTags">
-                <h5>Products</h5>
-                <div className="font-light text-sm space-y-1">
+                <h5 className="text-sm mb-2">Products</h5>
+                <div className="font-light text-xs space-y-1">
                   <p>Cars</p>
                   <p>Houses</p>
                   <p>Lands</p>
                 </div>
               </div>
               <div className="flex flex-col gap-y-3 footerTags">
-                <h5>Let us help you</h5>
-                <div className="font-light text-sm space-y-1">
-                  <p>Your account</p>
-                  <p>Your orders</p>
-                  <p>Shopping rates and policies</p>
-                  <p>Returns and replacements</p>
-                  <p>Help</p>
+                <h5 className="text-sm mb-2">Make money with us</h5>
+                <div className="font-light text-xs space-y-1">
+                  <p>Agent Registration Form</p>
+                  <p>Become an Investor</p>
+                  <p>Become a Vendor</p>
                 </div>
               </div>
+              
             </div>
 
             {/* Newsletter & Logo Section */}
-            <div className="w-full z-20 bg-transparent mt-16 md:mt-20 pb-5 flex flex-col md:flex-row justify-between items-center md:items-end gap-6">
-              <img
-                className="w-[80px] h-[80px] md:w-[97px] md:h-[97px]"
-                src={shorterLogo}
-                alt="Logo"
-              />
+            <div className="w-full z-20 bg-transparent mt-16 mb-16 md:mt-20 pb-5 flex flex-col md:flex-row justify-between items-center md:items-end gap-6">
+              <div>
+                <img
+                  className="w-[80px] h-[80px] md:w-[97px] md:h-[97px]"
+                  src={shorterLogo}
+                  alt="Logo"
+                />
+              </div>
 
               <div className=" text-start md:items-end w-full md:w-[40%]">
-                <p className="font-semibold text-white text-start text-lg md:text-xl mb-2">
+                <p className="font-semibold text-white text-start text-sm md:text-sm mb-2">
                   Subscribe to our Newsletter
                 </p>
-                <div className="flex bg-white p-1 h-[60px]">
+                <div className="flex bg-white p-1 h-[60px] rounded-lg pr-2 ">
                   <input
-                    className="outline-none w-full sm:w-[70%] bg-white border-none p-3 rounded text-sm md:text-base"
+                    className="outline-none w-full sm:w-[70%] bg-white border-none p-3 text-sm md:text-sm"
                     type="email"
-                    placeholder="Email"
+                    placeholder="Email Address"
                   />
-                  <button className="rounded-lg px-10 sm:px-16 py-1 sm:py-1 text-white text-sm md:text-base bg-defaultOrange hover:bg-defaultOrangeHover">
-                    Subscribe now
+                  <button className="rounded-lg px-5 sm:px-10 py-1 sm:py-1 sm:my-1 text-white text-sm bg-[#E65800] hover:bg-defaultOrangeHover">
+                    Subscribe
                   </button>
                 </div>
               </div>
             </div>
 
             {/* Social Media & Terms Section */}
-            <div className="pt-5 flex flex-col md:flex-row justify-between items-center border-t border-t-white gap-4 md:gap-0">
+            <div className="px-14 pt-5 flex flex-col md:flex-row items-center border-t border-t-white gap-4 md:gap-0">
               {/* Social Icons */}
-              <div className="flex gap-x-3.5">
+              <div className="flex gap-x-3.5 md:mr-8">
                 <FaXTwitter
-                  className="cursor-pointer w-5 h-5 md:w-6 md:h-6"
+                  className="cursor-pointer w-5 h-5"
                   color="white"
                 />
                 <BiLogoFacebookSquare
-                  className="cursor-pointer w-5 h-5 md:w-6 md:h-6"
+                  className="cursor-pointer w-5 h-5"
                   color="white"
                 />
                 <FaWhatsapp
-                  className="cursor-pointer w-5 h-5 md:w-6 md:h-6"
+                  className="cursor-pointer w-5 h-5"
                   color="white"
                 />
                 <FaInstagram
-                  className="cursor-pointer w-5 h-5 md:w-6 md:h-6"
+                  className="cursor-pointer w-5 h-5"
                   color="white"
                 />
               </div>
 
               {/* Footer Links */}
-              <div className="flex flex-wrap justify-center md:justify-end gap-2 md:gap-6 text-xs md:text-sm text-white">
+              <div className="flex flex-wrap justify-center md:justify-end gap-2 md:gap-6 text-xs text-white">
                 <p>Conditions of use</p>
                 <p>Privacy Notice</p>
                 <p>Consumer Health</p>
