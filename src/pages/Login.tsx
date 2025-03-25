@@ -3,7 +3,7 @@ import SignIn from "../components/SignIn";
 import SignUp from "../components/SignUp";
 
 export default function Login() {
-  const [signUp, setSignUp] = useState(true);
+  const [signUp, setSignUp] = useState(false);
 
   return (
     <div className="w-screen h-screen flex bg-[#F5F5F5]">

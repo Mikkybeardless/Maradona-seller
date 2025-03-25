@@ -49,6 +49,7 @@ import Security from "./pages/seller/Security";
 import Settings from "./pages/seller/Settings";
 import Shipments from "./pages/seller/Shipments";
 import VerificationPage from "./pages/seller/VerificationPage";
+import ContactUs from "./pages/ContactUs";
 import { RootState } from "./redux/store";
 
 function App() {
@@ -60,6 +61,7 @@ function App() {
         <Route path="/" element={<LoggedOutAuhtenticator />}>
           <Route index element={<Home />} />
           <Route path="login" element={<Login />} />
+          <Route path="contact" element={<ContactUs />} />
           <Route path="reset-password" element={<ResetPassword />} />
         </Route>
 

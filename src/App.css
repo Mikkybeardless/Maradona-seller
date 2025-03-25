@@ -133,3 +133,14 @@ input[type="number"] {
 .MuiButton-root {
   text-transform: none !important;
 }
+
+.work-sans {
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+.poppins {
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+}

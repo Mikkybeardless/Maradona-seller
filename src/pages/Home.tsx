@@ -1,37 +1,17 @@
-import {
-  Button,
-  Divider,
-  Drawer,
-  IconButton,
-  InputAdornment,
-  MenuItem,
-  Select,
-  TextField,
-} from "@mui/material";
 import { useState } from "react";
-import { BiLogoFacebookSquare } from "react-icons/bi";
 import { FiChevronRight } from "react-icons/fi";
-import { CiHeart, CiLocationOn, CiSearch } from "react-icons/ci";
+import { CiHeart, CiLocationOn } from "react-icons/ci";
 import {
   FaApple,
-  FaBars,
   FaGooglePlay,
-  FaInstagram,
-  FaRegBell,
-  FaRegHeart,
-  FaRegUser,
-  FaWhatsapp,
-  FaXTwitter,
 } from "react-icons/fa6";
-import { GrCart } from "react-icons/gr";
 import cardummy from "../assets/carshop.png";
 
 import IOSapp from "../assets/IOS-app-display.png";
-import logo from "../assets/logo.svg";
-import PaymentCards from "../assets/payment-cards.svg";
 import QRcode from "../assets/qr-code.png";
-import shorterLogo from "../assets/shorter-logo.svg";
 import HomeCarousel from "../components/HomeCarousel";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -75,192 +55,10 @@ export default function Home() {
   return (
     <div className="w-full h-screen overflow-y-auto overflow-x-hidden custom-scrollbar flex flex-col bg-[#F7F7F7]">
       <div className="px-3 sm:px-4 w-full">
-        <nav className="flex justify-around items-center py-2 w-full px-3 sm:px-4 md:px-[8%]">
-          {/* Left side - Logo and Mobile Menu Button */}
-          <div className="flex items-center gap-3 sm:gap-4">
-            {/* Mobile Menu Button */}
-            <div className="md:hidden">
-              <IconButton onClick={() => setMobileOpen(true)}>
-                <FaBars className="w-5 h-5" />
-              </IconButton>
-            </div>
+        
+        <Navbar/>
 
-            {/* Desktop Navigation Links */}
-            <div className="hidden md:flex gap-4 lg:gap-6">
-              <a
-                href="#home"
-                className="hover:text-defaultOrange text-xs sm:text-sm"
-              >
-                Home
-              </a>
-              <a
-                href="#about"
-                className="hover:text-defaultOrange text-xs sm:text-sm"
-              >
-                Our Services
-              </a>
-              <a
-                href="#featured-categories"
-                className="hover:text-defaultOrange text-xs sm:text-sm"
-              >
-                Featured Categories
-              </a>
-              <a
-                href="#testimonials"
-                className="hover:text-defaultOrange text-xs sm:text-sm"
-              >
-                Testimonials
-              </a>
-              <a
-                href="#help"
-                className="hover:text-defaultOrange text-xs sm:text-sm"
-              >
-                Help
-              </a>
-            </div>
-          </div>
-
-          {/* Right side - Icons & Buttons */}
-          <div className="flex gap-2 xs:gap-3 sm:gap-4 md:gap-4 items-center">
-            <FaRegUser className="w-4 h-4 cursor-pointer hover:text-defaultOrange" />
-            <FaRegHeart className="w-4 h-4 cursor-pointer hover:text-defaultOrange" />
-            <FaRegBell className="w-4 h-4 cursor-pointer hover:text-defaultOrange" />
-            <GrCart className="w-4 h-4 cursor-pointer hover:text-defaultOrange" />
-
-            {/* Desktop Login/Register Buttons (Hidden on small screens) */}
-            <div className="hidden md:flex gap-3 lg:gap-4">
-              <Button
-                variant="contained"
-                sx={{
-                  background: "#E65800",
-                  color: "#FFFFFF",
-                  fontSize: "12px",
-                  fontWeight: 700,
-                  height: "35px",
-                  borderRadius: "6px",
-                }}
-              >
-                Login
-              </Button>
-              <Button
-                variant="outlined"
-                sx={{
-                  borderColor: "#14199C",
-                  color: "#14199C",
-                  fontSize: "12px",
-                  fontWeight: 700,
-                  height: "35px",
-                  borderRadius: "6px",
-                }}
-              >
-                Register
-              </Button>
-            </div>
-          </div>
-
-          {/* Mobile Drawer Menu */}
-          <Drawer
-            anchor="left"
-            open={mobileOpen}
-            onClose={() => setMobileOpen(false)}
-          >
-            <div className="w-56 p-4 flex flex-col gap-4">
-              <img className="h-[40px] w-auto" src={logo} alt="Logo" />
-
-              {/* Mobile Navigation Links */}
-              <a href="#home" className="hover:text-defaultOrange text-sm">
-                Home
-              </a>
-              <a href="#about" className="hover:text-defaultOrange text-sm">
-                Our Services
-              </a>
-              <a href="#featured-categories" className="hover:text-defaultOrange text-xs sm:text-sm">
-                Featured Categories
-              </a>
-              <a
-                href="#testimonials"
-                className="hover:text-defaultOrange text-sm"
-              >
-                Testimonials
-              </a>
-              <a href="#help" className="hover:text-defaultOrange text-sm">
-                Help
-              </a>
-
-              {/* Mobile Login/Register Buttons */}
-              <Button
-                variant="contained"
-                sx={{
-                  background: "#E65800",
-                  color: "#FFFFFF",
-                  fontSize: "14px",
-                  fontWeight: 700,
-                  height: "38px",
-                  borderRadius: "8px",
-                  width: "100%",
-                }}
-              >
-                Login
-              </Button>
-              <Button
-                variant="outlined"
-                sx={{
-                  borderColor: "#14199C",
-                  color: "#14199C",
-                  fontSize: "14px",
-                  fontWeight: 700,
-                  height: "38px",
-                  borderRadius: "8px",
-                  width: "100%",
-                }}
-              >
-                Register
-              </Button>
-            </div>
-          </Drawer>
-        </nav>
-
-        <header className="flex items-center  gap-x-56 mt-5 bg-white px-[8%] py-2">
-          <img
-            className="h-[60px] w-auto hidden md:flex"
-            src={logo}
-            alt="Logo"
-          />
-
-          <div className="flex items-center text-center w-full max-w-lg border border-gray-300 rounded overflow-hidden px-3 py-1">
-            <TextField
-              variant="standard"
-              placeholder="property type, location, price range"
-              InputProps={{
-                disableUnderline: true,
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <CiSearch className="text-gray-400" />
-                  </InputAdornment>
-                ),
-              }}
-              className="flex-1"
-            />
-            <Divider orientation="vertical" flexItem />
-            <Select
-              defaultValue="Cars"
-              variant="standard"
-              disableUnderline
-              className="ml-2 text-gray-600"
-            >
-              <MenuItem value="Cars">Cars</MenuItem>
-              <MenuItem value="Houses">Houses</MenuItem>
-              <MenuItem value="Lands">Lands</MenuItem>
-            </Select>
-          </div>
-
-          {/* <Link
-            to="/seller/dashboard"
-            className="rounded-[8px] px-3 py-2.5 text-white bg-defaultOrange hover:bg-defaultOrangeHover"
-          >
-            Become a seller
-          </Link> */}
-        </header>
+        
         <div id="home" className="w-full mt-12">
           <HomeCarousel />
         </div>
@@ -497,109 +295,8 @@ export default function Home() {
             />
           </div>
         </div>
-
-        {/* Footer Section */}
-        <div className="w-full pt-16 pb-8 mt-[8rem] md:mt-[10rem] relative flex justify-center bg-[#0C0F53]">
-          <div className="w-full absolute top-0 z-0 bg-[#040421]"></div>
-
-          <div className="w-full z-20 bg-transparent px-6 md:px-12">
-            {/* Footer Links Section */}
-            <div className="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 text-[#FFEFE6]">
-              <div className="flex flex-col gap-y-3 footerTags">
-                <h5 className="text-sm">Payment Gateways</h5>
-                <img
-                  className="w-[4rem] sm:w-[6rem]"
-                  src={PaymentCards}
-                  alt="payment methods"
-                />
-              </div>
-              <div className="flex flex-col gap-y-3 footerTags">
-                <h5  className="text-sm mb-2">Company</h5>
-                <div className="font-light text-xs space-y-1">
-                  <p>Terms and Conditions</p>
-                  <p>Returns and Refunds</p>
-                  <p>Help Center</p>
-                </div>
-              </div>
-              <div className="flex flex-col gap-y-3 footerTags">
-                <h5 className="text-sm mb-2">Products</h5>
-                <div className="font-light text-xs space-y-1">
-                  <p>Cars</p>
-                  <p>Houses</p>
-                  <p>Lands</p>
-                </div>
-              </div>
-              <div className="flex flex-col gap-y-3 footerTags">
-                <h5 className="text-sm mb-2">Make money with us</h5>
-                <div className="font-light text-xs space-y-1">
-                  <p>Agent Registration Form</p>
-                  <p>Become an Investor</p>
-                  <p>Become a Vendor</p>
-                </div>
-              </div>
-              
-            </div>
-
-            {/* Newsletter & Logo Section */}
-            <div className="w-full z-20 bg-transparent mt-16 mb-16 md:mt-20 pb-5 flex flex-col md:flex-row justify-between items-center md:items-end gap-6">
-              <div>
-                <img
-                  className="w-[80px] h-[80px] md:w-[97px] md:h-[97px]"
-                  src={shorterLogo}
-                  alt="Logo"
-                />
-              </div>
-
-              <div className=" text-start md:items-end w-full md:w-[40%]">
-                <p className="font-semibold text-white text-start text-sm md:text-sm mb-2">
-                  Subscribe to our Newsletter
-                </p>
-                <div className="flex bg-white p-1 h-[60px] rounded-lg pr-2 ">
-                  <input
-                    className="outline-none w-full sm:w-[70%] bg-white border-none p-3 text-sm md:text-sm"
-                    type="email"
-                    placeholder="Email Address"
-                  />
-                  <button className="rounded-lg px-5 sm:px-10 py-1 sm:py-1 sm:my-1 text-white text-sm bg-[#E65800] hover:bg-defaultOrangeHover">
-                    Subscribe
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* Social Media & Terms Section */}
-            <div className="px-14 pt-5 flex flex-col md:flex-row items-center border-t border-t-white gap-4 md:gap-0">
-              {/* Social Icons */}
-              <div className="flex gap-x-3.5 md:mr-8">
-                <FaXTwitter
-                  className="cursor-pointer w-5 h-5"
-                  color="white"
-                />
-                <BiLogoFacebookSquare
-                  className="cursor-pointer w-5 h-5"
-                  color="white"
-                />
-                <FaWhatsapp
-                  className="cursor-pointer w-5 h-5"
-                  color="white"
-                />
-                <FaInstagram
-                  className="cursor-pointer w-5 h-5"
-                  color="white"
-                />
-              </div>
-
-              {/* Footer Links */}
-              <div className="flex flex-wrap justify-center md:justify-end gap-2 md:gap-6 text-xs text-white">
-                <p>Conditions of use</p>
-                <p>Privacy Notice</p>
-                <p>Consumer Health</p>
-                <p>Data Privacy Disclosure</p>
-                <p>© 2023-2024, distresssales.com</p>
-              </div>
-            </div>
-          </div>
-        </div>
+        {/* Footer  */}
+        <Footer/>
 
         {/* Padding at the bottom of the page */}
       </div>

@@ -30,8 +30,7 @@ export default function ResetPassword() {
           </h1>
 
           <p className="text-secondaryTextColor text-sm text-center mt-2.5 max-w-[90%]">
-            Enter your email, and we’ll send instructions to reset your
-            password.
+          Enter the email address you used to sign up and we’ll send you instructions to reset your password
           </p>
 
           <div className="flex flex-col gap-y-1.5 mt-8 w-full">
@@ -39,7 +38,7 @@ export default function ResetPassword() {
             <input
               className="w-full rounded-lg p-3 border border-primaryBorder"
               type="email"
-              placeholder="Enter your email"
+              placeholder="Email"
             />
           </div>
 
@@ -57,7 +56,7 @@ export default function ResetPassword() {
           </h1>
 
           <p className="text-secondaryTextColor text-sm text-center mt-2.5 max-w-[90%]">
-            Check your email and enter the 4-digit code sent to
+            Please check your mail, and enter the 4 digit code that was sent to
             <span className="italic font-medium"> rosemary@gmail.com</span>.
           </p>
 

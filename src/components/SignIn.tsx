@@ -21,30 +21,30 @@ export default function SignIn({ setSignUp }: SignUpProps) {
   }
 
   return (
-    <div className="w-full md:w-[70%] flex flex-col py-10 px-4 md:px-0">
-      <h1 className="text-3xl md:text-4xl font-bold text-center">
-        Welcome to DistressSale
+    <div className="w-full md:w-[70%] flex flex-col py-10 px-4 pt-28 md:pt-0 md:px-0">
+      <h1 className="text-xl md:text-2xl font-bold text-center">
+        Welcome Back
       </h1>
-      <p className="text-sm text-[#585858] mt-2.5 text-center">
+      <p className="text-xs text-[#585858] mt-2.5 text-center mb-10 md:mb-10">
         Shop the quality and affordable items in the comfort of your home.
       </p>
 
       <div className="w-full flex flex-col gap-y-1.5 mt-5">
-        <label className="">Email</label>
+        <label className="text-sm">Email or Phone</label>
         <input
           className="p-3 px-4 rounded-[8px] border-primaryBorder border-[1px] outline-none bg-white"
           type="email"
-          placeholder="Type"
+          placeholder="Email or Phone"
         />
       </div>
 
       <div className="w-full flex flex-col gap-y-1.5 mt-4">
-        <label className="">Password</label>
+        <label className="text-sm">Password</label>
         <div className="w-full flex gap-x-2 items-center px-4 py-3 rounded-[8px] border-primaryBorder border-[1px] bg-white">
           <input
             className="outline-none w-[95%]"
             type={!togglePasswordShow ? "password" : "text"}
-            placeholder="Type"
+            placeholder="Password"
           />
           {!togglePasswordShow ? (
             <FaRegEye
@@ -64,20 +64,20 @@ export default function SignIn({ setSignUp }: SignUpProps) {
 
       <Link
         to="/reset-password"
-        className="text-[#585858] ml-auto mt-4 hover:underline"
+        className="text-[#585858] text-sm ml-auto mt-4 hover:underline"
       >
         Forgot password?
       </Link>
 
       <button
         onClick={goToHome}
-        className="w-full py-3 rounded-[8px] mt-8 text-white bg-defaultOrange hover:bg-defaultOrangeHover"
+        className="w-full py-3 rounded-[8px] mt-8 text-white bg-defaultOrange hover:bg-defaultOrangeHover text-sm"
       >
         Login
       </button>
 
       <div className="mt-8 relative flex items-center justify-center">
-        <p className="text-center bg-[#F5F5F5] px-3 z-10">Or Sign up with</p>
+        <p className="text-center bg-[#F5F5F5] px-3 z-10">Or Sign in with</p>
         <div className="h-[1.6px] w-full bg-[#DED9DD] absolute -z-0"></div>
       </div>
 

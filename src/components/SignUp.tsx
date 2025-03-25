@@ -38,10 +38,10 @@ export default function SignUp({ setSignUp }: SignUpProps) {
 
   return (
     <div className="w-full md:w-[70%] flex flex-col py-10 px-4 md:px-0">
-      <h1 className="text-3xl md:text-4xl font-bold text-center">
-        Welcome to DistressSale
+      <h1 className="text-xl md:text-2xl font-bold text-center">
+        Welcome to Distress Sale
       </h1>
-      <p className="text-sm text-[#585858] mt-2.5 text-center">
+      <p className="text-xs text-[#585858] mt-2.5 text-center">
         Shop the quality and affordable items in the comfort of your home.
       </p>
 
