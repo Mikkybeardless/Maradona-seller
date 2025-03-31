@@ -57,24 +57,18 @@ export default function LineChartComponent({
         <XAxis
           className="text-xs"
           dataKey="xAxis"
-          tick={{ fill: "#1137D0" }}
-          padding={paddingX ? paddingX : {}}
+          tickLine={false}
+          tickSize={10}
+          padding={paddingX ? paddingX : {left: 5}}
         />
         <YAxis
           name={"Time"}
           tickSize={2}
           tickCount={tickCount || 5}
           className="text-xs"
-          tick={{ fill: "#FD6100" }}
         />
         <Tooltip wrapperClassName="text-xs" />
-        {typeof legend !== "undefined" ? (
-          legend ? (
-            <Legend />
-          ) : null
-        ) : (
-          <Legend />
-        )}
+
         {lines.map((line, index) => (
           <Line
             key={index}
