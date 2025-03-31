@@ -4,8 +4,9 @@ import { useRef, useState } from "react";
 import { BiEditAlt } from "react-icons/bi";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { CiSearch } from "react-icons/ci";
-import { FaChevronRight, FaRegEye } from "react-icons/fa6";
+import { FaChevronRight, FaNairaSign, FaRegEye } from "react-icons/fa6";
 import { GoTrash } from "react-icons/go";
+import { TbCurrencyNaira } from "react-icons/tb";
 import { HiSortDescending } from "react-icons/hi";
 import { Link, useLocation } from "react-router-dom";
 import { useClickAway } from "react-use";
@@ -21,6 +22,7 @@ type ProductTableType = {
   category: string;
   price: number;
   location: string;
+  description: string;
   stock: number;
   status: string;
 };
@@ -34,9 +36,10 @@ const rows = (): ProductTableType[] => {
       id: num,
       img: Car,
       productName: "Toyota Camry LE (2024)",
-      category: "Car",
+      category: "Cars",
       price: generateRandomNumber(5000000, 100000),
       location: "Lagos, Nigeria",
+      description: "A well-maintained 2019 Toyota Corolla with low mileage and excellent fuel efficiency.",
       stock: generateRandomNumber(10, 0),
       status:
         statusPicker === 1
@@ -81,10 +84,23 @@ export default function Products() {
   };
 
   const columns: GridColDef[] = [
-    { field: "productName", headerName: "Product", type: "string" },
-    { field: "price", headerName: "Price(₦)", type: "number" },
-    { field: "location", headerName: "Location", type: "string" },
+    { field: "productName", headerName: "Product", type: "string", flex: .35 },
+    {
+      field: "price",
+      headerName: "Price(₦)",
+      renderCell: ({ row }) => {
+        return (
+          <div className="w-full h-full items-center flex justify-center">
+            <span className="flex items-center gap-y-3 text-sm">
+            ₦{row.price}
+            </span>
+          </div>
+        );
+      },
+    },
+    { field: "location", headerName: "Location", type: "string", flex: .35 },
     { field: "category", headerName: "Category" },
+    { field: "description", headerName: "Description", flex: .5 },
     {
       field: "status",
       headerName: "Status",
@@ -101,11 +117,10 @@ export default function Products() {
           </div>
         );
       },
-      flex: 1,
+      flex: .25,
     },
     {
       field: "Action",
-      flex: 0.5,
       renderCell: () => {
         return (
           <div className="h-full w-full relative z-10 flex justify-center items-center overflow-visible">
