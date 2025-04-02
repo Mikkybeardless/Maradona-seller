@@ -37,7 +37,7 @@ export default function AddAuction() {
 
     return (
         <div className="w-full h-full overflow-hidden overflow-y-auto custom-scrollbar pb-10 bg-[#F5F5F5]">
-            <div className="w-full py-5 px-24 border-b border-b-primaryBorder">
+            <div className="w-full py-5 px-24 border-b border-b-[#E3E3E3]">
                 <DashboardSearchBar />
             </div>
 

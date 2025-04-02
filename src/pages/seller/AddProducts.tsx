@@ -238,16 +238,26 @@ export default function AddProducts() {
           <div className="w-full lg:w-[30%] flex flex-col gap-y-5">
             {/* Status Section */}
             <div className="rounded-lg p-5 flex flex-col gap-y-2 bg-white border border-primaryBorder">
-              <h5 className="text-sm">Status</h5>
+              <h5 className="text-xs">Status</h5>
               <select className="p-3 rounded-lg border border-primaryBorder text-sm outline-none">
                 <option>Draft</option>
               </select>
+            </div>
+            <div className="rounded-lg p-5 flex flex-col gap-y-2 bg-white border border-primaryBorder">
+              <div className="flex flex-col gap-y-1.5 flex-1">
+                  <h5 className="text-xs mb-1 text-[#040421]">Tags</h5>
+                    <input
+                      type="text"
+                      placeholder="Type to search"
+                      className="p-3 outline-none w-full  rounded-lg border border-primaryBorder"
+                    />
+                </div>
             </div>
 
             {/* Inventory Section */}
             <div className="w-full flex flex-col rounded-lg bg-white border border-primaryBorder">
               <div className="p-5 flex flex-col gap-y-2 border-b border-b-primaryBorder">
-                <h5 className="text-sm">Inventory</h5>
+                <h5 className="text-xs">Inventory</h5>
                 <input
                   type="number"
                   className="p-3 rounded-lg border border-primaryBorder text-sm outline-none"
@@ -261,6 +271,50 @@ export default function AddProducts() {
                   <label htmlFor="continue-selling">
                     Continue selling product when out of stock
                   </label>
+                </div>
+              </div>
+            </div>
+
+            {/* Weight  */}
+            <div className="w-full flex flex-col rounded-lg bg-white border border-primaryBorder">
+              <div className="p-5 flex flex-col gap-y-2 border-b border-b-primaryBorder">
+                <h5 className="text-xs">Weight</h5>
+                <div className="flex p-2 rounded-lg border border-primaryBorder text-sm outline-none">
+                  <input
+                    type="number"
+                    placeholder="0"
+                    className="w-3/4"
+                  />
+                  <select className="w-1/4 outline-none p-1 rounded-lg text-xs text-[#6D6D6D] py-2 bg-[#F2F2F2]">
+                    <option>g</option>
+                    <option>kg</option>
+                    <option>lbs</option>
+                  </select>
+                </div>
+                <div className="flex gap-x-1.5 text-xs text-[#5D5D5D]">
+                  Used to calculate shipping rates at checkout.
+                </div>
+              </div>
+            </div>
+            {/* Duration  */}
+            <div className="w-full flex flex-col rounded-lg bg-white border border-primaryBorder">
+              <div className="p-5 flex flex-col gap-y-2 border-b border-b-primaryBorder">
+                <h5 className="text-xs">Duration</h5>
+                <div className="flex p-2 rounded-lg border border-primaryBorder text-sm outline-none">
+                  <input
+                    type="number"
+                    placeholder="0"
+                    className="w-3/4"
+                  />
+                  <select className="w-1/4 outline-none p-1 rounded-lg text-xs text-[#6D6D6D] py-2 bg-[#F2F2F2]">
+                    <option>Days</option>
+                    <option>Weeks</option>
+                    <option>Months</option>
+                  </select>
+                </div>
+                
+                <div className="flex gap-x-1.5 text-xs text-[#5D5D5D]">
+                  This is the Auction duration of the product
                 </div>
               </div>
             </div>

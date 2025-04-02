@@ -17,7 +17,14 @@ export default function Customer() {
     { label: "Order Date", renderCell: (item: any) => item.date },
     { label: "Items Purchased", renderCell: (item: any) => item.purchased },
     { label: "Total Amount", renderCell: (item: any) => item.amount },
-    { label: "Status", renderCell: (item: any) => item.status },
+    { label: "Status", renderCell: (item: any) =>
+      <span 
+        className={item.status === 'Completed'? 'text-[#008000]'
+        :item.status === 'Pending'? 'text-[#C38D00]'
+        :'text-[#FF0000]'}>
+          {item.status}
+      </span>
+     },
   ];
 
   const tableColumn2 = [
@@ -115,7 +122,7 @@ export default function Customer() {
                 Pending
               </span>
             </div>
-            <p className="line-clamp-1 font-medium">Toyota Camry, 2018</p>
+            <p className="line-clamp-1 text-xs font-medium">Toyota Camry, 2018</p>
             <span className="text-xs text-[#6D6D6D]">
               Purchased - Feb 16, 2024
             </span>
@@ -123,14 +130,14 @@ export default function Customer() {
         </div>
 
         <div className="w-[30%] flex flex-col gap-y-2">
-          <p className="text-sm text-[#6D6D6D]">₦5,500,000 x 1</p>
-          <p className="font-medium">₦5,500,000</p>
+          <p className="text-xs text-[#6D6D6D]">₦5,500,000 x 1</p>
+          <p className="text-xs font-medium">₦5,500,000</p>
         </div>
 
         <div className="w-[5%]">
           <Link
             to={`/${pathname.split("/")[1]}/orders/order`}
-            className="text-sm hover:underline text-[#B44500]"
+            className="text-xs underline text-[#0000FF]"
           >
             View
           </Link>
@@ -141,18 +148,18 @@ export default function Customer() {
 
   return (
     <div className="w-full h-full overflow-y-auto flex flex-col custom-scrollbar md-pb-10 pb-36 bg-[#F5F5F5]">
-      <div className="w-full py-5 px-4 md:px-8 lg:px-24 border-b border-b-primaryBorder max-w-[1200px] mx-auto">
+      <div className="w-full py-3 px-4 md:px-8 lg:px-24 border-b border-b-primaryBorder max-w-[1200px] mx-auto">
         <DashboardSearchBar />
       </div>
 
-      <div className="px-4 md:px-8 lg:px-24 w-full mt-4 flex flex-col items-center flex-1">
-        <div className="flex flex-col gap-y-2">
+      <div className="px-4 md:px-8 lg:px-24 w-full mt-4 flex flex-col flex-1">
+        <div className="flex flex-col gap-y-2 mb-2">
           {/* Name & Location */}
-          <h1 className="text-2xl md:text-3xl font-bold">Rosemary Sunday</h1>
+          <h1 className="text-xl font-bold">Rosemary Sunday</h1>
           <div className="flex flex-wrap gap-x-2 text-[#5D5D5D] items-center">
-            <span className="text-sm">FCT, Abuja, Nigeria</span>
+            <span className="text-xs">FCT, Abuja, Nigeria</span>
             <FaDotCircle size={5} color="#D9D9D9" />
-            <span className="text-sm">2 days ago</span>
+            <span className="text-xs">2 days ago</span>
           </div>
         </div>
 
@@ -197,7 +204,7 @@ export default function Customer() {
               </div>
 
               <div className="p-4">
-                <button className="font-medium opacity-70 hover:underline">
+                <button className="font-medium text-xs opacity-70 hover:underline">
                   View all
                 </button>
               </div>
@@ -206,7 +213,7 @@ export default function Customer() {
             {/* Order History with Horizontal Scrolling */}
             <div className="w-full rounded-lg border customer-table border-primaryBorder bg-white">
               <h3 className="font-medium p-4">Order History</h3>
-              <div className="w-full overflow-x-auto">
+              <div className="px-5 w-full overflow-x-auto">
                 <CompactTable
                   columns={tableColumn}
                   data={{ nodes: tableData() }}
@@ -227,7 +234,7 @@ export default function Customer() {
             {/* Interaction History with Horizontal Scrolling */}
             <div className="w-full rounded-lg border customer-table border-primaryBorder bg-white">
               <h3 className="font-medium p-4">Interaction History</h3>
-              <div className="w-full overflow-x-auto">
+              <div className="px-5 w-full overflow-x-auto">
                 <CompactTable
                   columns={tableColumn2}
                   data={{ nodes: tableData2() }}
@@ -253,20 +260,20 @@ export default function Customer() {
                 Basic information
               </h3>
               <div className="flex flex-col p-4 py-3">
-                <p className="text-sm opacity-65">Name:</p>
-                <p className="font-medium">Rosemary Sunday</p>
+                <p className="text-xs opacity-65">Name</p>
+                <p className="text-sm">Rosemary Sunday</p>
               </div>
               <div className="flex flex-col p-4 py-3">
-                <p className="text-sm opacity-65">Email:</p>
-                <p className="font-medium">rsunday@gmail.com</p>
+                <p className="text-xs opacity-65">Email</p>
+                <p className="text-sm">rsunday@gmail.com</p>
               </div>
               <div className="flex flex-col p-4 py-3">
-                <p className="text-sm opacity-65">Phone number:</p>
-                <p className="font-medium">07062393917</p>
+                <p className="text-xs opacity-65">Phone number</p>
+                <p className="text-sm">07062393917</p>
               </div>
               <div className="flex flex-col p-4 py-3">
-                <p className="text-sm opacity-65">Joined</p>
-                <p className="font-medium">Sept 2, 2023</p>
+                <p className="text-xs opacity-65">Joined</p>
+                <p className="text-sm">Sept 2, 2023 - <span className="opacity-65 font-light">6 months ago</span></p>
               </div>
             </div>
 
@@ -276,14 +283,17 @@ export default function Customer() {
                 Shipping
               </h3>
               <div className="flex flex-col p-4 py-3">
-                <p className="text-sm opacity-65">Delivery address 1:</p>
-                <p className="font-medium">
+                <div className="flex justify-between items-center">
+                <p className="text-xs opacity-65">Delivery address 1:</p>
+                <div className="text-[#FFFFFF] bg-[#14199C] text-[12px] py-1 px-2 rounded-2xl">Default</div>
+                </div>
+                <p className="text-sm">
                   Mubinu. Osogbo, Osun, Ifedayo, Osun State, Nigeria
                 </p>
               </div>
               <div className="flex flex-col p-4 py-3">
-                <p className="text-sm opacity-65">Delivery address 2:</p>
-                <p className="font-medium">
+                <p className="text-xs opacity-65">Delivery address 2:</p>
+                <p className="text-sm">
                   Mubinu. Osogbo, Osun, Ifedayo, Osun State, Nigeria
                 </p>
               </div>

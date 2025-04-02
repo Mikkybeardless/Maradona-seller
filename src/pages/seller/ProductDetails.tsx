@@ -75,7 +75,7 @@ export default function ProductDetails() {
       ) : null}
 
       {/* Top Search Bar */}
-      <div className="w-full py-4 sm:py-5 px-4 sm:px-6 md:px-8 lg:px-24 border-b border-b-primaryBorder">
+      <div className="w-full py-3 px-4 sm:px-6 md:px-8 lg:px-24 border-b border-b-[#E3E3E3]">
         <DashboardSearchBar />
       </div>
 
@@ -84,26 +84,26 @@ export default function ProductDetails() {
         <div className="flex gap-x-2 sm:gap-x-4 items-center">
           <Link
             to={`/${pathname.split("/")[1]}/dashboard`}
-            className="text-xs sm:text-sm md:text-base opacity-60"
+            className="text-xs"
           >
             Dashboard
           </Link>
-          <FaChevronRight className="text-[14px] sm:text-[18px]" />
+          <FaChevronRight className="text-[10px] sm:text-[12px]" />
           <Link
             to={`/${pathname.split("/")[1]}/products`}
-            className="text-xs sm:text-sm md:text-base opacity-60"
+            className="text-xs"
           >
             Products
           </Link>
-          <FaChevronRight className="text-[14px] sm:text-[18px]" />
-          <span className="text-xs sm:text-sm md:text-base">
+          <FaChevronRight className="text-[10px] sm:text-[12px]" />
+          <span className="text-xs text-[#787878] ">
             Product Details
           </span>
         </div>
 
         <div className="flex  sm:flex-row justify-between items-center mt-6">
           {/* Heading */}
-          <h1 className="text-2xl sm:text-3xl font-bold">Product Details</h1>
+          <h1 className="text-2xl font-bold">Product Details</h1>
 
           {/* Button or Edit/Delete Icons */}
           {state?.fieldAgent ? (
@@ -114,16 +114,16 @@ export default function ProductDetails() {
               Assign Field Agent
             </button>
           ) : (
-            <div className="flex gap-4 sm:gap-8 items-center">
+            <div className="flex gap-4 items-center">
               <CiEdit
-                color="#e65800"
-                size={22} /* Reduced size for mobile */
+                color="#14199C"
+                size={20} /* Reduced size for mobile */
                 className="cursor-pointer"
                 title="Edit"
               />
               <BsTrash3
-                color="#e65800"
-                size={22}
+                color="#14199C"
+                size={20}
                 className="cursor-pointer"
                 title="Delete"
               />
@@ -135,7 +135,7 @@ export default function ProductDetails() {
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-5 mt-10">
           <div className="w-full sm:w-2/4 flex flex-col items-center gap-y-3 sm:gap-y-5">
             <img
-              className="h-[280px] sm:h-[350px] md:h-[430px] w-[90%] sm:w-[85%] rounded-[32px] object-contain bg-black/15"
+              className="h-[280px] w-[90%] sm:w-[85%] rounded-[32px] object-contain bg-black/15"
               src={Car}
               alt="Product"
             />
@@ -161,19 +161,15 @@ export default function ProductDetails() {
               { label: "Product Name:", value: "Toyota Camry LE (2024)" },
               { label: "Category:", value: "Car" },
               { label: "Status:", value: "Active" },
-              { label: "Seller's Name:", value: "Distress Sales" },
-              { label: "Contact Number:", value: "+234 701 234 5678" },
-              { label: "Upload Date:", value: "March 15, 2024" },
-              { label: "Product ID:", value: "CAR123456" },
             ].map((item, index) => (
               <div
                 key={index}
                 className="w-full flex justify-between items-center gap-x-2"
               >
-                <span className="text-sm sm:text-base font-semibold">
+                <span className="text-sm font-semibold">
                   {item.label}
                 </span>
-                <span className="opacity-70 text-sm sm:text-base">
+                <span className="opacity-70 w-1/2 text-sm ">
                   {item.value}
                 </span>
               </div>
@@ -181,10 +177,10 @@ export default function ProductDetails() {
 
             {/* Description */}
             <div className="w-full flex flex-col gap-y-1.5">
-              <span className="text-sm sm:text-base font-semibold">
+              <span className="text-sm font-semibold">
                 Description:
               </span>
-              <span className="opacity-70 text-sm sm:text-base">
+              <span className="opacity-70 text-sm">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit
                 reiciendis voluptas laboriosam, suscipit debitis, iusto aliquam
                 optio commodi autem atque hic eveniet error eaque quibusdam.
@@ -195,10 +191,10 @@ export default function ProductDetails() {
             <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-5">
               {/* Key Features */}
               <div>
-                <span className="text-sm sm:text-base font-semibold">
+                <span className="text-sm font-semibold">
                   Key Features:
                 </span>
-                <ul className="text-sm sm:text-base flex flex-col gap-y-2 mt-2.5 list-disc pl-5">
+                <ul className="text-sm flex flex-col gap-y-2 mt-2.5 list-disc pl-5">
                   {[
                     "Engine: 2.5L 4-cylinder",
                     "Transmission: Automatic",
@@ -216,10 +212,10 @@ export default function ProductDetails() {
 
               {/* Pricing & Availability */}
               <div>
-                <span className="text-sm sm:text-base font-semibold">
+                <span className="text-sm font-semibold">
                   Pricing and Availability:
                 </span>
-                <ul className="text-sm sm:text-base flex flex-col gap-y-2 mt-2.5 list-disc pl-5">
+                <ul className="text-sm flex flex-col gap-y-2 mt-2.5 list-disc pl-5">
                   {[
                     "Price: $5,500,000",
                     "Negotiable: No",
@@ -232,6 +228,25 @@ export default function ProductDetails() {
                 </ul>
               </div>
             </div>
+
+            {[
+              { label: "Seller's Name:", value: "Distress Sales" },
+              { label: "Contact Number:", value: "+234 701 234 5678" },
+              { label: "Upload Date:", value: "March 15, 2024" },
+              { label: "Product ID:", value: "CAR123456" },
+            ].map((item, index) => (
+              <div
+                key={index}
+                className="w-full flex justify-between items-center gap-x-2"
+              >
+                <span className="text-sm font-semibold">
+                  {item.label}
+                </span>
+                <span className="opacity-70 w-1/2 text-sm">
+                  {item.value}
+                </span>
+              </div>
+            ))}
           </div>
 
           {/* details */}

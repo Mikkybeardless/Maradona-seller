@@ -11,12 +11,12 @@ export default function AddCustomer() {
 
   return (
     <div className="w-full h-full overflow-y-auto flex flex-col custom-scrollbar md-pb-10 pb-36 bg-[#F5F5F5]">
-      <div className="w-full py-5 px-4 md:px-8 lg:px-24 border-b border-b-primaryBorder max-w-[1200px] mx-auto">
+      <div className="w-full py-3 px-4 md:px-8 lg:px-24 border-b border-b-primaryBorder max-w-[1200px] mx-auto">
         <DashboardSearchBar />
       </div>
 
-      <div className="px-4 md:px-8 lg:px-24 w-full mt-4 flex flex-col items-center flex-1">
-        <h1 className="text-2xl md:text-3xl w-full font-bold flex items-start">
+      <div className="px-4 md:px-8 lg:px-24 w-full mt-6 flex flex-col flex-1">
+        <h1 className="text-2xl w-full font-bold flex items-start">
           Add Customer
         </h1>
 
@@ -26,7 +26,7 @@ export default function AddCustomer() {
           {/* Name Fields */}
           <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
             <div className="flex flex-col gap-y-1.5">
-              <label className="text-sm">First name:</label>
+              <label className="text-sm">First name</label>
               <input
                 type="text"
                 className="rounded-lg p-3 outline-none border border-primaryBorder"
@@ -34,7 +34,7 @@ export default function AddCustomer() {
               />
             </div>
             <div className="flex flex-col gap-y-1.5">
-              <label className="text-sm">Last name:</label>
+              <label className="text-sm">Last name</label>
               <input
                 type="text"
                 className="rounded-lg p-3 outline-none border border-primaryBorder"
@@ -45,7 +45,7 @@ export default function AddCustomer() {
 
           {/* Email Field */}
           <div className="w-full flex flex-col gap-y-1.5">
-            <label className="text-sm">Email:</label>
+            <label className="text-sm">Email</label>
             <input
               type="text"
               className="rounded-lg p-3 outline-none border border-primaryBorder"
@@ -54,18 +54,21 @@ export default function AddCustomer() {
           </div>
 
           {/* Phone Input */}
-          <div className="w-full flex items-end gap-x-6">
-            <PhoneInput
-              className="!w-full gap-x-5"
-              countrySelectorStyleProps={{
-                className: "w-full md:w-[20%]",
-                buttonClassName: "!h-auto w-full py-3 !rounded-lg",
-              }}
-              defaultCountry="ng"
-              onChange={setPhone}
-              value={phone}
-              inputClassName="w-full !h-auto !py-3 !rounded-lg outline-none !border !border-primaryBorder !text-base"
-            />
+          <div className="w-full flex flex-col gap-y-1.5">  
+            <label className="text-sm">Phone Number</label>
+            <div className="w-full flex items-end gap-x-6">
+              <PhoneInput
+                className="!w-full gap-x-5"
+                countrySelectorStyleProps={{
+                  className: "w-full md:w-[20%]",
+                  buttonClassName: "!h-auto w-full py-3 !rounded-lg",
+                }}
+                defaultCountry="ng"
+                onChange={setPhone}
+                value={phone}
+                inputClassName="w-full !h-auto !py-3 !rounded-lg outline-none !border !border-primaryBorder !text-base"
+              />
+            </div>
           </div>
         </div>
 
@@ -82,24 +85,38 @@ export default function AddCustomer() {
 
           {/* Country Dropdown */}
           <div className="w-full flex flex-col gap-y-1.5">
-            <label className="text-sm">Country:</label>
+            <label className="text-sm">Country/Region</label>
             <CountryDropdown
               classes="rounded-lg p-3 outline-none border border-primaryBorder"
               value={country}
               onChange={(val) => setCountry(val)}
+              defaultOptionLabel='Select'
             />
           </div>
-
-          {/* Region Dropdown */}
+          
+          <div className="flex gap-x-2.5">
           <div className="w-full flex flex-col gap-y-1.5">
-            <label className="text-sm">Region:</label>
+            <label className="text-sm">State</label>
             <RegionDropdown
               classes="rounded-lg p-3 outline-none border border-primaryBorder"
               country={country}
               value={region}
               onChange={(val) => setRegion(val)}
+              defaultOptionLabel='Select'
             />
           </div>
+          <div className="w-full flex flex-col gap-y-1.5">
+            <label className="text-sm">City</label>
+            <RegionDropdown
+              classes="rounded-lg p-3 outline-none border border-primaryBorder"
+              country={country}
+              value={region}
+              onChange={(val) => setRegion(val)}
+              defaultOptionLabel='Select'
+            />
+          </div>
+          </div>
+          
 
           {/* Address Input */}
           <div className="flex flex-col gap-y-1.5">
