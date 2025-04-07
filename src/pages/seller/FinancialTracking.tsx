@@ -46,10 +46,10 @@ function FinancialTracking() {
       <div className="w-full max-w-[1200px] mx-auto px-4 md:px-6 lg:px-8 mb-20 pt-12">
         <div className="flex flex-wrap gap-3 md:gap-x-7 items-center mb-6">
           <Link
-            to="/seller/dashboard"
+            to="/seller/reports"
             className="text-[16px] md:text-[20px] font-semibold text-[#14199C]"
           >
-            Dashboard
+            Reports
           </Link>
           <FaChevronRight size={14} color="#14199C" />
           <span className="text-sm md:text-xl font-semibold bg-[#14199C] p-2 rounded-lg text-[#FFFFFF]">

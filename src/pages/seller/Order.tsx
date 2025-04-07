@@ -89,7 +89,7 @@ export default function Order() {
 
             {/* Buttons */}
             <div className="flex justify-end items-center gap-x-2 text-sm">
-              <button className="px-4 py-2.5 rounded-lg text-defaultOrange bg-secondaryOrange">
+              <button className="px-4 py-2.5 rounded-lg text-[#14199C] bg-[#E8E9FC]">
                 Keep order
               </button>
               <button className="px-4 py-2.5 rounded-lg text-white bg-defaultOrange">
@@ -119,7 +119,7 @@ export default function Order() {
             </div>
 
             {/* Description */}
-            <p className="text-sm mt-3">
+            <p className="text-sm font-light mt-3">
               Cancelling this order means that you have decided not to proceed
               with the delivery. This may result in a full refund if the order
               hasn't been processed or shipped yet.
@@ -186,7 +186,7 @@ export default function Order() {
             </div>
 
             {/* Description */}
-            <p className="text-sm mt-3">
+            <p className="text-sm font-light mt-3">
               Sending an invoice will generate a document detailing the purchase
               and payment information for this order. The invoice will be sent
               to the email address associated with this account.
@@ -220,22 +220,22 @@ export default function Order() {
           <DashboardSearchBar />
         </div>
 
-        <div className="px-4 md:px-8 lg:px-24 w-full mt-4 flex flex-col items-center flex-1">
-          <div className="flex flex-wrap  gap-x-2 md:gap-x-4 items-center">
+        <div className="px-4 md:px-8 lg:px-24 w-full mt-8 mb-8 flex flex-col flex-1">
+          <div className="work-sans flex flex-wrap gap-x-2 md:gap-x-4 items-center">
             <Link
-              to="/seller/dashboard"
-              className="text-xs md:text-sm opacity-60"
+              to="/seller/orders"
+              className="text-xs"
             >
-              Order
+              Orders
             </Link>
-            <FaChevronRight size={16} />
-            <span className="text-xs md:text-sm">Order detail</span>
+            <FaChevronRight size={12} />
+            <span className="text-xs text-[#040421] ">Order detail</span>
           </div>
 
           <div className="w-full flex flex-wrap justify-between items-center mt-6 gap-y-4">
             {/* Order ID & Date */}
             <div className="flex flex-col gap-y-1">
-              <h2 className="text-xl md:text-2xl font-semibold">#1011</h2>
+              <h2 className="text-xl font-semibold">#1011</h2>
               <p className="text-xs">Purchased - {new Date().toDateString()}</p>
             </div>
 
@@ -245,22 +245,6 @@ export default function Order() {
               <button className="p-2 md:p-3 rounded-lg text-xs md:text-sm border border-primaryBorder bg-white">
                 Edit order
               </button>
-
-              {/* Previous & Next Buttons */}
-              <div className="flex gap-x-1 items-center">
-                <button
-                  title="Previous"
-                  className="p-2 md:p-3 rounded-md bg-white border border-primaryBorder"
-                >
-                  <FaChevronLeft size={14} />
-                </button>
-                <button
-                  title="Next"
-                  className="p-2 md:p-3 rounded-md bg-white border border-primaryBorder"
-                >
-                  <FaChevronRight size={14} />
-                </button>
-              </div>
 
               {/* More Options Dropdown */}
               <div className="relative">
@@ -273,7 +257,7 @@ export default function Order() {
                 {showDropdown && (
                   <div
                     ref={dropDownRef}
-                    className="w-auto flex flex-col absolute top-[120%] right-0 rounded-lg bg-white shadow-md border border-gray-200 text-xs md:text-sm"
+                    className="w-auto flex flex-col items-start z-10 absolute top-[120%] right-0 rounded-lg bg-white shadow-md border border-gray-200 text-xs md:text-sm"
                   >
                     <button
                       onClick={openInvoiceModal}
@@ -292,6 +276,22 @@ export default function Order() {
                     </button>
                   </div>
                 )}
+              </div>
+
+              {/* Previous & Next Buttons */}
+              <div className="flex gap-x-1 items-center">
+                <button
+                  title="Previous"
+                  className="p-2 md:p-3 rounded-md bg-white border border-primaryBorder"
+                >
+                  <FaChevronLeft size={14} />
+                </button>
+                <button
+                  title="Next"
+                  className="p-2 md:p-3 rounded-md bg-white border border-primaryBorder"
+                >
+                  <FaChevronRight size={14} />
+                </button>
               </div>
             </div>
           </div>
@@ -343,7 +343,7 @@ export default function Order() {
               <div className="w-full flex flex-col mb-4 rounded-lg border border-primaryBorder bg-white">
                 <h4 className="py-4 px-4 flex gap-x-2 items-center font-medium text-sm sm:text-base">
                   Payment
-                  <span className="rounded-[100px] text-xs font-normal px-2 py-1 text-defaultOrange bg-[#FFF1E9]">
+                  <span className="rounded-[100px] text-xs font-normal px-2 py-1 text-[#E65800] bg-[#FFF1E9]">
                     Paid
                   </span>
                 </h4>
@@ -360,15 +360,15 @@ export default function Order() {
                   ].map((item, index) => (
                     <div
                       key={index}
-                      className="py-4 px-4 flex flex-wrap justify-between items-center gap-x-3"
+                      className="py-4 px-4 flex flex-wrap items-center gap-x-3"
                     >
-                      <span className="font-medium text-xs sm:text-sm">
+                      <span className="font-medium w-1/3 text-xs sm:text-sm">
                         {item.label}
                       </span>
-                      <span className="text-xs sm:text-sm opacity-70">
+                      <span className="text-xs flex w-1/3 sm:text-sm opacity-70">
                         {item.desc}
                       </span>
-                      <span className="text-sm sm:text-base font-medium">
+                      <span className="text-sm w-1/4 flex justify-end sm:text-base font-medium">
                         {item.value}
                       </span>
                     </div>
@@ -393,15 +393,15 @@ export default function Order() {
                   title: "Details",
                   editIcon: <GrEdit color="#e65800" />,
                   data: [
-                    { label: "Customer:", value: "Rosemary Sunday" },
-                    { label: "Email:", value: "rsunday@gmail.com" },
-                    { label: "Phone number:", value: "07063797396" },
+                    { label: "Customer", value: "Rosemary Sunday" },
+                    { label: "Email", value: "rsunday@gmail.com" },
+                    { label: "Phone number", value: "07063797396" },
                     {
-                      label: "Order placed:",
+                      label: "Order placed",
                       value: new Date().toLocaleDateString(),
                     },
                     {
-                      label: "Payment method:",
+                      label: "Payment method",
                       value: (
                         <img
                           src={Paystack}
@@ -440,10 +440,10 @@ export default function Order() {
                     {section.data.map((item, i) => (
                       <div
                         key={i}
-                        className="flex flex-col gap-y-1 text-xs sm:text-sm"
+                        className="flex flex-col gap-y-1 text-xs"
                       >
                         <p className="opacity-80">{item.label}</p>
-                        <p className="font-medium">{item.value}</p>
+                        <p className="">{item.value}</p>
                       </div>
                     ))}
                   </div>

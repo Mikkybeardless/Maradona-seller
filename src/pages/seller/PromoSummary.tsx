@@ -40,9 +40,9 @@ function PromoSummary() {
         {/* Summary Content */}
         <div className="flex flex-col md:flex-row justify-between gap-8">
           {/* Left Section */}
-          <div className="w-full md:w-[48%]">
+          <div className="w-full md:w-[30%]">
             <p className="text-sm md:text-base font-normal">Promotion Name:</p>
-            <p className="text-sm md:text-base font-bold mt-2 mb-4">
+            <p className="text-sm md:text-base font-bold mt-8 mb-8">
               Your Headline here
             </p>
 
@@ -55,12 +55,12 @@ function PromoSummary() {
                   Cashback
                 </p>
 
-                <p className="text-sm md:text-base font-normal">Start Date:</p>
+                <p className="text-sm md:text-base font-normal mt-8">Start Date:</p>
                 <p className="text-sm md:text-base font-bold mt-2 mb-4">
                   Jan 27 2025
                 </p>
 
-                <p className="text-sm md:text-base font-normal">Promo Code:</p>
+                <p className="text-sm md:text-base font-normal mt-8">Promo Code:</p>
                 <p className="text-sm md:text-base font-bold mt-2 mb-4">
                   #GHTYS0
                 </p>
@@ -73,12 +73,12 @@ function PromoSummary() {
                   Type Here
                 </p>
 
-                <p className="text-sm md:text-base font-normal">End Date:</p>
+                <p className="text-sm md:text-base font-normal mt-8">End Date:</p>
                 <p className="text-sm md:text-base font-bold mt-2 mb-4">
                   Feb 27 2025
                 </p>
 
-                <p className="text-sm md:text-base font-normal">Usage Limit:</p>
+                <p className="text-sm md:text-base font-normal mt-8">Usage Limit:</p>
                 <p className="text-sm md:text-base font-bold mt-2 mb-4">5</p>
               </div>
             </div>

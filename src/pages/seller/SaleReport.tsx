@@ -54,10 +54,10 @@ function SaleReport() {
         {/* Breadcrumbs */}
         <div className="flex flex-wrap gap-3 md:gap-x-7 items-center mb-8 md:mb-12">
           <Link
-            to="/seller/dashboard"
+            to="/seller/reports"
             className="text-lg font-semibold text-[#14199C]"
           >
-            Dashboard
+            Reports
           </Link>
           <FaChevronRight size={14} color="#14199C" />
           <span className="text-lg md:text-xl font-semibold bg-[#14199C] px-3 py-2 rounded-md text-white">

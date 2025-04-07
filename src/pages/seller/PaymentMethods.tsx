@@ -116,10 +116,11 @@ export function CardItem({
     >
       <Divider className="!w-[98%] m-auto" />
       <div className="flex flex-wrap items-center justify-between mt-3 font-medium text-center gap-2">
+        {isSelected?
         <IoCheckmarkCircleSharp
-          size={24}
-          color={isSelected ? "#1BB66E" : "#5E5E5E"}
-        />
+        size={24}
+        color={isSelected ? "#1BB66E" : "#5E5E5E"}
+      />:null}
         <p className="text-sm text-[#5E5E5E] flex-1">Bank</p>
         <p className="text-sm text-[#5E5E5E] flex-1">CVV</p>
         <p className="text-sm text-[#5E5E5E] flex-1">CARD NUMBER</p>

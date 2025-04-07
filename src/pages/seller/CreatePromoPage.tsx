@@ -43,7 +43,7 @@ const CreatePromotion = () => {
       </div>
 
       {/* Container */}
-      <div className="px-6 md:px-20 max-w-4xl mx-auto py-10">
+      <div className="px-6 md:px-20 mx-auto py-10">
         {/* Breadcrumb */}
         <div className="flex gap-x-4 items-center mb-6 text-sm">
           <Link to="/seller/promotions" className="text-[#262626]">
@@ -121,24 +121,24 @@ const CreatePromotion = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="text-base text-[#111111]">
-                    Discount Value:
-                  </label>
-                  <TextField
-                    fullWidth
-                    name="discountValue"
-                    value={formData.discountValue}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="text-base text-[#111111]">
                     Promo Code:
                   </label>
                   <TextField
                     fullWidth
                     name="promoCode"
                     value={formData.promoCode}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="text-base text-[#111111]">
+                    Discount Value:
+                  </label>
+                  <TextField
+                    fullWidth
+                    name="discountValue"
+                    value={formData.discountValue}
                     onChange={handleChange}
                     required
                   />

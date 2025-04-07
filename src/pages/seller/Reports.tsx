@@ -90,7 +90,7 @@ export default function Reports() {
   const [radius, setRadius] = useState(90);
 
   const handleShowMore = () => {
-    setShowMore(true);
+    setShowMore(!showMore);
   };
 
   const onPieEnter = (event, index) => {
@@ -281,7 +281,7 @@ export default function Reports() {
             <div className="bg-white py-5 px-5 mt-6 rounded-2xl flex-[4] w-full md:w-auto">
               <div className="flex justify-between mb-5 flex-wrap">
                 <p className="font-bold text-3xl text-[#05004E] mb-2 md:mb-0">
-                  Reports Summary
+                  Sales Summary
                 </p>
                 <div className="flex gap-2">
                   <Button
@@ -329,7 +329,7 @@ export default function Reports() {
                   </p>
                 </div>
 
-                <div className="w-full sm:w-[230px] h-[184px] bg-[#04979E33] pl-7 pt-4 rounded-[16px]">
+                <div className="w-full sm:w-[230px] h-[184px] bg-[#04979E33] p-7 pt-4 rounded-[16px]">
                   <div className="flex justify-between w-full">
                     <div className="w-[40px] h-[40px] bg-[#04979E] flex items-center justify-center rounded-full">
                       <HiMiniChartBarSquare size={24} color="#ffffff" />
@@ -346,7 +346,7 @@ export default function Reports() {
                   </p>
                 </div>
 
-                <div className="w-full sm:w-[289px] h-[184px] bg-[#FD610033] pl-7 pt-4 rounded-[16px]">
+                <div className="w-full sm:w-[289px] h-[184px] bg-[#FD610033] p-7 pt-4 rounded-[16px]">
                   <div className="flex justify-between w-full">
                     <div className="w-[40px] h-[40px] bg-[#FD6100] flex items-center justify-center rounded-full">
                       <HiTag size={24} color="#ffffff" />
@@ -449,7 +449,7 @@ export default function Reports() {
                       fontSize: "14px",
                       fontWeight: 400,
                       color: "#5C4D58",
-                      borderColor: "#5C4D58",
+                      borderColor: "#EAE6E9",
                       textTransform: "capitalize",
                     }}
                   >
@@ -461,7 +461,7 @@ export default function Reports() {
                       fontSize: "14px",
                       fontWeight: 400,
                       color: "#5C4D58",
-                      borderColor: "#5C4D58",
+                      borderColor: "#EAE6E9",
                       textTransform: "capitalize",
                     }}
                     onClick={handleToSaleReport}
@@ -470,7 +470,6 @@ export default function Reports() {
                   </Button>
                   <IconButton
                     onClick={handleClick}
-                    size="24"
                     sx={{ ml: 2 }}
                     aria-controls={open ? "account-menu" : undefined}
                     aria-haspopup="true"
@@ -606,235 +605,336 @@ export default function Reports() {
 
           {/* showMore */}
           {showMore === true && (
-            <div className="flex flex-col lg:flex-row justify-between gap-4 mb-56">
-              {/* partOne  */}
-              <div className="flex-[3] w-full lg:w-3/5">
-                <div className="bg-white py-9 px-7 mt-6 rounded-2xl w-full">
-                  <div className="flex justify-between items-center mb-7">
-                    <p className="font-bold text-base text-[#1E1A1C]">
-                      Monthly Revenue
-                    </p>
-                    <Button
-                      variant="outlined"
-                      sx={{
-                        fontSize: "14px",
-                        fontWeight: 400,
-                        color: "#5C4D58",
-                        borderColor: "#5C4D58",
-                        textTransform: "capitalize",
-                      }}
-                    >
-                      View more
-                    </Button>
-                  </div>
-                  <div className="w-full h-[300px] md:h-[400px]">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <BarChart data={data1}>
-                        <XAxis dataKey="month" />
-                        <YAxis
-                          tickFormatter={(value) => `${value / 1000}k`}
-                          domain={[0, "auto"]}
-                        />
-                        <Tooltip formatter={(value) => `${value / 1000}k`} />
-                        <Legend />
-                        <Bar dataKey="revenue" fill="#0095FF" />
-                      </BarChart>
-                    </ResponsiveContainer>
-                  </div>
-                </div>
-
-                <div className="bg-white mt-6 rounded-2xl w-full">
-                  <div className="bg-[#04979E] flex justify-between py-4 px-5 md:px-7 rounded-t-2xl items-center">
-                    <p className="font-bold text-base text-white">
-                      Financial Summaries
-                    </p>
-                    <div>
-                      <Button
-                        variant="outlined"
-                        sx={{
-                          fontSize: "14px",
-                          fontWeight: 400,
-                          color: "#ffffff",
-                          borderColor: "#ffffff",
-                          padding: "5px 8px",
-                          marginRight: "10px",
-                          textTransform: "capitalize",
-                        }}
-                      >
-                        Print
-                      </Button>
-                      <Button
-                        variant="outlined"
-                        sx={{
-                          fontSize: "14px",
-                          fontWeight: 400,
-                          color: "#ffffff",
-                          borderColor: "#ffffff",
-                          padding: "5px 8px",
-                          textTransform: "capitalize",
-                        }}
-                        onClick={handleToFinancialTracking}
-                      >
-                        View More
-                      </Button>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-4 px-5 md:px-7 mt-5">
-                    <div>
-                      {[
-                        "Gross Revenue:",
-                        "Net Revenue:",
-                        "Commission to Platform",
-                        "Commission to Agents",
-                        "Promotion to Cost",
-                        "Returns and Refunds:",
-                      ].map((item, index) => (
-                        <p
-                          key={index}
-                          className="text-sm font-normal text-[#040421] mb-3 flex items-center gap-1"
+            <div>
+                <div className="flex flex-col lg:flex-row justify-between gap-4 mb-56">
+                  {/* partOne  */}
+                  <div className="flex-[3] w-full lg:w-3/5">
+                    <div className="bg-white py-9 px-7 mt-6 rounded-2xl w-full">
+                      <div className="flex justify-between items-center mb-7">
+                        <p className="font-bold text-base text-[#1E1A1C]">
+                          Monthly Revenue
+                        </p>
+                        <Button
+                          variant="outlined"
+                          sx={{
+                            fontSize: "14px",
+                            fontWeight: 400,
+                            color: "#5C4D58",
+                            borderColor: "#5C4D58",
+                            textTransform: "capitalize",
+                          }}
+                          onClick={() => navigate("/seller/reports/sales-report")}
                         >
-                          {item}{" "}
+                          View more
+                        </Button>
+                      </div>
+                      <div className="w-full h-[300px] md:h-[400px]">
+                        <ResponsiveContainer width="100%" height="100%">
+                          <BarChart data={data1}>
+                            <XAxis dataKey="month" />
+                            <YAxis
+                              tickFormatter={(value) => `${value / 1000}k`}
+                              domain={[0, "auto"]}
+                            />
+                            <Tooltip formatter={(value) => `${value / 1000}k`} />
+                            <Legend />
+                            <Bar dataKey="revenue" fill="#0095FF" />
+                          </BarChart>
+                        </ResponsiveContainer>
+                      </div>
+                    </div>
+
+                    <div className="bg-white mt-6 rounded-2xl w-full">
+                      <div className="bg-[#04979E] flex justify-between py-4 px-5 md:px-7 rounded-t-2xl items-center">
+                        <p className="font-bold text-base text-white">
+                          Financial Summaries
+                        </p>
+                        <div>
+                          <Button
+                            variant="outlined"
+                            sx={{
+                              fontSize: "14px",
+                              fontWeight: 400,
+                              color: "#ffffff",
+                              borderColor: "#ffffff",
+                              padding: "5px 8px",
+                              marginRight: "10px",
+                              textTransform: "capitalize",
+                            }}
+                          >
+                            Print
+                          </Button>
+                          <Button
+                            variant="outlined"
+                            sx={{
+                              fontSize: "14px",
+                              fontWeight: 400,
+                              color: "#ffffff",
+                              borderColor: "#ffffff",
+                              padding: "5px 8px",
+                              textTransform: "capitalize",
+                            }}
+                            onClick={handleToFinancialTracking}
+                          >
+                            View More
+                          </Button>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-4 px-5 md:px-7 mt-5">
+                        <div>
                           {[
+                            "Gross Revenue:",
+                            "Net Revenue:",
                             "Commission to Platform",
                             "Commission to Agents",
-                          ].includes(item) && (
-                            <MdInfo size={14} color="#838383" />
-                          )}
-                        </p>
-                      ))}
-                    </div>
-                    <div className="text-right">
-                      {[
-                        "₦350,000,000",
-                        "₦320,000,000",
-                        "3.5%",
-                        "10%",
-                        "₦30,000,000",
-                        "₦8,000,000 (100 returns)",
-                      ].map((value, index) => (
-                        <p
-                          key={index}
-                          className="text-sm font-normal text-[#585858] mb-3"
-                        >
-                          {value}
-                        </p>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* partTwo */}
-              <div className="flex-[2] w-full lg:w-2/5">
-                {[
-                  {
-                    title: "Revenue Tracking",
-                    bg: "#1137D0",
-                    handler: handleToRevenuReport,
-                    color: "#14199C",
-                  },
-                  {
-                    title: "Expenses",
-                    bg: "#FD6100",
-                    handler: handleToExpensesReport,
-                    color: "#FD6100",
-                  },
-                ].map((section, index) => (
-                  <div
-                    key={index}
-                    className="bg-white mt-6 rounded-2xl w-full pb-16"
-                  >
-                    <div
-                      className={`bg-[${section.bg}] flex justify-between py-4 px-5 md:px-7 rounded-t-2xl items-center`}
-                    >
-                      <p className="font-bold text-base text-white">
-                        {section.title}
-                      </p>
-                      <div>
-                        <Button
-                          variant="outlined"
-                          sx={{
-                            fontSize: "14px",
-                            fontWeight: 400,
-                            color: "white",
-                            borderColor: "white",
-                            padding: "5px 8px",
-                            marginRight: "10px",
-                            textTransform: "capitalize",
-                          }}
-                        >
-                          Print
-                        </Button>
-                        <Button
-                          variant="outlined"
-                          sx={{
-                            fontSize: "14px",
-                            fontWeight: 400,
-                            color: "white",
-                            borderColor: "white",
-                            padding: "5px 8px",
-                            textTransform: "capitalize",
-                          }}
-                          onClick={section.handler}
-                        >
-                          View More
-                        </Button>
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-3 gap-4 px-5 md:px-7 mt-5 text-center">
-                      <div>
-                        <p
-                          className={`text-sm font-bold text-[${section.color}] mb-3`}
-                        >
-                          Category
-                        </p>
-                        {["Cars", "Houses", "Lands"].map((item, i) => (
-                          <p
-                            key={i}
-                            className="text-sm font-normal text-[#040421] mb-3"
-                          >
-                            {item}
-                          </p>
-                        ))}
-                      </div>
-                      <div>
-                        <p
-                          className={`text-sm font-bold text-[${section.color}] mb-3`}
-                        >
-                          Revenue
-                        </p>
-                        {["₦320,000,000", "₦30,000,000", "₦8,000,000"].map(
-                          (item, i) => (
+                            "Promotion to Cost",
+                            "Returns and Refunds:",
+                          ].map((item, index) => (
                             <p
-                              key={i}
+                              key={index}
+                              className="text-sm font-normal text-[#040421] mb-3 flex items-center gap-1"
+                            >
+                              {item}{" "}
+                              {[
+                                "Commission to Platform",
+                                "Commission to Agents",
+                              ].includes(item) && (
+                                <MdInfo size={14} color="#838383" />
+                              )}
+                            </p>
+                          ))}
+                        </div>
+                        <div className="text-right">
+                          {[
+                            "₦350,000,000",
+                            "₦320,000,000",
+                            "3.5%",
+                            "10%",
+                            "₦30,000,000",
+                            "₦8,000,000 (100 returns)",
+                          ].map((value, index) => (
+                            <p
+                              key={index}
                               className="text-sm font-normal text-[#585858] mb-3"
                             >
-                              {item}
+                              {value}
                             </p>
-                          )
-                        )}
-                      </div>
-                      <div>
-                        <p
-                          className={`text-sm font-bold text-[${section.color}] mb-3`}
-                        >
-                          Percentage
-                        </p>
-                        {["62.9%", "25.7%", "11.4%"].map((item, i) => (
-                          <p
-                            key={i}
-                            className="text-sm font-normal text-[#040421] mb-3"
-                          >
-                            {item}
-                          </p>
-                        ))}
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>
-                ))}
-              </div>
+
+                  <div className="flex-[2] w-full lg:w-2/5">
+                    {/* Revenue Tracking */}
+                  <div className="">
+                    {[
+                      {
+                        title: "Revenue Tracking",
+                        bg: "#1137D0",
+                        handler: handleToRevenuReport,
+                        color: "#14199C",
+                      },
+                    ].map((section, index) => (
+                      <div
+                        key={index}
+                        className="bg-white mt-6 rounded-2xl w-full pb-16"
+                      >
+                        <div
+                          className={`bg-[${section.bg}] flex justify-between py-4 px-5 md:px-7 rounded-t-2xl items-center`}
+                        >
+                          <p className="font-bold text-base text-white">
+                            {section.title}
+                          </p>
+                          <div>
+                            <Button
+                              variant="outlined"
+                              sx={{
+                                fontSize: "14px",
+                                fontWeight: 400,
+                                color: "white",
+                                borderColor: "white",
+                                padding: "5px 8px",
+                                marginRight: "10px",
+                                textTransform: "capitalize",
+                              }}
+                            >
+                              Print
+                            </Button>
+                            <Button
+                              variant="outlined"
+                              sx={{
+                                fontSize: "14px",
+                                fontWeight: 400,
+                                color: "white",
+                                borderColor: "white",
+                                padding: "5px 8px",
+                                textTransform: "capitalize",
+                              }}
+                              onClick={section.handler}
+                            >
+                              View More
+                            </Button>
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-3 gap-4 px-5 md:px-7 mt-5">
+                          <div>
+                            <p
+                              className={`text-sm font-bold text-[${section.color}] mb-3`}
+                            >
+                              Category
+                            </p>
+                            {["Cars", "Houses", "Lands"].map((item, i) => (
+                              <p
+                                key={i}
+                                className="text-sm font-normal text-[#040421] mb-3"
+                              >
+                                {item}
+                              </p>
+                            ))}
+                          </div>
+                          <div>
+                            <p
+                              className={`text-sm font-bold text-[${section.color}] mb-3`}
+                            >
+                              Revenue
+                            </p>
+                            {["₦320,000,000", "₦30,000,000", "₦8,000,000"].map(
+                              (item, i) => (
+                                <p
+                                  key={i}
+                                  className="text-sm font-normal text-[#585858] mb-3"
+                                >
+                                  {item}
+                                </p>
+                              )
+                            )}
+                          </div>
+                          <div>
+                            <p
+                              className={`text-sm font-bold text-[${section.color}] mb-3`}
+                            >
+                              Percentage
+                            </p>
+                            {["62.9%", "25.7%", "11.4%"].map((item, i) => (
+                              <p
+                                key={i}
+                                className="text-sm font-normal text-[#040421] mb-3"
+                              >
+                                {item}
+                              </p>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                    {/* Expenses Report  */}
+                  <div>
+                    {[
+                      {
+                        title: "Expenses",
+                        bg: "#FD6100",
+                        handler: handleToExpensesReport,
+                        color: "#FD6100",
+                      },
+                    ].map((section, index) => (
+                      <div
+                        key={index}
+                        className="bg-white mt-6 rounded-2xl w-full pb-16"
+                      >
+                        <div
+                          className={`bg-[${section.bg}] flex justify-between py-4 px-5 md:px-7 rounded-t-2xl items-center`}
+                        >
+                          <p className="font-bold text-base text-white">
+                            {section.title}
+                          </p>
+                          <div>
+                            <Button
+                              variant="outlined"
+                              sx={{
+                                fontSize: "14px",
+                                fontWeight: 400,
+                                color: "white",
+                                borderColor: "white",
+                                padding: "5px 8px",
+                                marginRight: "10px",
+                                textTransform: "capitalize",
+                              }}
+                            >
+                              Print
+                            </Button>
+                            <Button
+                              variant="outlined"
+                              sx={{
+                                fontSize: "14px",
+                                fontWeight: 400,
+                                color: "white",
+                                borderColor: "white",
+                                padding: "5px 8px",
+                                textTransform: "capitalize",
+                              }}
+                              onClick={section.handler}
+                            >
+                              View More
+                            </Button>
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-4 px-5 md:px-7 mt-5 ">
+                          <div>
+                            <p
+                              className={`text-sm font-bold text-[${section.color}] mb-3`}
+                            >
+                              Expense Type
+                            </p>
+                            {["Cars", "Houses", "Lands"].map((item, i) => (
+                              <p
+                                key={i}
+                                className="text-sm font-normal text-[#040421] mb-3"
+                              >
+                                {item}
+                              </p>
+                            ))}
+                          </div>
+                          <div>
+                            <p
+                              className={`text-sm font-bold text-[${section.color}] mb-3`}
+                            >
+                              Amount
+                            </p>
+                            {["62.9%", "25.7%", "11.4%"].map((item, i) => (
+                              <p
+                                key={i}
+                                className="text-sm font-normal text-[#040421] mb-3"
+                              >
+                                {item}
+                              </p>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  </div>
+                </div>
+
+                <div className="text-right mb-14">
+                  <Button
+                    onClick={handleShowMore}
+                    sx={{
+                      color: "#FD6100",
+                      fontWeight: 700,
+                      fontSize: "18px",
+                      textTransform: "capitalize",
+                    }}
+                  >
+                    View Less
+                  </Button>
+                </div>
             </div>
           )}
         </div>

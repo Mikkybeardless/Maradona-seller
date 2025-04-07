@@ -12,7 +12,7 @@ function AdsSummary() {
       </div>
 
       {/* Content Container */}
-      <div className="w-full max-w-5xl mx-auto px-6 sm:px-8 md:px-12 lg:px-16 mb-20 pt-12">
+      <div className="w-full mx-auto px-6 sm:px-8 md:px-12 lg:px-16 mb-20 pt-12">
         {/* Breadcrumb Navigation */}
         <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mb-6 sm:mb-12">
           <Link
@@ -23,7 +23,7 @@ function AdsSummary() {
           </Link>
           <FaChevronRight size={16} />
           <Link
-            to="/seller/promotions/create-promotion"
+            to="/seller/promotions/create-ads"
             className="text-sm sm:text-base font-normal text-[#262626]"
           >
             Create Ads
@@ -40,7 +40,7 @@ function AdsSummary() {
         </p>
 
         {/* Summary Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl">
           {/* Left Section */}
           <div className="flex flex-col gap-4">
             <div>

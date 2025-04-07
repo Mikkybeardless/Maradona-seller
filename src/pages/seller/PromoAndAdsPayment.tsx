@@ -11,7 +11,7 @@ import { CardItem } from "./PaymentMethods";
 
 function PromoAndAdsPayment() {
   const [cards, setCards] = useState([
-    { id: 1, bank: "Access", cvv: "**3", cardNumber: "6213", expDate: "12/34" },
+    { id: 1, bank: "Access", cvv: "**3", cardNumber: "6213", expDate: "12/34"},
     { id: 2, bank: "GTBank", cvv: "**7", cardNumber: "4321", expDate: "08/26" },
   ]);
   const [openModal, setOpenModal] = useState(false);
@@ -71,7 +71,7 @@ function PromoAndAdsPayment() {
             Summary
           </Link>
           <FaChevronRight size={16} />
-          <span className="text-[#040421]">Create Promotion</span>
+          <span className="text-[#040421]">Payment</span>
         </div>
 
         {/* Header and Button */}
@@ -80,7 +80,7 @@ function PromoAndAdsPayment() {
           <Button
             variant="contained"
             sx={{
-              background: "#FD6100",
+              background: "#14199C",
               color: "#ffffff",
               fontSize: "14px",
               fontWeight: 600,

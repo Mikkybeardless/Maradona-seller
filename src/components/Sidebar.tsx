@@ -113,7 +113,7 @@ export default function Sidebar() {
           }
         >
           <PiSealPercent size={16} className="transition-none flex-shrink-0" />
-          <span className="line-clamp-1">Promotions & Discounts</span>
+          <span className="line-clamp-1">Promotions & Ads</span>
         </NavLink>
 
         <NavLink

@@ -6,12 +6,12 @@ import { NavLink } from "react-router-dom";
 const navLinks = [
   {
     path: "/seller/settings/profile-info",
-    label: "Profile",
+    label: "Personal Information",
     icon: <CiUser size={24} />,
   },
   {
     path: "/seller/settings/payment-method",
-    label: "Payment Method",
+    label: "Payment Methods",
     icon: <IoWalletOutline size={24} />,
   },
   {
@@ -35,7 +35,7 @@ export default function SettingsNavbar() {
             key={path}
             to={path} // 🔥 Now uses an absolute path
             className={({ isActive }) =>
-              `flex items-center gap-4 p-3 rounded-lg font-inter font-bold text-[15px] leading-[22.5px] text-gray-700 hover:text-[#14199C] ${
+              `mb-4 flex items-center gap-4 p-3 rounded-lg font-inter text-[15px] leading-[22.5px] text-[#111111] hover:text-[#14199C] ${
                 isActive ? "text-[#14199C]" : ""
               }`
             }
