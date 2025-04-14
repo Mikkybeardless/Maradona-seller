@@ -1,11 +1,16 @@
 import { Box, Typography } from "@mui/material";
 import { CiLaptop, CiMobile3 } from "react-icons/ci";
 import { RiShieldKeyholeLine } from "react-icons/ri";
+import { PiPencilSimpleBold } from "react-icons/pi";
 import CopyableText from "../../components/CopyableText";
 import PasswordBox from "../../components/PasswordBox";
 import ProfilePictureUpload from "../../components/ProfilePictureUpload";
+import { useState } from "react";
 
 function ProfileInfo() {
+
+  const [isProfileEdit, setIsProfileEdit] = useState(false)
+
   return (
     <div className="p-4 md:p-6 bg-white">
       <div className="flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-6">
@@ -34,7 +39,34 @@ function ProfileInfo() {
           </Typography>
         </div>
       </div>
+      { isProfileEdit ?
       <ProfilePassword />
+      :
+      <div>
+        {/* Personal Information  */}
+        <div className="mt-8 flex flex-col gap-y-8">
+          <div>
+            <p className="text-[#5C4D58] text-sm mb-2">First Name:</p>
+            <p className="font-medium text-lg">Rosemary</p>
+          </div>
+          <div>
+            <p className="text-[#5C4D58] text-sm mb-2">Last Name:</p>
+            <p className="font-medium text-lg">Sunday</p>
+          </div>
+          <div>
+            <p className="text-[#5C4D58] text-sm mb-2">Email:</p>
+            <p className="font-medium text-lg">rosiesunday20.aj@gmail.com</p>
+          </div>
+          <div>
+            <p className="text-[#5C4D58] text-sm mb-2">Phone No:</p>
+            <p className="font-medium text-lg">08023456788</p>
+          </div>
+        </div>
+
+        <div className="flex justify-center lg:mt-20 mt-10 mb-10">
+          <div onClick={() => setIsProfileEdit(true)} className="bg-[#14199C] md:w-3/4 w-4/5 flex items-center justify-center p-4 text-white text-xl rounded-lg"><PiPencilSimpleBold /> <span className="ml-2 text-sm font-light">Edit Profile</span></div>
+        </div>
+      </div>}
     </div>
   );
 }

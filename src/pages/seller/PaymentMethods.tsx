@@ -115,28 +115,83 @@ export function CardItem({
       onClick={onSelect}
     >
       <Divider className="!w-[98%] m-auto" />
-      <div className="flex flex-wrap items-center justify-between mt-3 font-medium text-center gap-2">
+      <div className="flex flex-wrap items-center justify-between mt-2 font-medium text-center gap-1">
         {isSelected?
         <IoCheckmarkCircleSharp
         size={24}
         color={isSelected ? "#1BB66E" : "#5E5E5E"}
       />:null}
-        <p className="text-sm text-[#5E5E5E] flex-1">Bank</p>
-        <p className="text-sm text-[#5E5E5E] flex-1">CVV</p>
-        <p className="text-sm text-[#5E5E5E] flex-1">CARD NUMBER</p>
-        <p className="text-sm text-[#5E5E5E] flex-1">EXP DATE</p>
+        <p className="text-[10px] md:text-xs font-light text-[#5E5E5E] flex-1">Bank</p>
+        <p className="text-[10px] md:text-xs font-light text-[#5E5E5E] flex-1">CVV</p>
+        <p className="text-[10px] md:text-xs font-light text-[#5E5E5E] flex-1">CARD NUMBER</p>
+        <p className="text-[10px] md:text-xs font-light text-[#5E5E5E] flex-1">EXP DATE</p>
       </div>
 
-      <div className="flex flex-wrap items-center justify-between mt-2 gap-2">
-        <IoCardOutline size={24} />
-        <p className="text-base font-medium text-[#000000] flex-1">{bank}</p>
-        <p className="text-base font-medium text-[#000000] flex-1">
+      <div className="flex items-center justify-between mt-2 gap-1">
+        <IoCardOutline size={18} />
+        <p className="text-[10px] md:text-sm font-medium text-[#000000] flex-1">{bank}</p>
+        <p className="text-[10px] md:text-sm font-medium text-[#000000] flex-1">
           {maskCvv(cvv.replace(/\s+/g, ""))}
         </p>
-        <p className="text-base font-medium text-[#000000] flex-1">
+        <p className="text-[10px] md:text-sm font-medium text-[#000000] flex-1">
           {maskCardNumber(cardNumber.replace(/\s+/g, ""))}
         </p>
-        <p className="text-base font-medium text-[#000000] flex-1">{expDate}</p>
+        <p className="text-[10px] md:text-sm font-medium text-[#000000] flex-1">{expDate}</p>
+      </div>
+    </div>
+  );
+}
+
+// Bank Item Component
+export function BankItem({
+  bank,
+  accountNumber,
+  accountName,
+  isSelected,
+  onSelect,
+}: {
+  bank: string;
+  accountNumber: string;
+  accountName: string;
+  isSelected: boolean;
+  onSelect: () => void;
+}) {
+  const maskAccountNumber = (accountNumber: string) => {
+    return "******" + accountNumber.slice(-4);
+  };
+
+  return (
+    <div
+      className="cursor-pointer pb-3 px-2 sm:px-4 lg:px-6"
+      onClick={onSelect}
+    >
+      
+      <div className="">
+        
+      <Divider className="!w-[98%] m-auto" />
+
+        <div className="flex items-center">
+          {isSelected?
+            <IoCheckmarkCircleSharp
+            size={24}
+            color={isSelected ? "#1BB66E" : "#5E5E5E"}
+          />:null}
+            <div className="w-full">
+              <div className="flex flex-wrap items-center justify-between mt-2 font-medium text-center gap-1">
+                <p className="text-[10px] md:text-xs font-light text-[#5E5E5E] flex-1">Bank</p>
+                <p className="text-[10px] md:text-xs font-light text-[#5E5E5E] flex-1">Account No</p>
+                <p className="text-[10px] md:text-xs font-light text-[#5E5E5E] flex-1">Account Name</p>
+              </div>
+
+              <div className="flex flex-wrap items-center justify-between text-center mt-2 gap-1">
+                <p className="text-[10px] md:text-sm font-medium text-[#000000] flex-1">{bank}</p>
+                <p className="text-[10px] md:text-sm font-medium text-[#000000] flex-1">
+                  {maskAccountNumber(accountNumber.replace(/\s+/g, ""))}
+                </p>
+                <p className="text-[10px] md:text-sm font-medium text-[#000000] flex-1">{accountName}</p>
+              </div>
+            </div>
+        </div>
       </div>
     </div>
   );

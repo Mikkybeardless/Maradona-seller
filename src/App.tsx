@@ -50,6 +50,10 @@ import Settings from "./pages/seller/Settings";
 import Shipments from "./pages/seller/Shipments";
 import VerificationPage from "./pages/seller/VerificationPage";
 import ContactUs from "./pages/ContactUs";
+import Wallet from "./pages/seller/Wallet";
+import SellerTransactionHistory from "./pages/seller/TransactionHistory";
+import Deposit from "./pages/seller/WalletDeposit";
+import Withdraw from "./pages/seller/WalletWithdraw";
 import { RootState } from "./redux/store";
 
 function App() {
@@ -126,6 +130,10 @@ function App() {
             <Route path="documents" element={<Documents />} />
           </Route>
           <Route path="profile" element={<ProfilePage />} />
+          <Route path="/seller/wallet" element={<Wallet />} />
+          <Route path="/seller/wallet/deposit" element={<Deposit />} />
+          <Route path="/seller/wallet/withdraw" element={<Withdraw />} />
+          <Route path="/seller/wallet/transaction-history" element={<SellerTransactionHistory />} />
         </Route>
 
         <Route path="/admin" element={<LoggedInAuthenticator />}>

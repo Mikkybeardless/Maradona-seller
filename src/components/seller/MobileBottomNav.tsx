@@ -10,6 +10,9 @@ import {
   FaUser,
 } from "react-icons/fa";
 import { LuUsers2 } from "react-icons/lu";
+import { LuWallet } from "react-icons/lu";
+import { CgMenuRight } from "react-icons/cg";
+import { RiLineChartLine } from "react-icons/ri";
 import { RxDashboard } from "react-icons/rx";
 import { NavLink } from "react-router-dom";
 
@@ -48,7 +51,7 @@ export default function MobileBottomNav() {
         </NavLink>
 
         {/* Products */}
-        <NavLink
+        {/* <NavLink
           to="/seller/products"
           className={({ isActive }) =>
             `flex flex-col items-center ${
@@ -58,10 +61,10 @@ export default function MobileBottomNav() {
         >
           <BsBoxSeam size={22} />
           <span className="text-xs">Products</span>
-        </NavLink>
+        </NavLink> */}
 
         {/* Customers */}
-        <NavLink
+        {/* <NavLink
           to="/seller/customers"
           className={({ isActive }) =>
             `flex flex-col items-center ${
@@ -71,7 +74,7 @@ export default function MobileBottomNav() {
         >
           <LuUsers2 size={22} />
           <span className="text-xs">Customers</span>
-        </NavLink>
+        </NavLink> */}
 
         {/* Orders */}
         <NavLink
@@ -86,12 +89,38 @@ export default function MobileBottomNav() {
           <span className="text-xs">Orders</span>
         </NavLink>
 
+        {/* Wallet  */}
+        <NavLink
+          to="/seller/wallet"
+          className={({ isActive }) =>
+            `flex flex-col items-center ${
+              isActive ? "text-[#e65800]" : "text-gray-700"
+            }`
+          }
+        >
+          <LuWallet size={22} />
+          <span className="text-xs">Wallet</span>
+        </NavLink>
+
+        {/* Reports  */}
+        <NavLink
+          to="/seller/reports"
+          className={({ isActive }) =>
+            `flex flex-col items-center ${
+              isActive ? "text-[#e65800]" : "text-gray-700"
+            }`
+          }
+        >
+          <RiLineChartLine size={22} />
+          <span className="text-xs">Reports</span>
+        </NavLink>
+
         {/* More Button */}
         <button
           className="flex flex-col items-center text-gray-700"
           onClick={() => setMoreOpen(!moreOpen)}
         >
-          <FaBars size={22} />
+          <CgMenuRight size={22} />
           <span className="text-xs">More</span>
         </button>
       </div>

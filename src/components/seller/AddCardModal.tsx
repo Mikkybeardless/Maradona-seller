@@ -11,14 +11,14 @@ export default function AddCardModal({
     open: boolean;
     onClose: () => void;
     onAddCard: (newCard: {
-      bank: string;
+      nameOnCard: string;
       cvv: string;
       cardNumber: string;
       expDate: string;
     }) => void;
   }) {
     const [newCard, setNewCard] = useState({
-      bank: "",
+      nameOnCard: "",
       cvv: "",
       cardNumber: "",
       expDate: "",
@@ -43,7 +43,7 @@ export default function AddCardModal({
     return (
       <Modal open={open} onClose={onClose}>
         <Box className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-lg shadow-lg w-[90%] md:w-[400px] ">
-          <h2 className="text-lg font-semibold mb-4">Add New Card</h2>
+          <h2 className="text-lg font-semibold mb-4 text-center">Card Details</h2>
   
           {/* Card Number */}
           <TextField
@@ -89,10 +89,10 @@ export default function AddCardModal({
           </div>
   
           <TextField
-            label="Bank Name"
+            label="Name on card"
             fullWidth
-            name="bank"
-            value={newCard.bank}
+            name="nameOnCard"
+            value={newCard.nameOnCard}
             onChange={handleInputChange}
             sx={{ marginBottom: "20px" }}
           />

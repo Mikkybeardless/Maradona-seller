@@ -5,6 +5,7 @@ import { MdOutlineLogout } from "react-icons/md";
 import { PiSealPercent } from "react-icons/pi";
 import { RxDashboard } from "react-icons/rx";
 import { SlChart } from "react-icons/sl";
+import { LuWallet } from "react-icons/lu";
 import { NavLink } from "react-router-dom";
 import logo from "../assets/logo.svg";
 // import { GoGear } from "react-icons/go"
@@ -114,6 +115,20 @@ export default function Sidebar() {
         >
           <PiSealPercent size={16} className="transition-none flex-shrink-0" />
           <span className="line-clamp-1">Promotions & Ads</span>
+        </NavLink>
+
+        <NavLink
+          to="/seller/wallet"
+          className={({ isActive }) =>
+            `${
+              isActive
+                ? "bg-defaultOrange text-white"
+                : "text-black hover:bg-defaultOrange/20"
+            } rounded-[8px] p-2.5 px-3 flex items-center gap-x-3 text-sm w-full`
+          }
+        >
+          <LuWallet size={16} className="transition-none flex-shrink-0" />
+          <span className="line-clamp-1">Wallet</span>
         </NavLink>
 
         <NavLink
