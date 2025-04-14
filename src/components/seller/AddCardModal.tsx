@@ -1,4 +1,4 @@
-import { Modal, Box, TextField, InputAdornment, Button } from "@mui/material";
+import { Modal, Box, TextField, InputAdornment, Button, InputLabel } from "@mui/material";
 import { useState } from "react";
 import { FaCcVisa, FaCcMastercard, FaCcAmex } from "react-icons/fa6";
 import { IoCardOutline, IoLockClosed } from "react-icons/io5";
@@ -46,8 +46,9 @@ export default function AddCardModal({
           <h2 className="text-lg font-semibold mb-4 text-center">Card Details</h2>
   
           {/* Card Number */}
+          <InputLabel sx={{fontSize: "12px"}} id="cardNumber">Card Number</InputLabel>
           <TextField
-            label="Card Number"
+            placeholder="1234 1234 1234 1234"
             fullWidth
             name="cardNumber"
             value={newCard.cardNumber}
@@ -60,51 +61,64 @@ export default function AddCardModal({
                 </InputAdornment>
               ),
             }}
+            size="small"
           />
   
           <div className="flex gap-3">
-            <TextField
-              label="CVV"
-              name="cvv"
-              value={newCard.cvv}
-              onChange={handleInputChange}
-              className="flex-1"
-              sx={{ marginBottom: "20px" }}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="start">
-                    <IoLockClosed size={20} color="#5E5E5E" />
-                  </InputAdornment>
-                ),
-              }}
-            />
-            <TextField
-              label="Expiry Date"
-              name="expDate"
-              value={newCard.expDate}
-              onChange={handleInputChange}
-              className="flex-1"
-              sx={{ marginBottom: "20px" }}
-            />
+            <div>
+              <InputLabel sx={{fontSize: "12px"}} id="expiration">Expiration</InputLabel>
+              <TextField
+                label="Expiry Date"
+                name="expDate"
+                value={newCard.expDate}
+                onChange={handleInputChange}
+                className="flex-1"
+                sx={{ marginBottom: "20px" }}
+                size="small"
+              />
+            </div>
+            <div>
+              <InputLabel sx={{fontSize: "12px"}} id="CVV">CVV</InputLabel>
+              <TextField
+                name="cvv"
+                placeholder="CVV"
+                value={newCard.cvv}
+                onChange={handleInputChange}
+                className="flex-1"
+                sx={{ marginBottom: "20px" }}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="start">
+                      <IoLockClosed size={20} color="#5E5E5E" />
+                    </InputAdornment>
+                  ),
+                }}
+                size="small"
+              />
+            </div>
           </div>
   
+          <InputLabel sx={{fontSize: "12px"}} id="nameOnCard">Name</InputLabel>      
           <TextField
-            label="Name on card"
+            placeholder="Name on card"
             fullWidth
             name="nameOnCard"
             value={newCard.nameOnCard}
             onChange={handleInputChange}
             sx={{ marginBottom: "20px" }}
+            size="small"
           />
   
-          <div className="flex gap-3 mt-4">
-            <Button
-              variant="contained"
-              sx={{ background: "#14199C", color: "#fff", flex: 1 }}
-              onClick={() => onAddCard(newCard)}
-            >
-              Save
-            </Button>
+          <div className="flex justify-center mt-4">
+            <div className="flex w-1/2">
+                <Button
+                variant="contained"
+                sx={{ background: "#14199C", color: "#fff", flex: 1 }}
+                onClick={() => onAddCard(newCard)}
+                >
+                Save
+                </Button>
+            </div>
           </div>
         </Box>
       </Modal>

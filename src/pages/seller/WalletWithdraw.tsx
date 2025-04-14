@@ -40,45 +40,47 @@ function Withdraw() {
 
         {/* Banks  */}
         <div className="lg:w-1/2 flex flex-col gap-y-10 mt-8 mb-20">
-            <div className="bg-white p-4 border border-[#D1D1D1] rounded-lg flex justify-between">
-                <div className="flex gap-x-4 w-2/3">
-                    <div>
-                        <input type="radio" className="scale-125"/>
-                    </div>
-                    <div>
-                        <p className="text-xs font-bold">Access Bank</p>
-                        <p className="text-[#6D6D6D] font-inter text-xs font-light">****87656781</p>
-                        <p className="text-[#6D6D6D] font-inter text-xs font-bold">James E. Ben</p>
+            <form>
+                <div className="bg-white p-4 border border-[#D1D1D1] rounded-lg flex justify-between">
+                    <div className="flex gap-x-4 w-2/3">
+                        <div>
+                            <input type="radio" className="scale-125" value='Access'/>
+                        </div>
+                        <div>
+                            <p className="text-xs font-bold">Access Bank</p>
+                            <p className="text-[#6D6D6D] font-inter text-xs font-light">****87656781</p>
+                            <p className="text-[#6D6D6D] font-inter text-xs font-bold">James E. Ben</p>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div className="bg-white p-4 border border-[#D1D1D1] rounded-lg flex justify-between">
-                <div className="flex gap-x-4 w-2/3">
-                    <div>
-                        <input type="radio" className="scale-125"/>
-                    </div>
-                    <div>
-                        <p className="text-xs font-bold">Zenith Bank</p>
-                        <p className="text-[#6D6D6D] font-inter text-xs font-light">****87656781</p>
-                        <p className="text-[#6D6D6D] font-inter text-xs font-bold">James E. Ben</p>
+                <div className="bg-white p-4 border border-[#D1D1D1] rounded-lg flex justify-between">
+                    <div className="flex gap-x-4 w-2/3">
+                        <div>
+                            <input type="radio" className="scale-125" value='Zenith'/>
+                        </div>
+                        <div>
+                            <p className="text-xs font-bold">Zenith Bank</p>
+                            <p className="text-[#6D6D6D] font-inter text-xs font-light">****87656781</p>
+                            <p className="text-[#6D6D6D] font-inter text-xs font-bold">James E. Ben</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        
+            
 
-            <div className="bg-white p-4 border border-[#D1D1D1] rounded-lg flex justify-between">
-                <div className="flex gap-x-4 w-2/3">
-                    <div>
-                        <input type="radio" className="scale-125"/>
-                    </div>
-                    <div>
-                        <p className="text-xs font-bold">OPAY</p>
-                        <p className="text-[#6D6D6D] font-inter text-xs font-light">****87656781</p>
-                        <p className="text-[#6D6D6D] font-inter text-xs font-bold">James E. Ben</p>
+                <div className="bg-white p-4 border border-[#D1D1D1] rounded-lg flex justify-between">
+                    <div className="flex gap-x-4 w-2/3">
+                        <div>
+                            <input type="radio" className="scale-125" value='Opay'/>
+                        </div>
+                        <div>
+                            <p className="text-xs font-bold">OPAY</p>
+                            <p className="text-[#6D6D6D] font-inter text-xs font-light">****87656781</p>
+                            <p className="text-[#6D6D6D] font-inter text-xs font-bold">James E. Ben</p>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
 
             <div className="">
                 <button className="w-full rounded-lg flex justify-center px-4 sm:px-5 py-2 sm:py-2.5 text-white text-sm bg-defaultOrange" >

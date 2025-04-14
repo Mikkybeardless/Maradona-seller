@@ -15,6 +15,7 @@ import { useState } from "react";
 import { IoCardOutline } from "react-icons/io5";
 
 import AddCardModal from "../../components/seller/AddCardModal";
+import AddBankModal from "../../components/seller/AddBankModal";
 
 function Wallet() {
   const navigate = useNavigate();
@@ -31,6 +32,7 @@ function Wallet() {
       ]);  
   
     const [openAddCardModal, setOpenAddCardModal] = useState(false);
+    const [openAddBankModal, setOpenAddBankModal] = useState(false);
     
     const [selectedCardId, setSelectedCardId] = useState<number | null>(null);
     const [selectedAccountId, setSelectedAccountId] = useState<number | null>(null);
@@ -217,7 +219,7 @@ function Wallet() {
                     </div>
                     
                     <div className="mt-8">
-                        <button className="w-full rounded-lg flex justify-center px-4 sm:px-5 py-2 sm:py-2.5 text-white text-sm bg-defaultOrange" >
+                        <button onClick={()=> setOpenAddBankModal(true)} className="w-full rounded-lg flex justify-center px-4 sm:px-5 py-2 sm:py-2.5 text-white text-sm bg-defaultOrange" >
                         Add Bank
                         </button>
                     </div>
@@ -230,6 +232,14 @@ function Wallet() {
         open={openAddCardModal}
         onClose={() => setOpenAddCardModal(false)}
         onAddCard={handleAddCard}
+        />
+
+        
+      {/* Add Bank Modal */}
+      <AddBankModal
+        open={openAddBankModal}
+        onClose={() => setOpenAddBankModal(false)}
+        onAddBank={handleAddCard}
         />
     </div>
   );
