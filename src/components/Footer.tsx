@@ -37,9 +37,15 @@ export default function Footer() {
               <div className="flex flex-col gap-y-3 footerTags">
                 <h5  className="text-sm mb-2">Company</h5>
                 <div className="font-light text-xs space-y-1">
-                  <p>Terms and Conditions</p>
-                  <p>Returns and Refunds</p>
-                  <p>Help Center</p>
+                  <p>
+                    <Link to={'/terms'}>Terms and Conditions</Link>
+                  </p>
+                  <p>
+                    <Link to={'/return-policy'}>Returns and Refunds</Link>
+                  </p>
+                  <p>
+                    <Link to={'/contact'}>Help Center</Link>
+                  </p>
                 </div>
               </div>
               <div className="flex flex-col gap-y-3 footerTags">

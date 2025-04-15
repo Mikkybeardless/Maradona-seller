@@ -54,6 +54,7 @@ import Wallet from "./pages/seller/Wallet";
 import SellerTransactionHistory from "./pages/seller/TransactionHistory";
 import Deposit from "./pages/seller/WalletDeposit";
 import Withdraw from "./pages/seller/WalletWithdraw";
+import ReturnPolicy from "./pages/ReturnPolicy";
 import { RootState } from "./redux/store";
 
 function App() {
@@ -66,6 +67,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="login" element={<Login />} />
           <Route path="contact" element={<ContactUs />} />
+          <Route path="return-policy" element={<ReturnPolicy />} />
           <Route path="reset-password" element={<ResetPassword />} />
         </Route>
 
