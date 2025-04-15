@@ -56,6 +56,10 @@ import Deposit from "./pages/seller/WalletDeposit";
 import Withdraw from "./pages/seller/WalletWithdraw";
 import ReturnPolicy from "./pages/ReturnPolicy";
 import Terms from "./pages/Terms";
+import ReturnForm from "./pages/ReturnForm";
+import SellerForm from "./pages/SellerForm";
+import AgentForm from "./pages/AgentForm";
+import InvestorForm from "./pages/InvestorForm";
 import { RootState } from "./redux/store";
 
 function App() {
@@ -69,6 +73,10 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="contact" element={<ContactUs />} />
           <Route path="return-policy" element={<ReturnPolicy />} />
+          <Route path="return-form" element={<ReturnForm />} />
+          <Route path="seller-form" element={<SellerForm />} />
+          <Route path="agent-form" element={<AgentForm />} />
+          <Route path="investor-form" element={<InvestorForm />} />
           <Route path="terms" element={<Terms />} />
           <Route path="reset-password" element={<ResetPassword />} />
         </Route>

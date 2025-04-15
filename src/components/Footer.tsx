@@ -59,9 +59,15 @@ export default function Footer() {
               <div className="flex flex-col gap-y-3 footerTags">
                 <h5 className="text-sm mb-2">Make money with us</h5>
                 <div className="font-light text-xs space-y-1">
-                  <p>Agent Registration Form</p>
-                  <p>Become an Investor</p>
-                  <p>Become a Vendor</p>
+                  <p>
+                    <Link to={'/agent-form'}>Agent Registration Form</Link>
+                  </p>
+                  <p>
+                    <Link to={'/investor-form'}>Become an Investor</Link>
+                  </p>
+                  <p>
+                    <Link to={'/seller-form'}>Become a Vendor</Link>
+                  </p>
                 </div>
               </div>
               
