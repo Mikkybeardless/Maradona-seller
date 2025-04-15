@@ -23,7 +23,7 @@ export default function ReturnPolicy() {
         </div>
 
         {/* Page Content  */}
-        <div className="mt-10 p-5 lg:px-24 flex flex-col items-center gap-y-10">
+        <div className="mt-10 p-5 lg:px-24 flex flex-col items-center gap-y-10 text-justify">
             <h1 className="text-2xl font-bold">Return Policy</h1>
             <div className="w-full md:w-5/6 lg:w-3/4 text-sm">
                 <p className="">
