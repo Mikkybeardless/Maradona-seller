@@ -257,19 +257,19 @@ export default function Promotions() {
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mt-5 w-full gap-4">
           {/* Filters Section */}
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-x-5 items-start sm:items-center w-full sm:w-auto">
-            <div className="flex flex-col gap-y-1">
-              <select className="p-2.5 text-sm rounded-lg border border-primaryBorder bg-white outline-none">
+            <div className="flex flex-col gap-y-1 pr-2.5 text-sm rounded-lg border border-primaryBorder bg-white">
+              <select className="p-2.5 rounded-lg outline-none">
                 <option value="" disabled selected>From</option>
                 <option>From</option>
               </select>
             </div>
-            <div className="flex flex-col gap-y-1">
-              <select className="p-2.5 text-sm rounded-lg border border-primaryBorder bg-white outline-none">
+            <div className="flex flex-col gap-y-1 pr-2.5 text-sm rounded-lg border border-primaryBorder bg-white">
+              <select className="p-2.5  rounded-lg outline-none">
                 <option value="" disabled selected>To</option>
               </select>
             </div>
-            <div className="flex flex-col gap-y-1">
-              <select className="p-2.5 text-sm rounded-lg border border-primaryBorder bg-white outline-none">
+            <div className="flex flex-col gap-y-1 pr-2.5 text-sm rounded-lg border border-primaryBorder bg-white">
+              <select className="p-2.5 rounded-lg outline-none">
                 <option value="" disabled selected>Percentage</option>
               </select>
             </div>

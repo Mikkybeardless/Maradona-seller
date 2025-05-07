@@ -122,7 +122,7 @@ function AdsSummary() {
                 borderRadius: "12px",
               }}
             >
-              Next
+              Submit
             </Button>
           </Link>
         </div>

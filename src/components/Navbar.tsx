@@ -25,7 +25,11 @@ export default function Navbar() {
     const navigate = useNavigate();
 
     function goToLogin() {
-        navigate("/login");
+        navigate("/login?signup=false");
+      }
+    
+    function goToSignup() {
+        navigate("/login?signup=true");
       }
     
       function goToHome() {
@@ -107,6 +111,7 @@ export default function Navbar() {
                 Login
               </Button>
               <Button
+              onClick={() => goToSignup()}
                 variant="outlined"
                 sx={{
                   borderColor: "#14199C",

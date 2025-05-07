@@ -40,7 +40,7 @@ function Withdraw() {
 
         {/* Banks  */}
         <div className="lg:w-1/2 flex flex-col gap-y-10 mt-8 mb-20">
-            <form>
+            <form className="flex flex-col gap-y-4">
                 <div className="bg-white p-4 border border-[#D1D1D1] rounded-lg flex justify-between">
                     <div className="flex gap-x-4 w-2/3">
                         <div>

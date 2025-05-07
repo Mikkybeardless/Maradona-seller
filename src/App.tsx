@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useSelector, Provider } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import LoggedInAuthenticator from "./components/LoggedInAuthenticator";
@@ -63,9 +63,7 @@ import InvestorForm from "./pages/InvestorForm";
 import { RootState } from "./redux/store";
 
 function App() {
-  const {} = useSelector((state: RootState) => state.user);
-
-  return (
+return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LoggedOutAuhtenticator />}>

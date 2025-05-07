@@ -92,7 +92,7 @@ export default function Order() {
               <button className="px-4 py-2.5 rounded-lg text-[#14199C] bg-[#E8E9FC]">
                 Keep order
               </button>
-              <button className="px-4 py-2.5 rounded-lg text-white bg-defaultOrange">
+              <button onClick={openCancelModal} className="px-4 py-2.5 rounded-lg text-white bg-defaultOrange">
                 Cancel order
               </button>
             </div>
@@ -303,7 +303,7 @@ export default function Order() {
               <div className="w-full flex flex-col rounded-lg border border-primaryBorder bg-white">
                 <h4 className="py-4 px-4 flex gap-x-2 items-center font-medium text-sm sm:text-base">
                   Order ID: #1011
-                  <span className="rounded-[100px] text-xs font-normal px-2 py-1 bg-defaultOrange text-white">
+                  <span className="rounded-[100px] text-xs font-normal px-2 py-1 bg-[#E65800] text-white">
                     On transit
                   </span>
                 </h4>

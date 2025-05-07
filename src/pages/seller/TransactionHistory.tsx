@@ -26,7 +26,7 @@ function SellerTransactionHistory() {
 
         <div className="mt-8">
             {[1,2,3].map(() =>
-            <div className="flex items-center justify-between p-2 text-[10px] md:text-xs mb-4">
+            <div className="flex items-center justify-between p-2 text-[10px] md:text-xs mb-4 bg-[#ffffff] p-4 rounded-md">
                 <div className="flex items-center gap-x-2">
                     <div>
                         <img className="w-8" src={deposit2} alt="Deposit"/>

@@ -101,12 +101,15 @@ function CreateAdsPage() {
                 </div>
               </div>
 
-              <div>
+              <div className="">
+                <div>
                 <label className="text-sm sm:text-base text-[#111111] mt-4">
                   Budget:
                 </label>
+                </div>
                 <TextField
                   fullWidth
+                  sx={{width: "50%"}}
                   name="budget"
                   value={formData.budget}
                   onChange={handleChange}

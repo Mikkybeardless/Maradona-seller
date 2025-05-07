@@ -68,11 +68,11 @@ function Wallet() {
         </div>
       <div className="mt-4 p-4 md:p-10 lg:flex lg:gap-x-12">
         {/* Left Screen  */}
-        <div className="w-full lg:w-1/2">
+        <div className="w-full lg:w-3/5">
             <div className="flex flex-col md:flex-row md:justify-center lg:justify-start md:items-center gap-y-8 gap-x-24">
 
                 {/* Total Deposit  */}
-                <div className="flex gap-x-3">
+                <div className="flex gap-x-3 bg-[#FFFFFF] py-4 pr-4 rounded-md">
                     <div className="w-2 h-10 bg-[#E65800] rounded-r-md"></div>
                     <div>
                         <p className="text-xs">Total Deposit</p>
@@ -85,7 +85,7 @@ function Wallet() {
                 </div>
 
                 {/* Total Spending  */}
-                <div className="flex gap-x-3">
+                <div className="flex gap-x-3  bg-[#FFFFFF] py-4 pr-4 rounded-md">
                     <div className="w-2 h-10 bg-[#14199C] rounded-r-md"></div>
                     <div>
                         <p className="text-xs">Total Spending</p>
@@ -100,7 +100,7 @@ function Wallet() {
             <div className="mt-12 flex justify-center lg:justify-start">
                 <WalletIllustration/>
             </div>
-            <div className="mt-24">
+            <div className="mt-24 bg-[#ffffff] p-6 rounded-md">
                 <div className="text-[#14199C] font-bold text-sm md:text-lg">Card Details</div>
                 <div className="grid grid-cols-2 justify-between gap-y-4 mt-4">
                     <div>
@@ -129,8 +129,8 @@ function Wallet() {
             
             <div className="mt-12 mb-12">
                 {/* Registered Cards Section */}
-                <div className="w-full">
-                    <div className="pb-5 flex items-center gap-3 mt-10">
+                <div className="w-full  bg-[#ffffff] p-6 rounded-md">
+                    <div className="pb-5 flex items-center gap-3">
                     <IoCardOutline size={24} />
                     <p className="font-medium text-lg sm:text-xl">Registered Cards</p>
                     </div>
@@ -146,36 +146,38 @@ function Wallet() {
             </div>
         </div>
         {/* Right Screen  */}
-        <div className="w-full lg:w-1/2 sm:mt-10 lg:mt-4">
+        <div className="w-full lg:w-2/5 sm:mt-10 lg:mt-4">
 
         {/* Wallet Balance  */}
-            <div className="flex flex-col items-center gap-y-1">
-                <p className="sm:text-[14px] lg:text-[8px]">Total Balance</p>
-                <p className="text-4xl font-bold"><span>N</span> 22,000,000</p>
-                <div className="flex items-center gap-x-2">
-                    <div className="p-1 bg-[#34A85340] text-[#34A853] rounded-2xl"><FiArrowUpRight size={12}/></div>
-                    <span className="text-[10px]">15%</span>
+            <div className=" bg-[#ffffff] p-6 rounded-md">
+                <div className="flex flex-col items-center gap-y-1">
+                    <p className="sm:text-[14px] lg:text-[8px]">Total Balance</p>
+                    <p className="text-4xl font-bold"><span>N</span> 22,000,000</p>
+                    <div className="flex items-center gap-x-2">
+                        <div className="p-1 bg-[#34A85340] text-[#34A853] rounded-2xl"><FiArrowUpRight size={12}/></div>
+                        <span className="text-[10px]">15%</span>
+                    </div>
                 </div>
-            </div>
 
-            {/* Wallet Action Buttons   */}
-            <div className="flex justify-center items-center gap-x-4 mt-6">
-                <button onClick={() => handleDeposit()} className="rounded-lg flex items-center gap-x-2 px-4 sm:px-5 py-2 sm:py-2.5 text-defaultOrange text-sm border-defaultOrange border-[1px]">
-                    <span>Deposit</span>
-                    <img className="w-[20px] h-[18px]" src={deposit} alt="Deposit" />
-                </button>
-                
-                <button onClick={() => handleWithdraw()} className="rounded-lg flex items-center gap-x-2 px-2 sm:px-4 py-2 sm:py-2.5 text-defaultOrange text-sm border-defaultOrange border-[1px]">
-                    <span>Withdraw</span>
-                    <img className="w-[20px] h-[18px]" src={withdraw} alt="Withdraw" />
-                </button>
+                {/* Wallet Action Buttons   */}
+                <div className="flex justify-center items-center gap-x-4 mt-6">
+                    <button onClick={() => handleDeposit()} className="rounded-lg flex items-center gap-x-2 px-4 sm:px-5 py-2 sm:py-2.5 text-defaultOrange text-sm border-defaultOrange border-[1px]">
+                        <span>Deposit</span>
+                        <img className="w-[20px] h-[18px]" src={deposit} alt="Deposit" />
+                    </button>
+                    
+                    <button onClick={() => handleWithdraw()} className="rounded-lg flex items-center gap-x-2 px-2 sm:px-4 py-2 sm:py-2.5 text-defaultOrange text-sm border-defaultOrange border-[1px]">
+                        <span>Withdraw</span>
+                        <img className="w-[20px] h-[18px]" src={withdraw} alt="Withdraw" />
+                    </button>
+                </div>
             </div>
 
             {/* Transaction History  */}
             <div className="mt-10">
                 <div className="flex justify-between items-center">
                     <div className="flex items-center gap-x-2 text-lg font-bold">
-                        <MdOutlineHistory/>
+                        <MdOutlineHistory size={24}/>
                         <span>History</span>
                     </div>
                     <div onClick={() => handleViewTransactionHistry()} className="cursor-pointer hover:underline text-[#14199C] text-sm">
@@ -185,7 +187,7 @@ function Wallet() {
 
                 <div className="mt-2">
                     {[1,2,3].map(() =>
-                    <div className="flex items-center justify-between p-2 text-[10px] md:text-xs mb-4">
+                    <div className="flex items-center justify-between p-2 text-[10px] md:text-xs mb-4 bg-[#ffffff] p-4 rounded-md">
                         <div className="flex items-center gap-x-2">
                             <div>
                                 <img className="w-8" src={deposit2} alt="Deposit"/>
@@ -208,14 +210,16 @@ function Wallet() {
                         <TbBuildingBank size={24} />
                         <p className="font-medium text-lg sm:text-xl">Bank Details</p>
                         </div>
-                        {bankAccounts.map((bankAccount) => (
-                        <BankItem
-                            key={bankAccount.id}
-                            {...bankAccount}
-                            isSelected={selectedAccountId === bankAccount.id}
-                            onSelect={() => setSelectedAccountId(bankAccount.id)}
-                        />
-                        ))}
+                        <div className="bg-[#ffffff] p-2 rounded-md">
+                            {bankAccounts.map((bankAccount) => (
+                            <BankItem
+                                key={bankAccount.id}
+                                {...bankAccount}
+                                isSelected={selectedAccountId === bankAccount.id}
+                                onSelect={() => setSelectedAccountId(bankAccount.id)}
+                            />
+                            ))}
+                        </div>
                     </div>
                     
                     <div className="mt-8">
@@ -249,12 +253,12 @@ export default Wallet;
 
 function WalletIllustration() {
     return(
-        <div>
-            <div className="invisible md:visible flex flex-col w-60 h-36 md:w-80 md:h-52 lg:w-96 lg:h-60 rounded-xl -rotate-[8deg] relative">
+        <div className="wallet transition-all duration-300 ease-in-out hover:scale-105">
+            <div className="walletback invisible md:visible flex flex-col w-60 h-36 md:w-80 md:h-52 lg:w-96 lg:h-60 rounded-xl -rotate-[8deg] relative">
                 <div className="bg-gradient-to-r from-[#121212] via-[#272727] to-[#353535] h-1/4 rounded-t-xl"></div>
                 <div className="bg-[#5200FF] h-3/4 rounded-b-xl"></div>
             </div>
-            <div className="flex flex-col w-60 h-36 md:w-80 md:h-52 lg:w-96 lg:h-60 rounded-xl relative bottom-36 md:bottom-52 lg:bottom-60 z-10 -mb-36 md:-mb-52 lg:-mb-60">
+            <div className="walletfront flex flex-col w-60 h-36 md:w-80 md:h-52 lg:w-96 lg:h-60 rounded-xl relative bottom-36 md:bottom-52 lg:bottom-60 z-10 -mb-36 md:-mb-52 lg:-mb-60">
                 <div className="bg-[#E65800] h-2/3 rounded-t-xl p-2 flex items-center text-lg md:text-2xl tracking-widest text-white">
                     3455 **** **** ****
                 </div>

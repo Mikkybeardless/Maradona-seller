@@ -115,19 +115,22 @@ export function CardItem({
       onClick={onSelect}
     >
       <Divider className="!w-[98%] m-auto" />
-      <div className="flex flex-wrap items-center justify-between mt-2 font-medium text-center gap-1">
-        {isSelected?
+      <div className="flex items-center justify-between mt-2 font-medium text-center gap-1">
+        
+     <div>
+     {isSelected?
         <IoCheckmarkCircleSharp
         size={24}
         color={isSelected ? "#1BB66E" : "#5E5E5E"}
       />:null}
+     </div>
         <p className="text-[10px] md:text-xs font-light text-[#5E5E5E] flex-1">Bank</p>
         <p className="text-[10px] md:text-xs font-light text-[#5E5E5E] flex-1">CVV</p>
         <p className="text-[10px] md:text-xs font-light text-[#5E5E5E] flex-1">CARD NUMBER</p>
         <p className="text-[10px] md:text-xs font-light text-[#5E5E5E] flex-1">EXP DATE</p>
       </div>
 
-      <div className="flex items-center justify-between mt-2 gap-1">
+      <div className="flex items-center justify-between mt-2 text-center gap-1">
         <IoCardOutline size={18} />
         <p className="text-[10px] md:text-sm font-medium text-[#000000] flex-1">{bank}</p>
         <p className="text-[10px] md:text-sm font-medium text-[#000000] flex-1">
@@ -167,8 +170,6 @@ export function BankItem({
     >
       
       <div className="">
-        
-      <Divider className="!w-[98%] m-auto" />
 
         <div className="flex items-center">
           {isSelected?
@@ -192,6 +193,8 @@ export function BankItem({
               </div>
             </div>
         </div>
+
+        <Divider className="!w-[98%] m-auto" />
       </div>
     </div>
   );

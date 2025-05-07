@@ -278,7 +278,7 @@ export default function Orders() {
             <Tabs
               value={activeTab}
               onChange={(e, newValue) => setActiveTab(newValue)}
-              textColor="primary"
+              textColor="#040421"
               indicatorColor="primary"
               variant="scrollable"
               scrollButtons="auto"
@@ -286,27 +286,27 @@ export default function Orders() {
               <Tab
                 label="New"
                 value="New"
-                sx={{ textTransform: "capitalize" }}
+                sx={activeTab === "New"?{ fontWeight: "bold", textTransform: "capitalize" }:{ textTransform: "capitalize" }}
               />
               <Tab
                 label="Processed"
                 value="Processed"
-                sx={{ textTransform: "capitalize" }}
+                sx={activeTab === "Processed"?{ fontWeight: "bold", textTransform: "capitalize" }:{ textTransform: "capitalize" }}
               />
               <Tab
                 label="Cancelled"
                 value="Cancelled"
-                sx={{ textTransform: "capitalize" }}
+                sx={activeTab === "Cancelled"?{ fontWeight: "bold", textTransform: "capitalize" }:{ textTransform: "capitalize" }}
               />
               <Tab
                 label="Returned"
                 value="Returned"
-                sx={{ textTransform: "capitalize" }}
+                sx={activeTab === "Returned"?{ fontWeight: "bold", textTransform: "capitalize" }:{ textTransform: "capitalize" }}
               />
               <Tab
                 label="Analytics"
                 value="Analytics"
-                sx={{ textTransform: "capitalize" }}
+                sx={activeTab === "Analytics"?{ fontWeight: "bold", textTransform: "capitalize" }:{ textTransform: "capitalize" }}
               />
             </Tabs>
           </Box>
@@ -330,13 +330,13 @@ export default function Orders() {
               <div className="mt-2 flex flex-wrap gap-x-8 gap-y-2 items-center">
                 <p className="text-xs text-[#585858]">
                   Total income:{" "}
-                  <span className="text-lg text-defaultOrange">
+                  <div className="text-lg text-[#E65800]">
                     ₦23,230,450
-                  </span>
+                  </div>
                 </p>
                 <p className="text-xs text-[#585858]">
                   Total expenditure:{" "}
-                  <span className="text-lg text-defaultOrange">₦5,230,450</span>
+                  <div className="text-lg text-[#E65800]">₦5,230,450</div>
                 </p>
               </div>
 
@@ -346,7 +346,7 @@ export default function Orders() {
                   chartData={generateLineChartData1SellerDashboard()}
                   lines={[
                     {
-                      name: "expenditure",
+                      name: "Expenditure",
                       type: "monotone",
                       color: "#e65800",
                       lineWidth: 3,
@@ -354,7 +354,7 @@ export default function Orders() {
                       dotShow: false,
                     },
                     {
-                      name: "income",
+                      name: "Income",
                       type: "monotone",
                       color: "#0B0C52",
                       lineWidth: 3,
@@ -397,15 +397,15 @@ function FiltersAndSearch(){
       {/* Filters */}
       <div className="flex flex-wrap gap-x-5 gap-y-3 items-center">
 
-        <div className="flex flex-col gap-y-1">
-          <select className="p-2.5 work-sans text-sm rounded-lg border border-primaryBorder bg-white outline-none">
+        <div className="flex flex-col gap-y-1 pr-3 rounded-lg border border-primaryBorder bg-white outline-none">
+          <select className="p-2.5 work-sans text-sm outline-none">
             <option>Customer</option>
             <option>Rosie Sunday</option>
           </select>
         </div>
 
-        <div className="flex flex-col gap-y-1">
-          <select className="p-2.5 work-sans text-sm rounded-lg border border-primaryBorder bg-white outline-none">
+        <div className="flex flex-col gap-y-1 pr-3 rounded-lg border border-primaryBorder bg-white outline-none">
+          <select className="p-2.5 work-sans text-sm outline-none">
             <option>Status</option>
             <option>Pending</option>
             <option>Processed</option>
@@ -414,14 +414,14 @@ function FiltersAndSearch(){
           </select>
         </div>
 
-        <div className="flex flex-col gap-y-1">
-          <select className="p-2.5 work-sans text-sm rounded-lg border border-primaryBorder bg-white outline-none">
+        <div className="flex flex-col gap-y-1 pr-3 rounded-lg border border-primaryBorder bg-white outline-none">
+          <select className="p-2.5 work-sans text-sm outline-none ">
             <option>Today</option>
           </select>
         </div>
 
-        <div className="flex flex-col gap-y-1">
-          <select className="p-2.5 work-sans text-sm rounded-lg border border-primaryBorder bg-white outline-none">
+        <div className="flex flex-col gap-y-1 pr-3 rounded-lg border border-primaryBorder bg-white outline-none">
+          <select className="p-2.5 work-sans text-sm outline-none">
             <option>Modified</option>
           </select>
         </div>

@@ -31,7 +31,9 @@ import {
 import { Props } from "recharts/types/component/DefaultLegendContent";
 import DashboardSearchBar from "../../components/seller/DashboardSearchBar";
 import LineChartComponent from "../../components/seller/LineChart";
-import { generateLineChartData1SellerDashboard } from "../../helper/generateFillData";
+import {
+  generateLineChartData1SellerDashboard
+} from "../../helper/generateFillData";
 import {
   formatPrice,
   generateRandomNumber,
@@ -45,18 +47,18 @@ const data = [
 ];
 
 const data1 = [
-  { month: "January", revenue: 17000 },
-  { month: "February", revenue: 14000 },
-  { month: "March", revenue: 19000 },
-  { month: "April", revenue: 22000 },
+  { month: "Jan", revenue: 17000 },
+  { month: "Feb", revenue: 14000 },
+  { month: "Mar", revenue: 19000 },
+  { month: "Apr", revenue: 22000 },
   { month: "May", revenue: 18500 },
-  { month: "June", revenue: 24000 },
-  { month: "July", revenue: 20000 },
-  { month: "August", revenue: 26000 },
-  { month: "September", revenue: 23000 },
-  { month: "October", revenue: 25000 },
-  { month: "November", revenue: 27000 },
-  { month: "December", revenue: 30000 },
+  { month: "Jun", revenue: 24000 },
+  { month: "Jul", revenue: 20000 },
+  { month: "Aug", revenue: 26000 },
+  { month: "Sept", revenue: 23000 },
+  { month: "Oct", revenue: 25000 },
+  { month: "Nov", revenue: 27000 },
+  { month: "Dec", revenue: 30000 },
 ];
 
 export default function Reports() {
@@ -268,6 +270,26 @@ export default function Reports() {
     },
   ];
 
+  function CustomizedXAxisTick(props)  {
+      const { x, y, stroke, payload } = props;
+
+      return (
+        <text x={x} y={y} dy={10} fill="#000000" fontWeight="bold" fontSize={10} textAnchor="middle">
+          {payload.value}
+        </text>
+        )
+  }
+
+  function CustomizedYAxisTick(props)  {
+    const { x, y, stroke, payload } = props;
+    // console.log(payload)
+    return (
+      <text x={x} y={y} fill="#1137D0" fontWeight="bold" fontSize={10} textAnchor="end">
+        {payload.value}
+      </text>
+      )
+  }
+
   return (
     <div className="w-full h-full overflow-y-auto flex flex-col custom-scrollbar pb-10">
       {/* Responsive Padding for Search Bar */}
@@ -367,7 +389,7 @@ export default function Reports() {
             </div>
 
             <div className="bg-white py-5 px-5 mt-6 rounded-2xl flex-1">
-              <p className="font-bold text-base text-center mb-5">
+              <p className="font-bold text-sm text-center mb-5">
                 Top Performing Categories
               </p>
               <div className="mb-3">
@@ -497,11 +519,11 @@ export default function Reports() {
               <div className="h-[250px] w-full reports-page">
                 <LineChartComponent
                   chartData={generateLineChartData1SellerDashboard()}
-                  legend={false}
-                  tickCount={6}
+                  customX={true}
+                  customY={true}
                   lines={[
                     {
-                      name: "expenditure",
+                      name: "Expenditure",
                       type: "monotone",
                       color: "#e65800",
                       lineWidth: 3,
@@ -509,7 +531,7 @@ export default function Reports() {
                       dotShow: false,
                     },
                     {
-                      name: "income",
+                      name: "Income",
                       type: "monotone",
                       color: "#0B0C52",
                       lineWidth: 3,
@@ -554,7 +576,7 @@ export default function Reports() {
                     data={data}
                     cx="50%"
                     cy="50%"
-                    innerRadius={50}
+                    innerRadius={60}
                     outerRadius={radius}
                     fill="#8884d8"
                     paddingAngle={5}
@@ -606,7 +628,7 @@ export default function Reports() {
           {/* showMore */}
           {showMore === true && (
             <div>
-                <div className="flex flex-col lg:flex-row justify-between gap-4 mb-56">
+                <div className="flex flex-col lg:flex-row justify-between gap-4 mb-14">
                   {/* partOne  */}
                   <div className="flex-[3] w-full lg:w-3/5">
                     <div className="bg-white py-9 px-7 mt-6 rounded-2xl w-full">
@@ -631,15 +653,22 @@ export default function Reports() {
                       <div className="w-full h-[300px] md:h-[400px]">
                         <ResponsiveContainer width="100%" height="100%">
                           <BarChart data={data1}>
-                            <XAxis dataKey="month" />
+                            <XAxis tick={<CustomizedXAxisTick/>} dataKey="month" />
                             <YAxis
                               tickFormatter={(value) => `${value / 1000}k`}
                               domain={[0, "auto"]}
+                              dataKey="revenue"
+                              tick={<CustomizedYAxisTick/>}
                             />
                             <Tooltip formatter={(value) => `${value / 1000}k`} />
-                            <Legend />
-                            <Bar dataKey="revenue" fill="#0095FF" />
+                            <Bar barSize={10} dataKey="revenue" fill="#0095FF" />
                           </BarChart>
+                          <div className="w-full flex justify-center">
+                            <div className="flex text-xs text-[#222B45] items-center gap-x-3">
+                              <div className="size-2 bg-[#0095FF] rounded-xl"></div>
+                              Online Sales
+                            </div>
+                          </div>
                         </ResponsiveContainer>
                       </div>
                     </div>

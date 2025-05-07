@@ -285,7 +285,7 @@ export default function Customer() {
               <div className="flex flex-col p-4 py-3">
                 <div className="flex justify-between items-center">
                 <p className="text-xs opacity-65">Delivery address 1:</p>
-                <div className="text-[#FFFFFF] bg-[#14199C] text-[12px] py-1 px-2 rounded-2xl">Default</div>
+                <div className="text-[#FFFFFF] bg-[#14199C] text-[8px] py-1 px-2 rounded-2xl">Default</div>
                 </div>
                 <p className="text-sm">
                   Mubinu. Osogbo, Osun, Ifedayo, Osun State, Nigeria

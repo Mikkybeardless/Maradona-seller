@@ -533,26 +533,26 @@ export default function Shipments() {
           {/* Filters */}
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mt-5 w-full">
             <div className="flex gap-x-3 sm:gap-x-5 items-center">
-              <div className="flex flex-col gap-y-1">
-                <select className="p-3 work-sans text-xs sm:text-sm rounded-lg border border-[#D1D1D1] bg-white outline-none">
+              <div className="flex flex-col gap-y-1 pr-2 work-sans text-xs sm:text-sm rounded-lg border border-[#D1D1D1] bg-white outline-none">
+                <select className="outline-none p-3 rounded-lg">
                   <option value="" disabled selected>Customer</option>
                   <option>In transit</option>
                 </select>
               </div>
-              <div className="flex flex-col gap-y-1">
-                <select className="p-3 work-sans text-xs sm:text-sm rounded-lg border border-[#D1D1D1]  bg-white outline-none">
+              <div className="flex flex-col gap-y-1 pr-2 work-sans text-xs sm:text-sm border rounded-lg border-[#D1D1D1] bg-white outline-none">
+                <select className="outline-none p-3 rounded-lg">
                   <option value="" disabled selected>Status</option>
                   <option>In transit</option>
                 </select>
               </div>
-              <div className="flex flex-col gap-y-1">
-                <select className="p-3 work-sans text-xs sm:text-sm rounded-lg border border-[#D1D1D1]  bg-white outline-none">
+              <div className="flex flex-col gap-y-1 pr-2 work-sans text-xs sm:text-sm rounded-lg border border-[#D1D1D1] bg-white outline-none">
+                <select className="outline-none p-3 rounded-lg">
                   <option value="" disabled selected>Today</option>
                   <option>Yesterday</option>
                 </select>
               </div>
-              <div className="flex flex-col gap-y-1">
-                <select className="p-3 work-sans text-xs sm:text-sm rounded-lg border border-[#D1D1D1]  bg-white outline-none">
+              <div className="flex flex-col gap-y-1 pr-2 work-sans text-xs sm:text-sm rounded-lg border border-[#D1D1D1] bg-white outline-none">
+                <select className="outline-none p-3 rounded-lg">
                   <option value="" disabled selected>Modified</option>
                 </select>
               </div>

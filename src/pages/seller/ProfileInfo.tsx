@@ -108,7 +108,7 @@ function ProfilePassword() {
         <p className="mb-4 text-xs text-[#5C4D58]">Where you’re signed in</p>
 
         {/* Login Sessions (Stacking on Mobile) */}
-        <div className="flex flex-col space-y-3 md:grid md:grid-cols-2 md:gap-4">
+        <div className="flex flex-col space-y-3 ">
           <LoginSectionCom device="mobile" session={1} />
           <LoginSectionCom device="laptop" session={2} />
           <LoginSectionCom device="laptop" session={3} />
@@ -126,10 +126,10 @@ function ProfilePassword() {
 function LoginSectionCom({ device, session }) {
   return (
     <Box className="flex items-start bg-white p-3 rounded-md shadow-sm">
-      {device === "laptop" ? <CiLaptop size={24} /> : <CiMobile3 size={24} />}
+      {device === "laptop" ? <CiLaptop size={18} /> : <CiMobile3 size={18} />}
       <Box className="ml-3">
         <Typography
-          fontSize={{ xs: 14, md: 16 }}
+          fontSize={{ xs: 10, md: 12 }}
           color="#5C4D58"
           fontWeight={500}
         >
@@ -137,7 +137,7 @@ function LoginSectionCom({ device, session }) {
           {device === "laptop" ? "2 Windows computer(s)" : "Android phone"}
         </Typography>
         <Typography
-          fontSize={{ xs: 10, md: 12 }}
+          fontSize={{ xs: 8, md: 10 }}
           color="#5C4D58"
           fontWeight={400}
         >
