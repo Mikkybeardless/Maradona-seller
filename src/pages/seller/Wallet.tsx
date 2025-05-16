@@ -79,7 +79,7 @@ function Wallet() {
                         <p className="text-2xl font-bold"><span>N</span> 22,OOO,OOO</p>
                         <div className="flex items-center gap-x-2 mt-2">
                             <div className="p-1 bg-[#E6580040] text-[#E65800] rounded-2xl"><FiArrowDownLeft size={10}/></div>
-                            <span className="text-xs">15%</span>
+                            <span className="text-sm">15%</span>
                         </div>
                     </div>
                 </div>
@@ -92,7 +92,7 @@ function Wallet() {
                         <p className="text-2xl font-bold"><span>N</span> 22,OOO,OOO</p>
                         <div className="flex items-center gap-x-2 mt-2">
                             <div className="p-1 bg-[#14199C40] text-[#14199C] rounded-2xl"><FiArrowUpRight size={10}/></div>
-                            <span className="text-xs">15%</span>
+                            <span className="text-sm">15%</span>
                         </div>
                     </div>
                 </div>
@@ -155,7 +155,7 @@ function Wallet() {
                     <p className="text-4xl font-bold"><span>N</span> 22,000,000</p>
                     <div className="flex items-center gap-x-2">
                         <div className="p-1 bg-[#34A85340] text-[#34A853] rounded-2xl"><FiArrowUpRight size={12}/></div>
-                        <span className="text-[10px]">15%</span>
+                        <span className="text-sm">15%</span>
                     </div>
                 </div>
 
@@ -252,9 +252,16 @@ function Wallet() {
 export default Wallet;
 
 function WalletIllustration() {
+    const [isHoveringonCard, setIsHoveringonCard] = useState(false)
+    const backwallet = document.getElementById("walletbehind")
+    if (isHoveringonCard){
+        backwallet?.classList.add('walletbackhover')
+    }else{
+        backwallet?.classList.remove('walletbackhover')
+    }
     return(
-        <div className="wallet transition-all duration-300 ease-in-out hover:scale-105">
-            <div className="walletback invisible md:visible flex flex-col w-60 h-36 md:w-80 md:h-52 lg:w-96 lg:h-60 rounded-xl -rotate-[8deg] relative">
+        <div onMouseEnter={()=> setIsHoveringonCard(true)} onMouseLeave={()=> setIsHoveringonCard(false)} className="wallet transition-all duration-300 ease-in-out">
+            <div id="walletbehind" className="walletback -rotate-[8deg] invisible md:visible flex flex-col w-60 h-36 md:w-80 md:h-52 lg:w-96 lg:h-60 rounded-xl transition-all duration-500 ease-in-out relative">
                 <div className="bg-gradient-to-r from-[#121212] via-[#272727] to-[#353535] h-1/4 rounded-t-xl"></div>
                 <div className="bg-[#5200FF] h-3/4 rounded-b-xl"></div>
             </div>

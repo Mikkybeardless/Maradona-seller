@@ -157,6 +157,11 @@ input[type="number"] {
   animation: walletback 500ms ease-in-out forwards;
 }
 
+.walletbackhover{
+  /* animation: walletbackhover 500ms ease-in-out forwards; */
+  transform: rotate(8deg) !important;
+}
+
 @keyframes wallet{
   0%{
     margin-top: 2em;
@@ -198,3 +203,4 @@ input[type="number"] {
     rotate: 0;
   }
 }
+

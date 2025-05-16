@@ -60,6 +60,7 @@ import ReturnForm from "./pages/ReturnForm";
 import SellerForm from "./pages/SellerForm";
 import AgentForm from "./pages/AgentForm";
 import InvestorForm from "./pages/InvestorForm";
+import TrackOrder from "./pages/seller/TrackOrder";
 import { RootState } from "./redux/store";
 
 function App() {
@@ -131,6 +132,7 @@ return (
             element={<CreateAdsPage />}
           />
           <Route path="shipments" element={<Shipments />} />
+          <Route path="shipments/track" element={<TrackOrder />} />
           <Route path="/seller/settings" element={<Settings />}>
             <Route index element={<ProfileInfo />} />
             <Route path="profile-info" element={<ProfileInfo />} />{" "}

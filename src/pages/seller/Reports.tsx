@@ -389,7 +389,7 @@ export default function Reports() {
             </div>
 
             <div className="bg-white py-5 px-5 mt-6 rounded-2xl flex-1">
-              <p className="font-bold text-sm text-center mb-5">
+              <p className="font-bold text-sm mb-5">
                 Top Performing Categories
               </p>
               <div className="mb-3">
@@ -645,7 +645,7 @@ export default function Reports() {
                             borderColor: "#5C4D58",
                             textTransform: "capitalize",
                           }}
-                          onClick={() => navigate("/seller/reports/sales-report")}
+                          onClick={() => navigate("/seller/reports/sale-report")}
                         >
                           View more
                         </Button>
@@ -661,7 +661,7 @@ export default function Reports() {
                               tick={<CustomizedYAxisTick/>}
                             />
                             <Tooltip formatter={(value) => `${value / 1000}k`} />
-                            <Bar barSize={10} dataKey="revenue" fill="#0095FF" />
+                            <Bar barSize={12} dataKey="revenue" fill="#0095FF" />
                           </BarChart>
                           <div className="w-full flex justify-center">
                             <div className="flex text-xs text-[#222B45] items-center gap-x-3">

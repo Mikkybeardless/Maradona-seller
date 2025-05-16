@@ -447,9 +447,9 @@ export default function Shipments() {
                     Track
                   </Link>
                 ) : (
-                  <button className="rounded-lg text-xs sm:text-sm px-4 sm:px-5 py-2 text-white bg-defaultOrange">
+                  <Link to="/seller/shipments/track" className="rounded-lg text-xs sm:text-sm px-4 sm:px-5 py-2 text-white bg-defaultOrange">
                     Track
-                  </button>
+                  </Link>
                 )}
                 <button className="rounded-lg text-xs sm:text-sm px-4 sm:px-5 py-2 text-defaultOrange border border-defaultOrange">
                   Contact carrier
