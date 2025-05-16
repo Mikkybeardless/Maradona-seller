@@ -338,12 +338,12 @@ export default function Reports() {
                 </div>
               </div>
 
-              <div className="flex flex-wrap gap-5">
-                <div className="w-full sm:w-[230px] h-[184px] bg-[#1137D033] pl-7 pt-4 rounded-[16px]">
+              <div className="flex lg:justify-around flex-wrap gap-3">
+                <div className="w-full sm:w-[230px] lg:w-1/4 h-[200px] bg-[#1137D033] pl-7 pt-4 rounded-[16px]">
                   <div className="w-[40px] h-[40px] bg-[#1137D0] flex items-center justify-center rounded-full">
                     <AiFillFileText size={24} color="#ffffff" />
                   </div>
-                  <p className="font-semibold text-2xl text-[#151D48] mt-4 mb-6">
+                  <p className="font-semibold text-xl text-[#151D48] mt-4 mb-6">
                     120
                   </p>
                   <p className="font-medium text-base text-[#425166]">
@@ -351,7 +351,7 @@ export default function Reports() {
                   </p>
                 </div>
 
-                <div className="w-full sm:w-[230px] h-[184px] bg-[#04979E33] p-7 pt-4 rounded-[16px]">
+                <div className="w-full sm:w-[230px] lg:w-1/4 h-[200px] bg-[#04979E33] p-7 pt-4 rounded-[16px]">
                   <div className="flex justify-between w-full">
                     <div className="w-[40px] h-[40px] bg-[#04979E] flex items-center justify-center rounded-full">
                       <HiMiniChartBarSquare size={24} color="#ffffff" />
@@ -360,7 +360,7 @@ export default function Reports() {
                       +8% Yesterday
                     </p>
                   </div>
-                  <p className="font-semibold text-2xl text-[#151D48] mt-4 mb-6">
+                  <p className="font-semibold text-xl text-[#151D48] mt-4 mb-6">
                     N 12,500,000
                   </p>
                   <p className="font-medium text-base text-[#425166]">
@@ -368,7 +368,7 @@ export default function Reports() {
                   </p>
                 </div>
 
-                <div className="w-full sm:w-[289px] h-[184px] bg-[#FD610033] p-7 pt-4 rounded-[16px]">
+                <div className="w-full sm:w-[230px] lg:w-2/5 h-[200px] bg-[#FD610033] p-7 pt-4 rounded-[16px]">
                   <div className="flex justify-between w-full">
                     <div className="w-[40px] h-[40px] bg-[#FD6100] flex items-center justify-center rounded-full">
                       <HiTag size={24} color="#ffffff" />
@@ -378,7 +378,7 @@ export default function Reports() {
                     </p>
                   </div>
 
-                  <p className="font-semibold text-2xl text-[#151D48] mt-4 mb-6">
+                  <p className="font-semibold text-xl text-[#151D48] mt-4 mb-6">
                     Best Selling Product
                   </p>
                   <p className="font-medium text-base text-[#425166]">
