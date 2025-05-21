@@ -125,7 +125,7 @@ export default function Sidebar() {
           <span className="line-clamp-1">Promotions & Ads</span>
         </NavLink>
 
-        <NavLink
+        {/* <NavLink
           to="/seller/wallet"
           className={({ isActive }) =>
             `${
@@ -137,7 +137,7 @@ export default function Sidebar() {
         >
           <LuWallet size={24} className="transition-none flex-shrink-0" />
           <span className="line-clamp-1">Wallet</span>
-        </NavLink>
+        </NavLink> */}
 
         <NavLink
           to="shipments"

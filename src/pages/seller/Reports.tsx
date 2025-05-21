@@ -661,7 +661,7 @@ export default function Reports() {
                               tick={<CustomizedYAxisTick/>}
                             />
                             <Tooltip formatter={(value) => `${value / 1000}k`} />
-                            <Bar barSize={12} dataKey="revenue" fill="#0095FF" />
+                            <Bar barSize={14} dataKey="revenue" fill="#0095FF" />
                           </BarChart>
                           <div className="w-full flex justify-center">
                             <div className="flex text-xs text-[#222B45] items-center gap-x-3">
