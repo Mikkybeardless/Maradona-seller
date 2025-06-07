@@ -9,7 +9,7 @@ function Security() {
   };
 
   return (
-    <div className="bg-white p-4 sm:p-6 md:p-8 min-h-screen flex flex-col justify-center">
+    <div className="bg-white p-4 sm:p-6 md:p-8 min-h-screen flex flex-col lg:w-3/4">
       <p className="font-[600] text-[24px] sm:text-[28px] md:text-[32px] mb-3 sm:mb-4 md:mb-5 text-center sm:text-left">
         Two Factor Authentication
       </p>
@@ -19,13 +19,16 @@ function Security() {
       </p>
 
       <div className="mt-[30px] flex flex-col">
-        <div>
-          <p className="font-inter text-base text-[#040421] mb-[8px]">Email</p>
+        <div className="">
+          <p className="font-inter font-medium text-base text-[#040421] mb-[8px]">Email</p>
           <TextField
             id="outlined-basic"
             label="Email"
             variant="outlined"
             fullWidth
+            sx={{
+              borderColor: "#EAE6E9"
+            }}
           />
         </div>
         <Button
@@ -40,6 +43,7 @@ function Security() {
             fontSize: "16px",
             fontWeight: 700,
             padding: "12px",
+            borderRadius: "5px"
           }}
           onClick={handleNext}
         >

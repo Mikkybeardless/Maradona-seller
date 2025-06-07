@@ -49,26 +49,20 @@ const columns: GridColDef[] = [
   {
     field: "type",
     headerName: "Discount type",
-    flex: 1,
+    flex: 0.5,
     sortable: false,
   },
   {
     field: "start",
     headerName: "Start Date",
     type: "date",
-    flex: 0.7,
+    flex: 0.5,
   },
   {
     field: "end",
     headerName: "End Date",
     type: "date",
-    flex: 0.7,
-  },
-  {
-    field: "status",
-    headerName: "Status",
-    flex: 0.6,
-    sortable: false,
+    flex: 0.5,
   },
   {
     field: "metrics",
@@ -78,13 +72,24 @@ const columns: GridColDef[] = [
     sortable: false,
   },
   {
-    field: "Action",
-    flex: 0.1,
+    field: "status",
+    headerName: "Status",
+    renderCell: ({row}) => (
+      <div className={row.status == 'Active'? 'text-[#008000]':'text-[#FF0000]'}>
+        {row.status}
+      </div>
+    ),
+    flex: 0.5,
+    sortable: false,
+  },
+  {
+    field: "Actions",
+    flex: 0.5,
     sortable: false,
     renderCell: () => {
       return (
-        <div className="h-full relative flex justify-center items-center">
-          <BiEditAlt size={16} className="cursor-pointer" />
+        <div className="h-full relative flex justify-center items-center text-[#14199C] work-sans">
+          Edit
         </div>
       );
     },
@@ -197,7 +202,6 @@ export default function Promotions() {
                   }}
                 />
                 <Tooltip />
-                <Legend />
                 <Bar
                   dataKey="userCount1"
                   barSize={26}
@@ -219,7 +223,7 @@ export default function Promotions() {
             <p className="font-bold text-base text-[#14199C] mb-4 md:mb-6">
               Performance Metrics
             </p>
-            <div className="flex justify-between">
+            <div className="flex gap-x-24">
               <div>
                 <p className="text-sm font-medium text-[#585858]">
                   Promotion Name:
@@ -253,16 +257,20 @@ export default function Promotions() {
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mt-5 w-full gap-4">
           {/* Filters Section */}
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-x-5 items-start sm:items-center w-full sm:w-auto">
-            <div className="flex flex-col gap-y-1">
-              <p className="text-xs">ID:</p>
-              <select className="p-2.5 text-sm rounded-lg border border-primaryBorder bg-white outline-none">
-                <option>23</option>
+            <div className="flex flex-col gap-y-1 pr-2.5 text-sm rounded-lg border border-primaryBorder bg-white">
+              <select className="p-2.5 rounded-lg outline-none">
+                <option value="" disabled selected>From</option>
+                <option>From</option>
               </select>
             </div>
-            <div className="flex flex-col gap-y-1">
-              <p className="text-xs">Location:</p>
-              <select className="p-2.5 text-sm rounded-lg border border-primaryBorder bg-white outline-none">
-                <option>Lugbe, Abuja</option>
+            <div className="flex flex-col gap-y-1 pr-2.5 text-sm rounded-lg border border-primaryBorder bg-white">
+              <select className="p-2.5  rounded-lg outline-none">
+                <option value="" disabled selected>To</option>
+              </select>
+            </div>
+            <div className="flex flex-col gap-y-1 pr-2.5 text-sm rounded-lg border border-primaryBorder bg-white">
+              <select className="p-2.5 rounded-lg outline-none">
+                <option value="" disabled selected>Percentage</option>
               </select>
             </div>
           </div>

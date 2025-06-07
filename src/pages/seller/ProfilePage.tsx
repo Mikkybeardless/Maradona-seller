@@ -111,7 +111,7 @@ export default function ProfilePage() {
           </p>
           <Divider />
           <div className="w-[90%] mx-auto my-3">
-            <p className="text-base text-[#150A13]">Address</p>
+            <p className="text-base text-[#150A13]">Password</p>
             <div className="">
               <PasswordBox label={""} />
             </div>

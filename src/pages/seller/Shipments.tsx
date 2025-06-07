@@ -41,6 +41,10 @@ export default function Shipments() {
     setShipmentModal(true);
   }
 
+  function closeShipmentModal() {
+    setShipmentModal(false);
+  }
+
   const rows: any[] = [
     {
       id: 1,
@@ -226,7 +230,7 @@ export default function Shipments() {
 
   const columns: GridColDef[] = [
     { field: "id", headerName: "No", flex: 0.2 },
-    { field: "name", headerName: "Item", flex: 1, sortable: false },
+    { field: "name", headerName: "Item", flex: 0.5, sortable: false },
     {
       field: "trackingNumber",
       headerName: "Tracking Number",
@@ -239,12 +243,12 @@ export default function Shipments() {
       flex: 0.5,
       sortable: false,
     },
-    { field: "status", headerName: "Status", flex: 0.5, sortable: false },
-    { field: "edd", headerName: "E.D.D", flex: 0.5, type: "date" },
-    { field: "address", headerName: "Delivery Address", flex: 1 },
+    { field: "status", headerName: "Status", flex: 0.3, sortable: false },
+    { field: "edd", headerName: "E.D.D", flex: 0.3, type: "date" },
+    { field: "address", headerName: "Delivery Address", flex: .5 },
     {
       field: "action",
-      headerName: "",
+      headerName: "Actions",
       renderCell: () => {
         return (
           <div className="h-full relative flex justify-center items-center">
@@ -271,7 +275,7 @@ export default function Shipments() {
           </div>
         );
       },
-      flex: 0.1,
+      flex: 0.3,
       sortable: false,
     },
   ];
@@ -282,7 +286,7 @@ export default function Shipments() {
         <div className="fixed inset-0 flex justify-center items-center bg-black/50 backdrop-blur-sm z-50">
           <div
             ref={promotionModalRef}
-            className="w-[90%] md:w-[60%] lg:w-[40%] h-[95%] md:h-auto flex flex-col gap-4 p-6 md:p-8 rounded-2xl bg-white overflow-y-auto shadow-lg"
+            className="w-[90%] md:w-[60%] lg:w-[40%] h-[95%] flex flex-col gap-4 p-6 px-12 rounded-2xl bg-white overflow-y-auto shadow-lg"
           >
             <div className="flex justify-between items-center">
               <h2 className="text-lg md:text-xl font-semibold">
@@ -295,7 +299,7 @@ export default function Shipments() {
               />
             </div>
 
-            <div className="flex-1 flex flex-col gap-4 overflow-y-auto custom-scrollbar-low-opacity">
+            <div className="flex-1 flex flex-col gap-4 p-4 overflow-y-auto custom-scrollbar-low-opacity">
               <div className="flex flex-col gap-1 text-sm">
                 <label className="font-medium">Customer Name:</label>
                 <input
@@ -379,9 +383,14 @@ export default function Shipments() {
             </div>
 
             <div className="flex justify-end gap-2 text-sm mt-4">
-              <button className="p-3 rounded-lg text-white bg-orange-500 hover:bg-orange-600">
+              <div className="flex gap-x-4">
+              <button onClick={() => closeShipmentModal()} className="p-3 rounded-lg text-[#14199C]">
+                Cancel
+              </button>
+              <button className="p-3 rounded-lg text-white bg-[#14199C]">
                 Create
               </button>
+              </div>
             </div>
           </div>
         </div>
@@ -416,15 +425,15 @@ export default function Shipments() {
             <span>Back to shipments</span>
           </button>
 
-          <div className="flex-1 rounded-[16px] p-4 sm:p-6 flex flex-col border border-primaryBorder bg-white">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
+          <div className="flex-1 rounded-[16px] max-w-5xl p-4 sm:p-6 flex flex-col border border-primaryBorder bg-white">
+            <div className="flex flex-col sm:flex-row justify-between items-center sm:items-center">
               <div className="flex flex-col gap-y-1">
                 <h2 className="text-lg sm:text-2xl font-semibold">
                   Shipment 73KJFHIUDF4
                 </h2>
                 <p className="text-xs sm:text-sm">
                   Jun 2, 2023{" "}
-                  <span className="rounded-[100px] px-2 py-0.5 bg-[#FBF5D6] text-xs">
+                  <span className="rounded-[100px] px-2 py-1 bg-[#FBF5D6] text-sm">
                     In transit
                   </span>
                 </p>
@@ -438,9 +447,9 @@ export default function Shipments() {
                     Track
                   </Link>
                 ) : (
-                  <button className="rounded-lg text-xs sm:text-sm px-4 sm:px-5 py-2 text-white bg-defaultOrange">
+                  <Link to="/seller/shipments/track" className="rounded-lg text-xs sm:text-sm px-4 sm:px-5 py-2 text-white bg-defaultOrange">
                     Track
-                  </button>
+                  </Link>
                 )}
                 <button className="rounded-lg text-xs sm:text-sm px-4 sm:px-5 py-2 text-defaultOrange border border-defaultOrange">
                   Contact carrier
@@ -449,7 +458,7 @@ export default function Shipments() {
             </div>
 
             {/* Shipment Information */}
-            <div className="flex flex-col flex-1 mt-5 sm:mt-7">
+            <div className="flex flex-col flex-1 mt-12 ">
               <h5 className="text-sm sm:text-lg font-semibold mb-3">
                 Shipment information
               </h5>
@@ -480,7 +489,7 @@ export default function Shipments() {
                   key={index}
                   className="flex flex-col sm:flex-row gap-x-2 text-xs sm:text-sm border-b border-b-primaryBorder py-2"
                 >
-                  <span className="opacity-60">{item.label}:</span>
+                  <span className="opacity-60 w-1/3">{item.label}:</span>
                   <span className="font-medium">{item.value}</span>
                 </div>
               ))}
@@ -488,7 +497,7 @@ export default function Shipments() {
           </div>
         </div>
       ) : (
-        <div className="px-4 sm:px-8 md:px-16 lg:px-24 w-full mt-4 flex flex-col flex-1">
+        <div className="work-sans px-4 sm:px-8 md:px-16 lg:px-24 w-full mt-4 flex flex-col flex-1">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mt-1">
             <h1 className="text-2xl sm:text-3xl font-bold">Shipments</h1>
             <button
@@ -524,17 +533,27 @@ export default function Shipments() {
           {/* Filters */}
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mt-5 w-full">
             <div className="flex gap-x-3 sm:gap-x-5 items-center">
-              <div className="flex flex-col gap-y-1">
-                <p className="text-xs">Status:</p>
-                <select className="p-2 text-xs sm:text-sm rounded-lg border border-primaryBorder bg-white outline-none">
+              <div className="flex flex-col gap-y-1 pr-2 work-sans text-xs sm:text-sm rounded-lg border border-[#D1D1D1] bg-white outline-none">
+                <select className="outline-none p-3 rounded-lg">
+                  <option value="" disabled selected>Customer</option>
                   <option>In transit</option>
                 </select>
               </div>
-              <div className="flex flex-col gap-y-1">
-                <p className="text-xs">Date:</p>
-                <select className="p-2 text-xs sm:text-sm rounded-lg border border-primaryBorder bg-white outline-none">
-                  <option>Today</option>
+              <div className="flex flex-col gap-y-1 pr-2 work-sans text-xs sm:text-sm border rounded-lg border-[#D1D1D1] bg-white outline-none">
+                <select className="outline-none p-3 rounded-lg">
+                  <option value="" disabled selected>Status</option>
+                  <option>In transit</option>
+                </select>
+              </div>
+              <div className="flex flex-col gap-y-1 pr-2 work-sans text-xs sm:text-sm rounded-lg border border-[#D1D1D1] bg-white outline-none">
+                <select className="outline-none p-3 rounded-lg">
+                  <option value="" disabled selected>Today</option>
                   <option>Yesterday</option>
+                </select>
+              </div>
+              <div className="flex flex-col gap-y-1 pr-2 work-sans text-xs sm:text-sm rounded-lg border border-[#D1D1D1] bg-white outline-none">
+                <select className="outline-none p-3 rounded-lg">
+                  <option value="" disabled selected>Modified</option>
                 </select>
               </div>
             </div>

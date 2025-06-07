@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useSelector, Provider } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import LoggedInAuthenticator from "./components/LoggedInAuthenticator";
@@ -49,17 +49,34 @@ import Security from "./pages/seller/Security";
 import Settings from "./pages/seller/Settings";
 import Shipments from "./pages/seller/Shipments";
 import VerificationPage from "./pages/seller/VerificationPage";
+import ContactUs from "./pages/ContactUs";
+// import Wallet from "./pages/seller/Wallet";
+import SellerTransactionHistory from "./pages/seller/TransactionHistory";
+import Deposit from "./pages/seller/WalletDeposit";
+import Withdraw from "./pages/seller/WalletWithdraw";
+import ReturnPolicy from "./pages/ReturnPolicy";
+import Terms from "./pages/Terms";
+import ReturnForm from "./pages/ReturnForm";
+import SellerForm from "./pages/SellerForm";
+import AgentForm from "./pages/AgentForm";
+import InvestorForm from "./pages/InvestorForm";
+import TrackOrder from "./pages/seller/TrackOrder";
 import { RootState } from "./redux/store";
 
 function App() {
-  const {} = useSelector((state: RootState) => state.user);
-
-  return (
+return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LoggedOutAuhtenticator />}>
           <Route index element={<Home />} />
           <Route path="login" element={<Login />} />
+          <Route path="contact" element={<ContactUs />} />
+          <Route path="return-policy" element={<ReturnPolicy />} />
+          <Route path="return-form" element={<ReturnForm />} />
+          <Route path="seller-form" element={<SellerForm />} />
+          <Route path="agent-form" element={<AgentForm />} />
+          <Route path="investor-form" element={<InvestorForm />} />
+          <Route path="terms" element={<Terms />} />
           <Route path="reset-password" element={<ResetPassword />} />
         </Route>
 
@@ -115,6 +132,7 @@ function App() {
             element={<CreateAdsPage />}
           />
           <Route path="shipments" element={<Shipments />} />
+          <Route path="shipments/track" element={<TrackOrder />} />
           <Route path="/seller/settings" element={<Settings />}>
             <Route index element={<ProfileInfo />} />
             <Route path="profile-info" element={<ProfileInfo />} />{" "}
@@ -124,6 +142,10 @@ function App() {
             <Route path="documents" element={<Documents />} />
           </Route>
           <Route path="profile" element={<ProfilePage />} />
+          {/* <Route path="/seller/wallet" element={<Wallet />} /> */}
+          {/* <Route path="/seller/wallet/deposit" element={<Deposit />} /> */}
+          {/* <Route path="/seller/wallet/withdraw" element={<Withdraw />} /> */}
+          {/* <Route path="/seller/wallet/transaction-history" element={<SellerTransactionHistory />} /> */}
         </Route>
 
         <Route path="/admin" element={<LoggedInAuthenticator />}>

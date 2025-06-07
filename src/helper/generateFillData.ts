@@ -19,8 +19,8 @@ export function generateLineChartData1SellerDashboard() {
     data.forEach((month) => {
         lineChartData.push({
             xAxis: month,
-            expenditure: generateRandomNumber(2000000, 1000000),
-            income: generateRandomNumber(2000000, 1000000),
+            Expenditure: generateRandomNumber(2000000, 1000000),
+            Income: generateRandomNumber(2000000, 1000000),
         })
     })
     return lineChartData

@@ -8,6 +8,7 @@ import { useClickAway } from "react-use";
 import DashboardSearchBar from "../../components/seller/DashboardSearchBar";
 import MuiTableComponent from "../../components/seller/TableComponent";
 import { formatPrice } from "../../helper/helperFunctions";
+import { IoMdAdd } from "react-icons/io";
 
 type UserTableType = {
   id: number;
@@ -69,24 +70,34 @@ export default function Customers() {
     { field: "id", headerName: "ID", flex: 0.2, sortable: false },
     { field: "phone", headerName: "Phone", flex: 1, sortable: false },
     { field: "location", headerName: "Location", flex: 1, sortable: false },
-    { field: "orders", headerName: "Order(s)", flex: 0.5 },
+    { field: "orders", headerName: "Order(s)", flex: .5 },
     {
       field: "totalSpent",
       headerName: "Total Spent",
       flex: 0.8,
       renderCell: ({ row }) => <span>₦{formatPrice(row.totalSpent)}</span>,
     },
-    { field: "status", headerName: "Status", flex: 0.5, sortable: false },
+    {
+      field: "status",
+      headerName: "Status",
+      renderCell: ({row}) => (
+        <div className={row.status == 'Active'? 'text-[#008000]':'text-[#FF0000]'}>
+          {row.status}
+        </div>
+      ),
+      flex: 0.5,
+      sortable: false,
+    },
     {
       field: "Action",
       renderCell: () => (
-        <div className="h-full relative flex justify-center items-center">
+        <div className="h-full text-[#0000FF] relative flex justify-center items-center">
           <Link to={`/${pathname.split("/")[1]}/customers/customer`}>
-            <FaRegEye size={16} className="cursor-pointer" />
+            View
           </Link>
         </div>
       ),
-      flex: 0.1,
+      flex: 0.5,
       sortable: false,
     },
   ];
@@ -112,25 +123,25 @@ export default function Customers() {
         </div>
       )}
 
-      <div className="w-full py-4 sm:py-5 px-4 sm:px-6 md:px-8 lg:px-24 border-b border-b-primaryBorder">
+      <div className="w-full py-3 sm:py-4 px-4 sm:px-6 md:px-8 lg:px-24 border-b border-b-[#E3E3E3]">
         <DashboardSearchBar />
       </div>
 
       <div className="px-4 sm:px-6 md:px-8 lg:px-24 w-full mt-4 flex flex-col flex-1">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mt-1 gap-y-3 sm:gap-y-0">
-          <h1 className="text-2xl sm:text-3xl font-bold">Customers</h1>
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mt-1 mb-1 gap-y-3 sm:gap-y-0">
+          <h1 className="text-xl font-bold">Customers</h1>
           <div className="flex items-center gap-x-3 sm:gap-x-5">
             <button
               onClick={() => setExportModal(true)}
-              className="text-sm sm:text-base hover:underline text-defaultOrange"
+              className="text-sm hover:underline text-defaultOrange"
             >
               Export
             </button>
             <Link
               to={`/${pathname.split("/")[1]}/customers/add-customer`}
-              className="rounded-lg px-4 sm:px-5 py-2 sm:py-2.5 text-white text-sm sm:text-base bg-defaultOrange hover:bg-defaultOrangeHover"
+              className="flex items-center rounded-lg px-3 py-2 sm:py-2.5 text-white text-sm bg-defaultOrange hover:bg-defaultOrangeHover"
             >
-              Add Customer
+             <span className="text-lg mr-2"><IoMdAdd /></span> Add Customer
             </Link>
           </div>
         </div>
@@ -140,12 +151,12 @@ export default function Customers() {
           <div className="flex flex-col sm:flex-row gap-x-3 sm:gap-x-5 items-start sm:items-center w-full sm:w-auto">
             {/* Sort by Dropdown */}
             <div className="flex flex-col gap-y-1 w-full sm:w-auto">
-              <p className="text-xs">Sort by:</p>
               <select
-                className="p-2.5 text-sm rounded-lg border border-primaryBorder bg-white outline-none w-full sm:w-auto"
+                className="p-2.5 text-xs rounded-lg border border-primaryBorder bg-white outline-none w-full sm:w-auto"
                 onChange={handleSortChange}
                 value={sortCriteria}
               >
+                <option disabled>Sort by</option>
                 <option value="name">Name</option>
                 <option value="id">ID</option>
                 <option value="location">Location</option>
@@ -155,11 +166,10 @@ export default function Customers() {
 
             {/* Sort Order Dropdown */}
             <div className="flex flex-col gap-y-1 w-full sm:w-auto">
-              <p className="text-xs">Order:</p>
               <div className="px-2.5 relative flex items-center gap-x-1 rounded-lg border border-primaryBorder bg-white w-full sm:w-auto">
                 <HiSortDescending />
                 <select
-                  className="text-sm outline-none h-full py-2.5 w-full sm:w-auto"
+                  className="text-xs outline-none h-full py-2.5 w-full sm:w-auto"
                   onChange={handleSortOrderChange}
                   value={sortOrder}
                 >
@@ -171,10 +181,10 @@ export default function Customers() {
           </div>
 
           {/* Search Bar */}
-          <div className="flex gap-x-2 px-3 w-full sm:w-[25%] rounded-lg border border-primaryBorder">
+          <div className="flex gap-x-2 px-1 text-[#6D6D6D] w-full sm:w-[25%] rounded-lg border border-primaryBorder">
             <CiSearch className="h-fit w-fit my-auto" size={24} />
             <input
-              className="flex-1 py-2.5 outline-none border-none text-sm bg-transparent"
+              className=" py-2.5 outline-none border-none text-sm bg-transparent"
               placeholder="Search"
               type="text"
             />

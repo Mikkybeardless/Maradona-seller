@@ -1,11 +1,12 @@
-import { Popper } from "@mui/material";
+import { Popper, Select, MenuItem, InputLabel, FormControl  } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
 import { useRef, useState } from "react";
 import { BiEditAlt } from "react-icons/bi";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { CiSearch } from "react-icons/ci";
-import { FaChevronRight, FaRegEye } from "react-icons/fa6";
+import { FaChevronRight, FaNairaSign, FaRegEye } from "react-icons/fa6";
 import { GoTrash } from "react-icons/go";
+import { TbCurrencyNaira } from "react-icons/tb";
 import { HiSortDescending } from "react-icons/hi";
 import { Link, useLocation } from "react-router-dom";
 import { useClickAway } from "react-use";
@@ -13,28 +14,33 @@ import Car from "../../assets/Dashboard-Car-3.png";
 import DashboardSearchBar from "../../components/seller/DashboardSearchBar";
 import MuiTableComponent from "../../components/seller/TableComponent";
 import { generateRandomNumber } from "../../helper/helperFunctions";
+import { IoMdAdd } from "react-icons/io";
 
-type ProdcutTableType = {
+type ProductTableType = {
   id: any;
   img: string;
   productName: string;
   category: string;
   price: number;
+  location: string;
+  description: string;
   stock: number;
   status: string;
 };
 
-const rows = (): ProdcutTableType[] => {
+const rows = (): ProductTableType[] => {
   const loopArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-  const returnArray: ProdcutTableType[] = [];
+  const returnArray: ProductTableType[] = [];
   loopArray.forEach((num) => {
     const statusPicker = generateRandomNumber(3, 1);
     returnArray.push({
       id: num,
       img: Car,
       productName: "Toyota Camry LE (2024)",
-      category: "Car",
+      category: "Cars",
       price: generateRandomNumber(5000000, 100000),
+      location: "Lagos, Nigeria",
+      description: "A well-maintained 2019 Toyota Corolla with low mileage and excellent fuel efficiency.",
       stock: generateRandomNumber(10, 0),
       status:
         statusPicker === 1
@@ -79,28 +85,23 @@ export default function Products() {
   };
 
   const columns: GridColDef[] = [
-    { field: "id", headerName: "ID", flex: 0.1 },
+    { field: "productName", headerName: "Product", type: "string", flex: .35 },
     {
-      field: "name",
-      headerName: "Product",
-      sortable: false,
+      field: "price",
+      headerName: "Price(₦)",
       renderCell: ({ row }) => {
         return (
-          <div className="flex flex-1 h-full items-center gap-x-2">
-            <img
-              className="w-auto h-[70%] rounded-lg object-contain bg-gray-100"
-              src={row.img}
-              alt="Product"
-            />
-            <span className="text-sm">{row.productName}</span>
+          <div className="w-full h-full items-center flex justify-center">
+            <span className="flex items-center gap-y-3 text-sm">
+            ₦{row.price}
+            </span>
           </div>
         );
       },
-      flex: 4,
     },
+    { field: "location", headerName: "Location", type: "string", flex: .35 },
     { field: "category", headerName: "Category" },
-    { field: "price", headerName: "Price(₦)", type: "number" },
-    { field: "stock", headerName: "Stock", type: "number", flex: 1 },
+    { field: "description", headerName: "Description", flex: .5 },
     {
       field: "status",
       headerName: "Status",
@@ -117,11 +118,10 @@ export default function Products() {
           </div>
         );
       },
-      flex: 1,
+      flex: .25,
     },
     {
       field: "Action",
-      flex: 0.5,
       renderCell: () => {
         return (
           <div className="h-full w-full relative z-10 flex justify-center items-center overflow-visible">
@@ -161,81 +161,92 @@ export default function Products() {
   });
 
   return (
-    <div className="w-full h-full overflow-y-auto flex flex-col custom-scrollbar pb-10 bg-[#F5F5F5]">
-      <div className="w-full py-5 px-6 md:px-12 lg:px-24 border-b border-b-primaryBorder">
+    <div className="w-full h-full overflow-y-auto flex flex-col custom-scrollbar pb-10 bg-[#FAFAFA]">
+      <div className="w-full py-3 px-6 md:px-12 lg:px-24 border-b border-b-[#E3E3E3]">
         <DashboardSearchBar />
       </div>
 
-      <div className="px-6 md:px-12 lg:px-24 w-full mt-4 flex flex-col flex-1">
+      <div className="px-6 md:px-12 lg:px-24 w-full mt-6 flex flex-col flex-1">
         <div className="flex gap-x-2 md:gap-x-4 items-center flex-wrap">
           <Link
             to={`/${pathname.split("/")[1]}/dashboard`}
-            className="text-sm opacity-60"
+            className="text-xs"
           >
             Dashboard
           </Link>
           <FaChevronRight size={14} className="hidden sm:inline" />
-          <span className="text-sm">Products</span>
+          <span className="text-xs">Products</span>
         </div>
 
-        <div className="flex flex-col sm:flex-row sm:justify-between items-center mt-1 gap-y-3">
+        <div className="flex flex-col sm:flex-row sm:justify-between items-center mt-6 gap-y-3">
           {/* Title */}
           <h1 className="text-2xl sm:text-3xl font-bold">Products</h1>
 
           {/* Add Product Button */}
           <Link
             to={`/${pathname.split("/")[1]}/products/add-product`}
-            className="rounded-lg px-6 sm:px-10 py-3 sm:py-4 text-white text-sm bg-defaultOrange hover:bg-defaultOrangeHover w-full sm:w-auto text-center"
+            className="flex items-center rounded-lg px-6 sm:px-6 py-3 sm:py-3 text-white text-sm bg-defaultOrange hover:bg-defaultOrangeHover w-full sm:w-auto text-center"
           >
-            Add product
+           <span className="text-lg mr-4"><IoMdAdd /></span> Add product
           </Link>
         </div>
 
         {/* Tabs */}
-        <div className="flex flex-wrap justify-center sm:justify-start gap-x-2 sm:gap-x-4 mt-4 border-b-2 border-gray-300 pb-2">
-          {["All", "Published", "Draft"].map((tab) => (
+        <div className="flex flex-wrap justify-center sm:justify-start gap-x-2 sm:gap-x-4 mt-4 border-b border-[#E6E6E6]">
+          {[`All`, `Published`, `Draft`].map((tab) => (
             <button
               key={tab}
               className={`px-3 sm:px-4 py-2 rounded-t-md text-sm font-medium ${
                 activeTab === tab
-                  ? "border-b-2 border-blue-500 text-blue-500"
+                  ? "border-b-4 border-[#14199C]"
                   : "text-gray-500"
               }`}
               onClick={() => setActiveTab(tab)}
             >
-              {tab}
+              {tab} <span className="ml-1">23</span>
             </button>
           ))}
         </div>
 
-        <div className="flex flex-wrap justify-between items-end mt-5 w-full gap-4">
+        <div className="flex flex-wrap justify-between items-center mt-5 w-full gap-4">
           {/* Filters Section */}
           <div className="flex flex-wrap gap-3 sm:gap-x-5 items-center">
+            <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+                <InputLabel id="category-label"><span className="text-[#040421]">Category</span></InputLabel>
+                <Select
+                  labelId="category-label" label="Category" className="text-[#040421]" >
+                  <MenuItem value="Cars">Cars</MenuItem>
+                  <MenuItem value="Houses">Houses</MenuItem>
+                  <MenuItem value="Lands">Lands</MenuItem>
+                </Select>
+            </FormControl>
+
             <div className="flex flex-col gap-y-1">
-              <p className="text-xs">Category:</p>
-              <select className="p-2.5 text-sm rounded-lg border border-primaryBorder bg-white outline-none">
-                <option>Car</option>
-              </select>
+              <FormControl sx={{ m: 1, minWidth: 100 }} size="small">
+                  <InputLabel id="stock-label"><span className="text-[#040421]">Stock</span></InputLabel>
+                  <Select
+                    labelId="stock-label" label="Category" className="text-[#040421]" >
+                    <MenuItem value="2">2</MenuItem>
+                    <MenuItem value="3">3</MenuItem>
+                    <MenuItem value="4">4</MenuItem>
+                  </Select>
+              </FormControl>
             </div>
 
             <div className="flex flex-col gap-y-1">
-              <p className="text-xs">Stock:</p>
-              <select className="p-2.5 text-sm rounded-lg border border-primaryBorder bg-white outline-none">
-                <option>2</option>
-              </select>
-            </div>
-
-            <div className="flex flex-col gap-y-1">
-              <p className="text-xs">Sort by name:</p>
-              <div className="px-2.5 relative flex items-center gap-x-1 rounded-lg border border-primaryBorder bg-white">
-                <HiSortDescending />
-                <select
-                  id="selectSort"
-                  className="text-sm outline-none h-full py-2.5"
-                >
-                  <option>Sort by name</option>
-                </select>
-              </div>
+              <FormControl sx={{ m: 1, minWidth: 180 }} size="small">
+                  <InputLabel id="sort-label">
+                    <span className="flex items-center text-[#040421]">
+                      <HiSortDescending /> 
+                      <span className="ml-1">Sort by name</span>
+                    </span>
+                  </InputLabel>
+                  <Select
+                    labelId="sort-label" label="Category" className="text-[#040421]" >
+                    <MenuItem value="Ascending">Ascending</MenuItem>
+                    <MenuItem value="Descending">Descending</MenuItem>
+                  </Select>
+              </FormControl>
             </div>
           </div>
 

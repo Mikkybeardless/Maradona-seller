@@ -19,7 +19,7 @@ export default function VerificationPage() {
   }, [time]);
 
   return (
-    <div className="p-6 bg-white min-h-screen flex items-center justify-center">
+    <div className="p-6 bg-white min-h-screen flex justify-center">
       <div className="flex flex-col items-center p-4 sm:p-8 md:p-12 bg-white w-full max-w-md">
         <h1 className="text-2xl sm:text-3xl text-center font-medium">
           Enter OTP

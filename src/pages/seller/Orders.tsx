@@ -100,8 +100,8 @@ export default function Orders() {
     { field: "id", headerName: "ID", flex: 0.3 },
     { field: "name", headerName: "Customer", flex: 0.9 },
     { field: "type", headerName: "Item type" },
-    { field: "details", headerName: "Item Details", flex: 1 },
-    { field: "date", headerName: "Order Date", flex: 1 },
+    { field: "details", headerName: "Item Details", flex: .8 },
+    { field: "date", headerName: "Order Date", flex: .8 },
     { field: "status", headerName: "Status" },
     {
       field: "Action",
@@ -109,43 +109,43 @@ export default function Orders() {
         return (
           <div className="h-full w-full relative flex justify-center gap-x-3 items-center">
             <Link
-              className="text-xs text-[#C38D00] hover:underline"
+              className="text-xs text-[#14199C] underline"
               to={`/${pathname.split("/")[1]}/orders/order`}
               state={row.status === "Processed" ? { isProcessed: true } : null}
             >
               View
             </Link>
             {row.status === "Pending" ? (
-              <button className="text-xs p-1 px-1.5 rounded-lg bg-[#E5FFE5] text-[#008000] hover:underline">
-                Process
+              <button className="text-xs p-1 px-1.5 rounded-lg bg-[#E9C50529] text-[#FFDC20] hover:underline">
+                Processing
               </button>
             ) : null}
             {row.status === "Processed" ||
             row.status === "Returned" ||
             row.status === "Pending" ? (
-              <button className="text-xs p-1 px-1.5 rounded-lg bg-[#FFB8B8] text-[#FF0000] hover:underline">
+              <button className="text-xs p-1 px-1.5 rounded-lg text-[#FF0000] underline">
                 Cancel
               </button>
             ) : null}
           </div>
         );
       },
-      flex: 0.9,
+      flex: 1,
     },
   ];
 
   // Filter rows based on the active tab (for non-analytical views)
   const allRows = rows();
   const filteredRows =
-    activeTab === "Analytical"
+    activeTab === "Analytics"
       ? []
       : allRows.filter((row) => {
           switch (activeTab) {
             case "New":
               return row.status === "Pending";
-            case "Return":
+            case "Returned":
               return row.status === "Returned";
-            case "Cancel":
+            case "Cancelled":
               return row.status === "Cancelled";
             case "Processed":
               return row.status === "Processed";
@@ -156,6 +156,8 @@ export default function Orders() {
 
   return (
     <div className="w-full h-full overflow-y-auto flex flex-col custom-scrollbar md:pb-3 pb-32 ">
+
+      {/* Export Modal  */}
       {exportModal ? (
         <div className="w-screen h-screen flex justify-center items-center fixed top-0 left-0 z-30 bg-black/50 backdrop-blur-sm px-4">
           <div
@@ -226,6 +228,8 @@ export default function Orders() {
         </div>
       ) : null}
 
+      {/* Export Modal End  */}
+
       {/* Search Bar */}
       <div className="w-full py-3.5 px-6 sm:px-12 md:px-24 border-b border-b-primaryBorder">
         <DashboardSearchBar />
@@ -239,13 +243,13 @@ export default function Orders() {
           </h1>
 
           <div className="flex flex-wrap items-center gap-x-3 gap-y-3">
-            <button className="text-sm sm:text-base flex items-center gap-x-2 rounded-lg px-4 py-2.5 bg-[#FFF4EE] text-defaultOrange">
-              <FaRegEyeSlash color="#e65800" />
+            <button className="text-sm sm:text-base flex items-center gap-x-2 rounded px-4 py-2.5 bg-[#E8E9FC] text-defaultOrange">
+              <FaRegEyeSlash color="#14199C" />
               <span>Hide analytics</span>
             </button>
             <button
               onClick={openExportModal}
-              className="text-sm sm:text-base rounded-lg px-4 py-2.5 bg-defaultOrange hover:bg-defaultOrangeHover text-white"
+              className="text-sm rounded-lg px-4 py-2.5 bg-defaultOrange hover:bg-defaultOrangeHover text-white"
             >
               Export
             </button>
@@ -274,7 +278,7 @@ export default function Orders() {
             <Tabs
               value={activeTab}
               onChange={(e, newValue) => setActiveTab(newValue)}
-              textColor="primary"
+              textColor="#040421"
               indicatorColor="primary"
               variant="scrollable"
               scrollButtons="auto"
@@ -282,80 +286,36 @@ export default function Orders() {
               <Tab
                 label="New"
                 value="New"
-                sx={{ textTransform: "capitalize" }}
-              />
-              <Tab
-                label="Return"
-                value="Return"
-                sx={{ textTransform: "capitalize" }}
-              />
-              <Tab
-                label="Cancel"
-                value="Cancel"
-                sx={{ textTransform: "capitalize" }}
+                sx={activeTab === "New"?{ fontWeight: "bold", textTransform: "capitalize" }:{ textTransform: "capitalize" }}
               />
               <Tab
                 label="Processed"
                 value="Processed"
-                sx={{ textTransform: "capitalize" }}
+                sx={activeTab === "Processed"?{ fontWeight: "bold", textTransform: "capitalize" }:{ textTransform: "capitalize" }}
               />
               <Tab
-                label="Analytical"
-                value="Analytical"
-                sx={{ textTransform: "capitalize" }}
+                label="Cancelled"
+                value="Cancelled"
+                sx={activeTab === "Cancelled"?{ fontWeight: "bold", textTransform: "capitalize" }:{ textTransform: "capitalize" }}
+              />
+              <Tab
+                label="Returned"
+                value="Returned"
+                sx={activeTab === "Returned"?{ fontWeight: "bold", textTransform: "capitalize" }:{ textTransform: "capitalize" }}
+              />
+              <Tab
+                label="Analytics"
+                value="Analytics"
+                sx={activeTab === "Analytics"?{ fontWeight: "bold", textTransform: "capitalize" }:{ textTransform: "capitalize" }}
               />
             </Tabs>
           </Box>
         </div>
 
-        {/* Filters & Search Bar */}
-        <div className="flex flex-wrap justify-between items-center gap-y-4 mt-5 w-full">
-          {/* Filters */}
-          <div className="flex flex-wrap gap-x-5 gap-y-3 items-center">
-            <div className="flex flex-col gap-y-1">
-              <p className="text-xs">Customer:</p>
-              <select className="p-2.5 text-sm rounded-lg border border-primaryBorder bg-white outline-none">
-                <option>Rosie Sunday</option>
-              </select>
-            </div>
-            <div className="flex flex-col gap-y-1">
-              <p className="text-xs">Status:</p>
-              <select className="p-2.5 text-sm rounded-lg border border-primaryBorder bg-white outline-none">
-                <option>Pending</option>
-                <option>Processed</option>
-                <option>Cancelled</option>
-                <option>Returned</option>
-              </select>
-            </div>
-            <div className="flex flex-col gap-y-1">
-              <p className="text-xs">Type:</p>
-              <select className="p-2.5 text-sm rounded-lg border border-primaryBorder bg-white outline-none">
-                <option>House</option>
-              </select>
-            </div>
-            <div className="flex flex-col gap-y-1">
-              <p className="text-xs">Order Date:</p>
-              <select className="p-2.5 text-sm rounded-lg border border-primaryBorder bg-white outline-none">
-                <option>{new Date().toLocaleDateString()}</option>
-              </select>
-            </div>
-          </div>
+        
 
-          {/* Responsive Search Bar */}
-          <div className="flex items-center gap-x-2 px-3 w-full sm:w-auto sm:basis-[25%] rounded-lg border border-primaryBorder">
-            <CiSearch className="h-fit w-fit my-auto" size={24} />
-            <input
-              className="flex-1 py-2.5 outline-none border-none text-sm bg-transparent"
-              placeholder="Search"
-              type="text"
-            />
-          </div>
-        </div>
-
-        {activeTab === "Analytical" ? (
+        {activeTab === "Analytics" ? (
           <div className="w-full mt-5">
-            <h2 className="text-2xl font-bold mb-4">Order Analytics</h2>
-
             <div className="p-3.5 rounded-lg border border-primaryBorder mt-7">
               {/* Title & Select Dropdown (Responsive) */}
               <div className="flex flex-wrap w-full justify-between items-center gap-3">
@@ -370,13 +330,13 @@ export default function Orders() {
               <div className="mt-2 flex flex-wrap gap-x-8 gap-y-2 items-center">
                 <p className="text-xs text-[#585858]">
                   Total income:{" "}
-                  <span className="text-lg text-defaultOrange">
+                  <div className="text-lg text-[#E65800]">
                     ₦23,230,450
-                  </span>
+                  </div>
                 </p>
                 <p className="text-xs text-[#585858]">
                   Total expenditure:{" "}
-                  <span className="text-lg text-defaultOrange">₦5,230,450</span>
+                  <div className="text-lg text-[#E65800]">₦5,230,450</div>
                 </p>
               </div>
 
@@ -386,7 +346,7 @@ export default function Orders() {
                   chartData={generateLineChartData1SellerDashboard()}
                   lines={[
                     {
-                      name: "expenditure",
+                      name: "Expenditure",
                       type: "monotone",
                       color: "#e65800",
                       lineWidth: 3,
@@ -394,7 +354,7 @@ export default function Orders() {
                       dotShow: false,
                     },
                     {
-                      name: "income",
+                      name: "Income",
                       type: "monotone",
                       color: "#0B0C52",
                       lineWidth: 3,
@@ -407,19 +367,76 @@ export default function Orders() {
             </div>
           </div>
         ) : (
-          /* Responsive Table */
-          <div className="mt-3 flex flex-1 w-full overflow-x-auto">
-            <MuiTableComponent
-              columns={columns}
-              showCheckbox={false}
-              rows={filteredRows}
-              paginationActive={true}
-              rowHeight={60}
-              pageSize={10}
-            />
-          </div>
+
+          <>
+        {/* Filters & Search Bar */}
+            <div className="mb-4" ><FiltersAndSearch/></div>
+            
+            {/* Responsive Table */}
+            <div className="mt-3 flex flex-1 w-full overflow-x-auto">
+              <MuiTableComponent
+                columns={columns}
+                showCheckbox={false}
+                rows={filteredRows}
+                paginationActive={true}
+                rowHeight={60}
+                pageSize={10}
+              />
+            </div>
+          </>
         )}
       </div>
     </div>
   );
+}
+
+function FiltersAndSearch(){
+
+  return(
+    <div className="flex flex-wrap justify-between items-center gap-y-4 mt-5 w-full">
+      {/* Filters */}
+      <div className="flex flex-wrap gap-x-5 gap-y-3 items-center">
+
+        <div className="flex flex-col gap-y-1 pr-3 rounded-lg border border-primaryBorder bg-white outline-none">
+          <select className="p-2.5 work-sans text-sm outline-none">
+            <option>Customer</option>
+            <option>Rosie Sunday</option>
+          </select>
+        </div>
+
+        <div className="flex flex-col gap-y-1 pr-3 rounded-lg border border-primaryBorder bg-white outline-none">
+          <select className="p-2.5 work-sans text-sm outline-none">
+            <option>Status</option>
+            <option>Pending</option>
+            <option>Processed</option>
+            <option>Cancelled</option>
+            <option>Returned</option>
+          </select>
+        </div>
+
+        <div className="flex flex-col gap-y-1 pr-3 rounded-lg border border-primaryBorder bg-white outline-none">
+          <select className="p-2.5 work-sans text-sm outline-none ">
+            <option>Today</option>
+          </select>
+        </div>
+
+        <div className="flex flex-col gap-y-1 pr-3 rounded-lg border border-primaryBorder bg-white outline-none">
+          <select className="p-2.5 work-sans text-sm outline-none">
+            <option>Modified</option>
+          </select>
+        </div>
+
+      </div>
+
+      {/* Responsive Search Bar */}
+      <div className="flex items-center gap-x-2 px-3 w-full sm:w-auto sm:basis-[25%] rounded-lg border border-primaryBorder">
+        <CiSearch className="h-fit w-fit my-auto" size={24} />
+        <input
+          className="flex-1 py-2.5 outline-none border-none text-sm bg-transparent"
+          placeholder="Search"
+          type="text"
+        />
+      </div>
+    </div>
+  )
 }

@@ -9,7 +9,7 @@ export default {
       defaultOrange: "#14199C",
       defaultOrangeHover: "#b74600",
       secondaryOrange: "#FFF1E9",
-      primaryBorder: "#DED9DD",
+      primaryBorder: "#E3E3E3",
       secondaryTextColor: "#585858",
     },
     screens: {

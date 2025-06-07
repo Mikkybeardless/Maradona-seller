@@ -10,6 +10,9 @@
 html,
 body {
   overflow-y: auto;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
 }
 
 button,
@@ -20,4 +23,12 @@ p {
 
 input {
   outline: none;
+}
+
+
+
+#product-qty-input::-webkit-outer-spin-button,
+#product-qty-input::-webkit-inner-spin-button {
+  -webkit-appearance: textfield !important;
+  opacity: 1 !important;
 }

@@ -54,10 +54,10 @@ function ExpensesReport() {
       <div className="w-[95%] sm:w-[90%] mx-auto mb-20 pt-6 sm:pt-12">
         <div className="flex flex-wrap gap-3 sm:gap-x-7 items-center mb-6 sm:mb-12">
           <Link
-            to="/seller/dashboard"
+            to="/seller/reports"
             className="text-[16px] sm:text-[20px] font-semibold text-[#14199C]"
           >
-            Dashboard
+            Reports
           </Link>
           <FaChevronRight size={14} color="#14199C" />
           <span className="text-sm sm:text-xl font-semibold bg-[#14199C] px-4 py-2 rounded-lg text-white">
