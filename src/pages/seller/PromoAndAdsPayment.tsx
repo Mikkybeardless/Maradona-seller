@@ -139,7 +139,7 @@ function PromoAndAdsPayment() {
             }}
             onClick={handleNextClick}
           >
-            Next
+            Proceed
           </Button>
         </div>
       </div>

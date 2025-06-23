@@ -1,9 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SignIn from "../components/SignIn";
 import SignUp from "../components/SignUp";
 
 export default function Login() {
-  const [signUp, setSignUp] = useState(false);
+  let urlParams = new URLSearchParams(document.location.search);
+  let signup = urlParams.get("signup")
+  var isSignupTrue = (signup === 'true');
+
+  const [signUp, setSignUp] = useState();
+
+  useEffect(() => {
+    setSignUp(isSignupTrue)
+  }, [])
+
 
   return (
     <div className="w-screen h-screen flex bg-[#F5F5F5]">

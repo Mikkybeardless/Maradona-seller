@@ -1,13 +1,19 @@
-import { BsBoxSeam, BsCart3 } from "react-icons/bs";
+import { TbTruckDelivery } from "react-icons/tb";
+import { LuGift } from "react-icons/lu";
 import { GoGear } from "react-icons/go";
-import { LuUsers2 } from "react-icons/lu";
+import { HiOutlineUsers } from "react-icons/hi2";
 import { MdOutlineLogout } from "react-icons/md";
 import { PiSealPercent } from "react-icons/pi";
-import { RxDashboard } from "react-icons/rx";
+import { TbLayoutDashboard } from "react-icons/tb";
 import { SlChart } from "react-icons/sl";
 import { LuWallet } from "react-icons/lu";
 import { NavLink } from "react-router-dom";
 import logo from "../assets/logo.svg";
+import reports from "../assets/analytics-up.svg";
+import reports2 from "../assets/analytics-up2.svg";
+import promotions from "../assets/discount-tag.svg";
+import promotions2 from "../assets/discount-tag2.svg";
+import { BsBoxSeam } from "react-icons/bs";
 // import { GoGear } from "react-icons/go"
 
 export default function Sidebar() {
@@ -22,11 +28,11 @@ export default function Sidebar() {
             `${
               isActive
                 ? "bg-defaultOrange text-white"
-                : "text-black hover:bg-defaultOrange/20"
+                : "text-[#3E3E3E] hover:bg-defaultOrange/20"
             } rounded-[8px] p-2.5 px-3 flex items-center gap-x-3 text-sm w-full`
           }
         >
-          <RxDashboard size={16} className="transition-none flex-shrink-0" />
+          <TbLayoutDashboard size={24} className="transition-none flex-shrink-0" />
           <span className="line-clamp-1">Dashboard</span>
         </NavLink>
 
@@ -36,11 +42,11 @@ export default function Sidebar() {
             `${
               isActive
                 ? "bg-defaultOrange text-white"
-                : "text-black hover:bg-defaultOrange/20"
+                : "text-[#3E3E3E] hover:bg-defaultOrange/20"
             } rounded-[8px] p-2.5 px-3 flex items-center gap-x-3 text-sm w-full`
           }
         >
-          <BsBoxSeam size={16} className="transition-none flex-shrink-0" />
+          <BsBoxSeam size={20} className="transition-none flex-shrink-0" />
           <span className="line-clamp-1">Products</span>
         </NavLink>
 
@@ -50,11 +56,11 @@ export default function Sidebar() {
             `${
               isActive
                 ? "bg-defaultOrange text-white"
-                : "text-black hover:bg-defaultOrange/20"
+                : "text-[#3E3E3E] hover:bg-defaultOrange/20"
             } rounded-[8px] p-2.5 px-3 flex items-center gap-x-3 text-sm w-full`
           }
         >
-          <LuUsers2 size={16} className="transition-none flex-shrink-0" />
+          <HiOutlineUsers size={24} className="transition-none flex-shrink-0" />
           <span className="line-clamp-1">Customers</span>
         </NavLink>
 
@@ -64,12 +70,12 @@ export default function Sidebar() {
                         `${
                             isActive
                                 ? "bg-defaultOrange text-white"
-                                : "text-black hover:bg-defaultOrange/20"
+                                : "text-[#3E3E3E] hover:bg-defaultOrange/20"
                         } rounded-[8px] p-2.5 px-3 flex items-center gap-x-3 text-sm w-full`
                     }
                 >
                     <BsBoxSeam
-                        size={16}
+                        size={24}
                         className="transition-none flex-shrink-0"
                     />
                     <span className="line-clamp-1">Listings</span>
@@ -81,11 +87,11 @@ export default function Sidebar() {
             `${
               isActive
                 ? "bg-defaultOrange text-white"
-                : "text-black hover:bg-defaultOrange/20"
+                : "text-[#3E3E3E] hover:bg-defaultOrange/20"
             } rounded-[8px] p-2.5 px-3 flex items-center gap-x-3 text-sm w-full`
           }
         >
-          <BsCart3 size={16} className="transition-none flex-shrink-0" />
+          <LuGift size={24} className="transition-none flex-shrink-0" />
           <span className="line-clamp-1">Orders</span>
         </NavLink>
 
@@ -95,11 +101,12 @@ export default function Sidebar() {
             `${
               isActive
                 ? "bg-defaultOrange text-white"
-                : "text-black hover:bg-defaultOrange/20"
+                : "text-[#3E3E3E] hover:bg-defaultOrange/20"
             } rounded-[8px] p-2.5 px-3 flex items-center gap-x-3 text-sm w-full`
           }
         >
-          <SlChart size={16} className="transition-none flex-shrink-0" />
+          {/* <SlChart size={24} className="transition-none flex-shrink-0" /> */}
+          {window.location.href.includes('seller/reports') ? <img src={reports2} alt="reports"/> : <img src={reports} alt="reports"/>}
           <span className="line-clamp-1">Reports</span>
         </NavLink>
 
@@ -109,27 +116,28 @@ export default function Sidebar() {
             `${
               isActive
                 ? "bg-defaultOrange text-white"
-                : "text-black hover:bg-defaultOrange/20"
+                : "text-[#3E3E3E] hover:bg-defaultOrange/20"
             } rounded-[8px] p-2.5 px-3 flex items-center gap-x-3 text-sm w-full`
           }
         >
-          <PiSealPercent size={16} className="transition-none flex-shrink-0" />
+          {/* <PiSealPercent size={24} className="transition-none flex-shrink-0" /> */}
+          {window.location.href.includes('seller/promotions') ? <img src={promotions2} alt="Promotions & Ads"/> : <img src={promotions} alt="Promotions & Ads"/>}
           <span className="line-clamp-1">Promotions & Ads</span>
         </NavLink>
 
-        <NavLink
+        {/* <NavLink
           to="/seller/wallet"
           className={({ isActive }) =>
             `${
               isActive
                 ? "bg-defaultOrange text-white"
-                : "text-black hover:bg-defaultOrange/20"
+                : "text-[#3E3E3E] hover:bg-defaultOrange/20"
             } rounded-[8px] p-2.5 px-3 flex items-center gap-x-3 text-sm w-full`
           }
         >
-          <LuWallet size={16} className="transition-none flex-shrink-0" />
+          <LuWallet size={24} className="transition-none flex-shrink-0" />
           <span className="line-clamp-1">Wallet</span>
-        </NavLink>
+        </NavLink> */}
 
         <NavLink
           to="shipments"
@@ -137,11 +145,11 @@ export default function Sidebar() {
             `${
               isActive
                 ? "bg-defaultOrange text-white"
-                : "text-black hover:bg-defaultOrange/20"
+                : "text-[#3E3E3E] hover:bg-defaultOrange/20"
             } rounded-[8px] p-2.5 px-3 flex items-center gap-x-3 text-sm w-full`
           }
         >
-          <BsBoxSeam size={16} className="transition-none flex-shrink-0" />
+          <TbTruckDelivery size={24} className="transition-none flex-shrink-0" />
           <span className="line-clamp-1">Shipments</span>
         </NavLink>
 
@@ -151,11 +159,11 @@ export default function Sidebar() {
             `${
               isActive
                 ? "bg-defaultOrange text-white"
-                : "text-black hover:bg-defaultOrange/20"
+                : "text-[#3E3E3E] hover:bg-defaultOrange/20"
             } rounded-[8px] p-2.5 px-3 flex items-center gap-x-3 text-sm w-full`
           }
         >
-          <GoGear size={16} className="transition-none flex-shrink-0" />
+          <GoGear size={24} className="transition-none flex-shrink-0" />
           <span className="line-clamp-1">Settings</span>
         </NavLink>
       </div>
@@ -164,7 +172,7 @@ export default function Sidebar() {
         to="/login"
         className="w-full flex items-center gap-x-3 p-3 rounded-lg hover:bg-black/5"
       >
-        <MdOutlineLogout size={16} color="crimson" />
+        <MdOutlineLogout size={24} color="crimson" />
         <span>Logout</span>
       </NavLink>
     </div>

@@ -28,6 +28,46 @@ interface ComponentProps {
   paddingX?: { left: number; right: number };
 }
 
+function CustomizedXAxisTick(props)  {
+    const { x, y, stroke, payload } = props;
+
+    return (
+      <text x={x} y={y} dy={10} fill="#1137D0" fontWeight="bold" fontSize={10} textAnchor="middle">
+        {payload.value}
+      </text>
+      )
+}
+
+function DefaultXAxisTick(props)  {
+  const { x, y, stroke, payload } = props;
+
+  return (
+    <text x={x} y={y} dy={10} fill="#585858" fontWeight="bold" fontSize={10} textAnchor="middle">
+      {payload.value}
+    </text>
+    )
+}
+
+function CustomizedYAxisTick(props)  {
+  const { x, y, stroke, payload } = props;
+
+  return (
+    <text x={x} y={y} dx={-50} fill="#FD6100" fontWeight="bold" fontSize={10}>
+      {payload.value}
+    </text>
+    )
+}
+
+function DefaultYAxisTick(props)  {
+  const { x, y, stroke, payload } = props;
+
+  return (
+    <text x={x} y={y} dx={-30} fill="#585858" fontWeight="bold" fontSize={10} textAnchor="middle">
+      {payload.value}
+    </text>
+    )
+}
+
 export default function LineChartComponent({
   chartData,
   lines,
@@ -35,6 +75,8 @@ export default function LineChartComponent({
   tickCount,
   gridShow,
   paddingX,
+  customX,
+  customY
 }: ComponentProps) {
   return (
     <ResponsiveContainer
@@ -60,12 +102,14 @@ export default function LineChartComponent({
           tickLine={false}
           tickSize={10}
           padding={paddingX ? paddingX : {left: 5}}
+          tick={customX?<CustomizedXAxisTick />:<DefaultXAxisTick/>}
         />
         <YAxis
           name={"Time"}
           tickSize={2}
           tickCount={tickCount || 5}
           className="text-xs"
+          tick={customY?<CustomizedYAxisTick />:<DefaultYAxisTick/>}
         />
         <Tooltip wrapperClassName="text-xs" />
 

@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 import FacebookLogo from "../assets/facebook-logo.png";
 import GoogleLogo from "../assets/google-icon.svg";
+import { useSelector, useDispatch } from 'react-redux';
+import {loginUser} from '../redux/slices/userSlice'
+import { AppDispatch } from "../redux/store";
 
 interface SignUpProps {
   setSignUp: React.Dispatch<React.SetStateAction<boolean>>;
@@ -10,7 +13,35 @@ interface SignUpProps {
 
 export default function SignIn({ setSignUp }: SignUpProps) {
   const [togglePasswordShow, setTogglePasswordShow] = useState(false);
+
+  const [loginFormData, setLoginFormData] = useState({
+    email:"mhyelavala@gmail.com",
+    password: "mvala1234",
+    login_by: "email",
+    user_type: "seller"
+  })
   const navigate = useNavigate();
+
+  
+  const dispatch = useDispatch<AppDispatch>();
+  const seller = useSelector((state: any) => state.users.users);
+
+  function handleLogin() {
+    dispatch(loginUser(loginFormData));
+  }
+
+  // useEffect(()=>{
+  //   dispatch(loginUser(loginFormData))
+  // }, [dispatch])
+
+  function handleInputChange(e:any){
+    let inputField = e.target.name
+    let inputValue = e.target.value
+    setLoginFormData({
+      ...loginFormData,
+      [inputField]: inputValue
+    })
+  }
 
   function goToHome() {
     navigate("/");
@@ -35,6 +66,8 @@ export default function SignIn({ setSignUp }: SignUpProps) {
           className="p-3 px-4 rounded-[8px] border-primaryBorder border-[1px] outline-none bg-white"
           type="email"
           placeholder="Email or Phone"
+          name="email"
+          onChange={handleInputChange}
         />
       </div>
 
@@ -45,6 +78,8 @@ export default function SignIn({ setSignUp }: SignUpProps) {
             className="outline-none w-[95%]"
             type={!togglePasswordShow ? "password" : "text"}
             placeholder="Password"
+            name="password"
+            onChange={handleInputChange}
           />
           {!togglePasswordShow ? (
             <FaRegEye
@@ -70,7 +105,7 @@ export default function SignIn({ setSignUp }: SignUpProps) {
       </Link>
 
       <button
-        onClick={goToHome}
+        onClick={handleLogin}
         className="w-full py-3 rounded-[8px] mt-8 text-white bg-defaultOrange hover:bg-defaultOrangeHover text-sm"
       >
         Login

@@ -8,6 +8,7 @@ import { useClickAway } from "react-use";
 import DashboardSearchBar from "../../components/seller/DashboardSearchBar";
 import MuiTableComponent from "../../components/seller/TableComponent";
 import { formatPrice } from "../../helper/helperFunctions";
+import { IoMdAdd } from "react-icons/io";
 
 type UserTableType = {
   id: number;
@@ -138,9 +139,9 @@ export default function Customers() {
             </button>
             <Link
               to={`/${pathname.split("/")[1]}/customers/add-customer`}
-              className="rounded-lg px-3 py-2 sm:py-2.5 text-white text-sm bg-defaultOrange hover:bg-defaultOrangeHover"
+              className="flex items-center rounded-lg px-3 py-2 sm:py-2.5 text-white text-sm bg-defaultOrange hover:bg-defaultOrangeHover"
             >
-              Add Customer
+             <span className="text-lg mr-2"><IoMdAdd /></span> Add Customer
             </Link>
           </div>
         </div>

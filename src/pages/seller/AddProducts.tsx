@@ -206,7 +206,7 @@ export default function AddProducts() {
                       id="condition-old"
                     />
                     <label htmlFor="condition-old">
-                      Old
+                      Used
                     </label>
                   </div>
                 </div>

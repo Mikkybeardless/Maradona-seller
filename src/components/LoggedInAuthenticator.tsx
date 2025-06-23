@@ -20,12 +20,13 @@ export default function LoggedInAuthenticator() {
   // Determine which sidebar to use (or hide on mobile)
   const isAdmin = pathname.startsWith("/admin") && !pathname.includes("/login");
   const isSeller = pathname.startsWith("/seller");
+  const isOrderTracking = pathname.includes("/seller/shipments/track");
 
   return (
     <div className="flex h-screen w-screen">
       {/* Show Sidebar only on desktop screens */}
       {!isMobile && (
-        <>{isAdmin ? <AdminSidebar /> : isSeller ? <Sidebar /> : null}</>
+        <>{isAdmin ? <AdminSidebar /> : isSeller ? !isOrderTracking ? <Sidebar /> : null : null}</>
       )}
 
       {/* Main Content */}

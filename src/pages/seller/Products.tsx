@@ -14,6 +14,7 @@ import Car from "../../assets/Dashboard-Car-3.png";
 import DashboardSearchBar from "../../components/seller/DashboardSearchBar";
 import MuiTableComponent from "../../components/seller/TableComponent";
 import { generateRandomNumber } from "../../helper/helperFunctions";
+import { IoMdAdd } from "react-icons/io";
 
 type ProductTableType = {
   id: any;
@@ -184,9 +185,9 @@ export default function Products() {
           {/* Add Product Button */}
           <Link
             to={`/${pathname.split("/")[1]}/products/add-product`}
-            className="rounded-lg px-6 sm:px-10 py-3 sm:py-3 text-white text-sm bg-defaultOrange hover:bg-defaultOrangeHover w-full sm:w-auto text-center"
+            className="flex items-center rounded-lg px-6 sm:px-6 py-3 sm:py-3 text-white text-sm bg-defaultOrange hover:bg-defaultOrangeHover w-full sm:w-auto text-center"
           >
-            Add product
+           <span className="text-lg mr-4"><IoMdAdd /></span> Add product
           </Link>
         </div>
 

@@ -144,3 +144,63 @@ input[type="number"] {
   font-family: "Poppins", sans-serif;
   font-style: normal;
 }
+
+.wallet{
+  animation: wallet 500ms ease-in-out forwards;
+}
+
+.walletfront{
+  animation: walletfront 500ms ease-in-out forwards;
+}
+
+.walletback{
+  animation: walletback 500ms ease-in-out forwards;
+}
+
+.walletbackhover{
+  /* animation: walletbackhover 500ms ease-in-out forwards; */
+  transform: rotate(8deg) !important;
+}
+
+@keyframes wallet{
+  0%{
+    margin-top: 2em;
+  }
+
+  50%{
+    margin-top: 1em;
+  }
+
+  100%{
+    margin-top: 0;
+  }
+}
+
+@keyframes walletfront{
+  0%{
+    rotate: 10deg;
+  }
+
+  50%{
+    rotate: 5deg;
+  }
+
+  100%{
+    rotate: 0;
+  }
+}
+
+@keyframes walletback{
+  0%{
+    rotate: -10deg;
+  }
+
+  50%{
+    rotate: -5deg;
+  }
+
+  100%{
+    rotate: 0;
+  }
+}
+

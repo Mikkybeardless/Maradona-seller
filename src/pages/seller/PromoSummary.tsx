@@ -148,7 +148,7 @@ function PromoSummary() {
                 maxWidth: "120px",
               }}
             >
-              Next
+              Submit
             </Button>
           </Link>
         </div>
