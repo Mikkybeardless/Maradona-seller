@@ -8,14 +8,14 @@ function PaymentMethods() {
   const [cards, setCards] = useState([
     {
       id: 1,
-      bank: "Access",
+      nameOnCard: "Access",
       cvv: "**3",
       cardNumber: "6213",
       expDate: "12/34",
     },
     {
       id: 2,
-      bank: "GTBank",
+      nameOnCard: "GTBank",
       cvv: "**7",
       cardNumber: "4321",
       expDate: "08/26",
@@ -27,7 +27,7 @@ function PaymentMethods() {
 
   // Handle adding a new card
   const handleAddCard = (newCard: {
-    bank: string;
+    nameOnCard: string;
     cvv: string;
     cardNumber: string;
     expDate: string;
@@ -87,14 +87,14 @@ export default PaymentMethods;
 // -------------------------------------------
 // Card Item Component
 export function CardItem({
-  bank,
+  nameOnCard,
   cvv,
   cardNumber,
   expDate,
   isSelected,
   onSelect,
 }: {
-  bank: string;
+  nameOnCard: string;
   cvv: string;
   cardNumber: string;
   expDate: string;
@@ -116,30 +116,42 @@ export function CardItem({
     >
       <Divider className="!w-[98%] m-auto" />
       <div className="flex items-center justify-between mt-2 font-medium text-center gap-1">
-        
-     <div>
-     {isSelected?
-        <IoCheckmarkCircleSharp
-        size={24}
-        color={isSelected ? "#1BB66E" : "#5E5E5E"}
-      />:null}
-     </div>
-        <p className="text-[10px] md:text-xs font-light text-[#5E5E5E] flex-1">Bank</p>
-        <p className="text-[10px] md:text-xs font-light text-[#5E5E5E] flex-1">CVV</p>
-        <p className="text-[10px] md:text-xs font-light text-[#5E5E5E] flex-1">CARD NUMBER</p>
-        <p className="text-[10px] md:text-xs font-light text-[#5E5E5E] flex-1">EXP DATE</p>
+        <div>
+          {isSelected ? (
+            <IoCheckmarkCircleSharp
+              size={24}
+              color={isSelected ? "#1BB66E" : "#5E5E5E"}
+            />
+          ) : null}
+        </div>
+        <p className="text-[10px] md:text-xs font-light text-[#5E5E5E] flex-1">
+          Name on Card
+        </p>
+        <p className="text-[10px] md:text-xs font-light text-[#5E5E5E] flex-1">
+          CVV
+        </p>
+        <p className="text-[10px] md:text-xs font-light text-[#5E5E5E] flex-1">
+          CARD NUMBER
+        </p>
+        <p className="text-[10px] md:text-xs font-light text-[#5E5E5E] flex-1">
+          EXP DATE
+        </p>
       </div>
 
       <div className="flex items-center justify-between mt-2 text-center gap-1">
         <IoCardOutline size={18} />
-        <p className="text-[10px] md:text-sm font-medium text-[#000000] flex-1">{bank}</p>
+        <p className="text-[10px] md:text-sm font-medium text-[#000000] flex-1">
+          {nameOnCard}
+        </p>
         <p className="text-[10px] md:text-sm font-medium text-[#000000] flex-1">
           {maskCvv(cvv.replace(/\s+/g, ""))}
         </p>
         <p className="text-[10px] md:text-sm font-medium text-[#000000] flex-1">
           {maskCardNumber(cardNumber.replace(/\s+/g, ""))}
         </p>
-        <p className="text-[10px] md:text-sm font-medium text-[#000000] flex-1">{expDate}</p>
+        <p className="text-[10px] md:text-sm font-medium text-[#000000] flex-1">
+          {expDate}
+        </p>
       </div>
     </div>
   );
@@ -168,30 +180,39 @@ export function BankItem({
       className="cursor-pointer pb-3 px-2 sm:px-4 lg:px-6"
       onClick={onSelect}
     >
-      
       <div className="">
-
         <div className="flex items-center">
-          {isSelected?
+          {isSelected ? (
             <IoCheckmarkCircleSharp
-            size={24}
-            color={isSelected ? "#1BB66E" : "#5E5E5E"}
-          />:null}
-            <div className="w-full">
-              <div className="flex flex-wrap items-center justify-between mt-2 font-medium text-center gap-1">
-                <p className="text-[10px] md:text-xs font-light text-[#5E5E5E] flex-1">Bank</p>
-                <p className="text-[10px] md:text-xs font-light text-[#5E5E5E] flex-1">Account No</p>
-                <p className="text-[10px] md:text-xs font-light text-[#5E5E5E] flex-1">Account Name</p>
-              </div>
-
-              <div className="flex flex-wrap items-center justify-between text-center mt-2 gap-1">
-                <p className="text-[10px] md:text-sm font-medium text-[#000000] flex-1">{bank}</p>
-                <p className="text-[10px] md:text-sm font-medium text-[#000000] flex-1">
-                  {maskAccountNumber(accountNumber.replace(/\s+/g, ""))}
-                </p>
-                <p className="text-[10px] md:text-sm font-medium text-[#000000] flex-1">{accountName}</p>
-              </div>
+              size={24}
+              color={isSelected ? "#1BB66E" : "#5E5E5E"}
+            />
+          ) : null}
+          <div className="w-full">
+            <div className="flex flex-wrap items-center justify-between mt-2 font-medium text-center gap-1">
+              <p className="text-[10px] md:text-xs font-light text-[#5E5E5E] flex-1">
+                Bank
+              </p>
+              <p className="text-[10px] md:text-xs font-light text-[#5E5E5E] flex-1">
+                Account No
+              </p>
+              <p className="text-[10px] md:text-xs font-light text-[#5E5E5E] flex-1">
+                Account Name
+              </p>
             </div>
+
+            <div className="flex flex-wrap items-center justify-between text-center mt-2 gap-1">
+              <p className="text-[10px] md:text-sm font-medium text-[#000000] flex-1">
+                {bank}
+              </p>
+              <p className="text-[10px] md:text-sm font-medium text-[#000000] flex-1">
+                {maskAccountNumber(accountNumber.replace(/\s+/g, ""))}
+              </p>
+              <p className="text-[10px] md:text-sm font-medium text-[#000000] flex-1">
+                {accountName}
+              </p>
+            </div>
+          </div>
         </div>
 
         <Divider className="!w-[98%] m-auto" />

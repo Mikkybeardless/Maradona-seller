@@ -1,4 +1,10 @@
-import { Popper, Select, MenuItem, InputLabel, FormControl  } from "@mui/material";
+import {
+  Popper,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
+} from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
 import { useRef, useState } from "react";
 import { BiEditAlt } from "react-icons/bi";
@@ -40,7 +46,8 @@ const rows = (): ProductTableType[] => {
       category: "Cars",
       price: generateRandomNumber(5000000, 100000),
       location: "Lagos, Nigeria",
-      description: "A well-maintained 2019 Toyota Corolla with low mileage and excellent fuel efficiency.",
+      description:
+        "A well-maintained 2019 Toyota Corolla with low mileage and excellent fuel efficiency.",
       stock: generateRandomNumber(10, 0),
       status:
         statusPicker === 1
@@ -85,7 +92,7 @@ export default function Products() {
   };
 
   const columns: GridColDef[] = [
-    { field: "productName", headerName: "Product", type: "string", flex: .35 },
+    { field: "productName", headerName: "Product", type: "string", flex: 0.35 },
     {
       field: "price",
       headerName: "Price(₦)",
@@ -93,15 +100,15 @@ export default function Products() {
         return (
           <div className="w-full h-full items-center flex justify-center">
             <span className="flex items-center gap-y-3 text-sm">
-            ₦{row.price}
+              ₦{row.price}
             </span>
           </div>
         );
       },
     },
-    { field: "location", headerName: "Location", type: "string", flex: .35 },
+    { field: "location", headerName: "Location", type: "string", flex: 0.35 },
     { field: "category", headerName: "Category" },
-    { field: "description", headerName: "Description", flex: .5 },
+    { field: "description", headerName: "Description", flex: 0.5 },
     {
       field: "status",
       headerName: "Status",
@@ -118,7 +125,7 @@ export default function Products() {
           </div>
         );
       },
-      flex: .25,
+      flex: 0.25,
     },
     {
       field: "Action",
@@ -168,10 +175,7 @@ export default function Products() {
 
       <div className="px-6 md:px-12 lg:px-24 w-full mt-6 flex flex-col flex-1">
         <div className="flex gap-x-2 md:gap-x-4 items-center flex-wrap">
-          <Link
-            to={`/${pathname.split("/")[1]}/dashboard`}
-            className="text-xs"
-          >
+          <Link to={`/${pathname.split("/")[1]}/dashboard`} className="text-xs">
             Dashboard
           </Link>
           <FaChevronRight size={14} className="hidden sm:inline" />
@@ -187,7 +191,10 @@ export default function Products() {
             to={`/${pathname.split("/")[1]}/products/add-product`}
             className="flex items-center rounded-lg px-6 sm:px-6 py-3 sm:py-3 text-white text-sm bg-defaultOrange hover:bg-defaultOrangeHover w-full sm:w-auto text-center"
           >
-           <span className="text-lg mr-4"><IoMdAdd /></span> Add product
+            <span className="text-lg mr-4">
+              <IoMdAdd />
+            </span>{" "}
+            Add product
           </Link>
         </div>
 
@@ -212,42 +219,19 @@ export default function Products() {
           {/* Filters Section */}
           <div className="flex flex-wrap gap-3 sm:gap-x-5 items-center">
             <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-                <InputLabel id="category-label"><span className="text-[#040421]">Category</span></InputLabel>
-                <Select
-                  labelId="category-label" label="Category" className="text-[#040421]" >
-                  <MenuItem value="Cars">Cars</MenuItem>
-                  <MenuItem value="Houses">Houses</MenuItem>
-                  <MenuItem value="Lands">Lands</MenuItem>
-                </Select>
+              <InputLabel id="category-label">
+                <span className="text-[#040421]">Category</span>
+              </InputLabel>
+              <Select
+                labelId="category-label"
+                label="Category"
+                className="text-[#040421]"
+              >
+                <MenuItem value="Cars">Cars</MenuItem>
+                <MenuItem value="Houses">Houses</MenuItem>
+                <MenuItem value="Lands">Lands</MenuItem>
+              </Select>
             </FormControl>
-
-            <div className="flex flex-col gap-y-1">
-              <FormControl sx={{ m: 1, minWidth: 100 }} size="small">
-                  <InputLabel id="stock-label"><span className="text-[#040421]">Stock</span></InputLabel>
-                  <Select
-                    labelId="stock-label" label="Category" className="text-[#040421]" >
-                    <MenuItem value="2">2</MenuItem>
-                    <MenuItem value="3">3</MenuItem>
-                    <MenuItem value="4">4</MenuItem>
-                  </Select>
-              </FormControl>
-            </div>
-
-            <div className="flex flex-col gap-y-1">
-              <FormControl sx={{ m: 1, minWidth: 180 }} size="small">
-                  <InputLabel id="sort-label">
-                    <span className="flex items-center text-[#040421]">
-                      <HiSortDescending /> 
-                      <span className="ml-1">Sort by name</span>
-                    </span>
-                  </InputLabel>
-                  <Select
-                    labelId="sort-label" label="Category" className="text-[#040421]" >
-                    <MenuItem value="Ascending">Ascending</MenuItem>
-                    <MenuItem value="Descending">Descending</MenuItem>
-                  </Select>
-              </FormControl>
-            </div>
           </div>
 
           {/* Search Input */}

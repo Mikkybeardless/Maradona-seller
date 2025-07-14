@@ -14,7 +14,6 @@ export default function DashboardRecentListings() {
               key={num}
               className="w-full flex flex-col items-center gap-y-2.5 rounded-t-[8px] text-[#454545]"
             >
-              
               <img
                 className="h-[130px] w-full rounded-[8px] object-fill bg-[#D9D9D9]"
                 src={RecentCars}

@@ -1,7 +1,6 @@
 import { Tab, Tabs } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
-import { useRef, useState } from "react";
-import { CiSearch } from "react-icons/ci";
+import { useEffect, useRef, useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import { FaArrowLeftLong, FaPlus, FaRegEye } from "react-icons/fa6";
 import { PhoneInput } from "react-international-phone";
@@ -10,6 +9,12 @@ import { Link, useLocation } from "react-router-dom";
 import { useClickAway } from "react-use";
 import DashboardSearchBar from "../../components/seller/DashboardSearchBar";
 import MuiTableComponent from "../../components/seller/TableComponent";
+import StateCitySelector from "../../components/common/StateCitySelector";
+import { DateSelect } from "../../components/common/DateSelect";
+import { FilterGroup } from "../../components/common/FilterGroup";
+import { useDebounce } from "../../hooks/useDebounce";
+import { IFilter } from "./Orders";
+import { TableSearchInput } from "../../components/common/tableSearchInput";
 
 export default function Shipments() {
   const location = useLocation();
@@ -28,10 +33,30 @@ export default function Shipments() {
       phone: "",
     },
   });
+  const [shipmentFormData, setShipmentFormData] = useState({
+    customerName: "",
+    zip: "",
+    address: "",
+    product: "",
+    description: "",
+    date: new Date().toLocaleDateString(),
+    phone: "",
+    city: "",
+    state: "",
+    carrier: "",
+    trackingNumber: "",
+  });
   const [shipmentModal, setShipmentModal] = useState(false);
   const promotionModalRef = useRef<HTMLDivElement>(null);
-  const [phone, setPhone] = useState<any>();
   const [selectedTab, setSelectedTab] = useState(0);
+  const [filters, setFilters] = useState<IFilter>({
+    type: "",
+    status: "",
+    date: null,
+    modified: null,
+  });
+  const [searchQuery, setSearchQuery] = useState("");
+  const debouncedSearchQuery = useDebounce(searchQuery);
 
   useClickAway(promotionModalRef, () => {
     setShipmentModal(false);
@@ -245,7 +270,7 @@ export default function Shipments() {
     },
     { field: "status", headerName: "Status", flex: 0.3, sortable: false },
     { field: "edd", headerName: "E.D.D", flex: 0.3, type: "date" },
-    { field: "address", headerName: "Delivery Address", flex: .5 },
+    { field: "address", headerName: "Delivery Address", flex: 0.5 },
     {
       field: "action",
       headerName: "Actions",
@@ -280,6 +305,38 @@ export default function Shipments() {
     },
   ];
 
+  const handleFormChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    field: keyof typeof shipmentFormData
+  ) => {
+    setShipmentFormData({
+      ...shipmentFormData,
+      [field]: e.target.value,
+    });
+  };
+
+  useEffect(() => {
+    // fetch or filter rows based on active tab, filters, and search query
+    const formatedFilters = {
+      type: filters.type || "",
+      status: filters.status || "",
+      date: filters.date ? filters.date.toISOString() : null,
+      modified: filters.modified ? filters.modified.toISOString() : null,
+    };
+
+    console.log("Fetching or filtering rows based on:", {
+      formatedFilters,
+      searchQuery,
+    });
+  }, [filters]);
+
+  useEffect(() => {
+    // Simulate fetching or filtering rows based on the search query
+    console.log(
+      "Fetching or filtering rows based on search query:",
+      debouncedSearchQuery
+    );
+  }, [debouncedSearchQuery]);
   return (
     <div className="w-full h-full overflow-y-auto flex flex-col custom-scrollbar pb-7 bg-[#F5F5F5]">
       {shipmentModal && (
@@ -305,6 +362,8 @@ export default function Shipments() {
                 <input
                   className="p-3 rounded-lg border border-gray-300 w-full"
                   type="text"
+                  value={shipmentFormData.customerName}
+                  onChange={(e) => handleFormChange(e, "customerName")}
                   placeholder="Type"
                 />
               </div>
@@ -320,18 +379,32 @@ export default function Shipments() {
                         "!h-auto w-full py-3 !rounded-lg border-gray-300",
                     }}
                     defaultCountry="ng"
-                    onChange={setPhone}
-                    value={phone}
+                    onChange={(value) =>
+                      setShipmentFormData({ ...shipmentFormData, phone: value })
+                    }
+                    value={shipmentFormData.phone}
                     inputClassName="w-full !h-auto !py-3 !rounded-lg outline-none !border !border-gray-300 !text-base"
                   />
                 </div>
               </div>
-
+              <StateCitySelector />
+              <div className="flex flex-col gap-y-1 text-sm">
+                <label className="font-medium">Zip:</label>
+                <input
+                  className="p-3 rounded-lg border border-[#B0B0B0]"
+                  type="text"
+                  value={shipmentFormData.zip}
+                  onChange={(e) => handleFormChange(e, "zip")}
+                  placeholder="Type"
+                />
+              </div>
               <div className="flex flex-col gap-1 text-sm">
-                <label className="font-medium">Address:</label>
+                <label className="font-medium">Street Address:</label>
                 <input
                   className="p-3 rounded-lg border border-gray-300 w-full"
                   type="text"
+                  value={shipmentFormData.address}
+                  onChange={(e) => handleFormChange(e, "address")}
                   placeholder="Type"
                 />
               </div>
@@ -341,6 +414,8 @@ export default function Shipments() {
                 <input
                   className="p-3 rounded-lg border border-gray-300 w-full"
                   type="text"
+                  value={shipmentFormData.product}
+                  onChange={(e) => handleFormChange(e, "product")}
                   placeholder="Type"
                 />
               </div>
@@ -350,6 +425,8 @@ export default function Shipments() {
                 <textarea
                   className="p-3 rounded-lg resize-none outline-none custom-scrollbar border border-gray-300 w-full"
                   placeholder="Type"
+                  value={shipmentFormData.description}
+                  onChange={(e) => handleFormChange(e, "description")}
                   rows={4}
                 />
               </div>
@@ -359,6 +436,8 @@ export default function Shipments() {
                 <input
                   className="p-3 rounded-lg border border-gray-300 w-full"
                   type="text"
+                  value={shipmentFormData.carrier}
+                  onChange={(e) => handleFormChange(e, "carrier")}
                   placeholder="Type"
                 />
               </div>
@@ -368,6 +447,8 @@ export default function Shipments() {
                 <input
                   className="p-3 rounded-lg border border-gray-300 w-full"
                   type="text"
+                  value={shipmentFormData.trackingNumber}
+                  onChange={(e) => handleFormChange(e, "trackingNumber")}
                   placeholder="Type"
                 />
               </div>
@@ -384,12 +465,15 @@ export default function Shipments() {
 
             <div className="flex justify-end gap-2 text-sm mt-4">
               <div className="flex gap-x-4">
-              <button onClick={() => closeShipmentModal()} className="p-3 rounded-lg text-[#14199C]">
-                Cancel
-              </button>
-              <button className="p-3 rounded-lg text-white bg-[#14199C]">
-                Create
-              </button>
+                <button
+                  onClick={() => closeShipmentModal()}
+                  className="p-3 rounded-lg text-[#14199C]"
+                >
+                  Cancel
+                </button>
+                <button className="p-3 rounded-lg text-white bg-[#14199C]">
+                  Create
+                </button>
               </div>
             </div>
           </div>
@@ -447,7 +531,10 @@ export default function Shipments() {
                     Track
                   </Link>
                 ) : (
-                  <Link to="/seller/shipments/track" className="rounded-lg text-xs sm:text-sm px-4 sm:px-5 py-2 text-white bg-defaultOrange">
+                  <Link
+                    to="/seller/shipments/track"
+                    className="rounded-lg text-xs sm:text-sm px-4 sm:px-5 py-2 text-white bg-defaultOrange"
+                  >
                     Track
                   </Link>
                 )}
@@ -531,41 +618,51 @@ export default function Shipments() {
           </Tabs>
 
           {/* Filters */}
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mt-5 w-full">
-            <div className="flex gap-x-3 sm:gap-x-5 items-center">
-              <div className="flex flex-col gap-y-1 pr-2 work-sans text-xs sm:text-sm rounded-lg border border-[#D1D1D1] bg-white outline-none">
-                <select className="outline-none p-3 rounded-lg">
-                  <option value="" disabled selected>Customer</option>
-                  <option>In transit</option>
-                </select>
-              </div>
-              <div className="flex flex-col gap-y-1 pr-2 work-sans text-xs sm:text-sm border rounded-lg border-[#D1D1D1] bg-white outline-none">
-                <select className="outline-none p-3 rounded-lg">
-                  <option value="" disabled selected>Status</option>
-                  <option>In transit</option>
-                </select>
-              </div>
-              <div className="flex flex-col gap-y-1 pr-2 work-sans text-xs sm:text-sm rounded-lg border border-[#D1D1D1] bg-white outline-none">
-                <select className="outline-none p-3 rounded-lg">
-                  <option value="" disabled selected>Today</option>
-                  <option>Yesterday</option>
-                </select>
-              </div>
-              <div className="flex flex-col gap-y-1 pr-2 work-sans text-xs sm:text-sm rounded-lg border border-[#D1D1D1] bg-white outline-none">
-                <select className="outline-none p-3 rounded-lg">
-                  <option value="" disabled selected>Modified</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="flex gap-x-2 px-3 basis-full sm:basis-[25%] rounded-lg border border-primaryBorder mt-3 sm:mt-0">
-              <CiSearch className="h-fit w-fit my-auto" size={20} />
-              <input
-                className="flex-1 py-2 outline-none border-none text-xs sm:text-sm bg-transparent"
-                placeholder="Search shipments"
-                type="text"
-              />
-            </div>
+          <div className="mb-4">
+            <FilterGroup
+              filters={filters}
+              onChange={(updated) => {
+                setFilters((prev) => ({ ...prev, ...updated }));
+              }}
+              selects={[
+                {
+                  name: "type",
+                  placeholder: "Category",
+                  options: [
+                    { label: "House", value: "house" },
+                    { label: "Cars", value: "cars" },
+                    { label: "Land", value: "land" },
+                  ],
+                },
+                {
+                  name: "status",
+                  placeholder: "Status",
+                  options: [
+                    { label: "Pending", value: "pending" },
+                    { label: "Processed", value: "processed" },
+                    { label: "Cancelled", value: "cancelled" },
+                    { label: "Returned", value: "returned" },
+                  ],
+                },
+              ]}
+              extraFilters={
+                <>
+                  <DateSelect
+                    onChange={(date) => {
+                      setFilters((prev) => ({ ...prev, date }));
+                    }}
+                    value={filters.date}
+                  />
+                </>
+              }
+              searchNode={
+                <TableSearchInput
+                  searchQuery={searchQuery}
+                  setSearchQuery={setSearchQuery}
+                  placeholder="Search shipments"
+                />
+              }
+            />
           </div>
 
           {/* Shipment Table */}

@@ -1,5 +1,18 @@
 import { Paper } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridRowParams } from "@mui/x-data-grid";
+type TableComponentProps = {
+  columns: GridColDef[];
+  rows: any[];
+  paginationActive: boolean;
+  pageSize: number;
+  rowHeight?: number;
+  showCheckbox?: boolean;
+  headerStyle?: {
+    backgroundColor?: string;
+    fontWeight?: string | number;
+  };
+  onRowClick?: (params: GridRowParams) => void;
+};
 
 export default function MuiTableComponent({
   columns,
@@ -7,10 +20,15 @@ export default function MuiTableComponent({
   paginationActive,
   pageSize,
   rowHeight,
+  onRowClick,
   showCheckbox,
 }: TableComponentProps) {
   const paginationModel = { page: 0, pageSize };
-
+  const handleRowClick = (params: GridRowParams) => {
+    if (onRowClick) {
+      onRowClick(params);
+    }
+  };
   return (
     <div className="w-full overflow-x-auto">
       <Paper className="w-full min-w-[600px] overflow-x-auto custom-scrollbar">
@@ -18,9 +36,9 @@ export default function MuiTableComponent({
           <DataGrid
             rows={rows}
             columns={columns}
-            initialState={
-              paginationActive ? { pagination: paginationModel } : undefined
-            }
+            initialState={{
+              pagination: paginationActive ? { paginationModel } : undefined,
+            }}
             pageSizeOptions={[5, 10, 15, 20]}
             checkboxSelection={
               typeof showCheckbox === "undefined" ? true : showCheckbox
@@ -29,7 +47,13 @@ export default function MuiTableComponent({
             disableColumnMenu={true}
             disableRowSelectionOnClick={true}
             rowHeight={rowHeight}
-            sx={{ border: 0 }}
+            onRowClick={handleRowClick}
+            sx={{
+              border: 0,
+              "& .MuiDataGrid-row": {
+                cursor: `${onRowClick && "pointer"}`, // Always show pointer cursor on rows
+              },
+            }}
           />
         </div>
       </Paper>

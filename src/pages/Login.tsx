@@ -4,15 +4,14 @@ import SignUp from "../components/SignUp";
 
 export default function Login() {
   let urlParams = new URLSearchParams(document.location.search);
-  let signup = urlParams.get("signup")
-  var isSignupTrue = (signup === 'true');
+  let signup = urlParams.get("signup");
+  var isSignupTrue = signup === "true";
 
-  const [signUp, setSignUp] = useState();
+  const [signUp, setSignUp] = useState(false);
 
   useEffect(() => {
-    setSignUp(isSignupTrue)
-  }, [])
-
+    setSignUp(isSignupTrue);
+  }, []);
 
   return (
     <div className="w-screen h-screen flex bg-[#F5F5F5]">

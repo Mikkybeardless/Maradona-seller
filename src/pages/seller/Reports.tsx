@@ -1,10 +1,6 @@
-import { Button, IconButton, Menu, MenuItem } from "@mui/material";
+import { Button } from "@mui/material";
 import { useState } from "react";
-
 import { GridColDef } from "@mui/x-data-grid";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import * as React from "react";
 import { AiFillFileText } from "react-icons/ai";
 import { FaDotCircle } from "react-icons/fa";
@@ -13,9 +9,9 @@ import { HiMiniChartBarSquare } from "react-icons/hi2";
 import { LuRefreshCw } from "react-icons/lu";
 import { MdInfo } from "react-icons/md";
 import { PiExport } from "react-icons/pi";
-import { RiCalendarEventLine } from "react-icons/ri";
 import { VscCircleFilled } from "react-icons/vsc";
 import { useNavigate } from "react-router-dom";
+import { Dayjs } from "dayjs";
 import {
   Bar,
   BarChart,
@@ -36,6 +32,7 @@ import {
   formatPrice,
   generateRandomNumber,
 } from "../../helper/helperFunctions";
+import { DateSelect } from "../../components/common/DateSelect";
 
 const data = [
   { name: "A", value: 40, color: "#FF00A5" },
@@ -61,6 +58,7 @@ const data1 = [
 
 export default function Reports() {
   const [showMore, setShowMore] = useState(false);
+  const [date, setDate] = useState<Dayjs | null>(null);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -93,7 +91,16 @@ export default function Reports() {
     setShowMore(!showMore);
   };
 
-  const onPieEnter = (event, index) => {
+  interface PieEnterEvent {
+    name?: string;
+    value?: number;
+    color?: string;
+    percent?: number;
+    payload?: any;
+    // Add other properties if needed from recharts Pie event
+  }
+
+  const onPieEnter = (_: PieEnterEvent, index: number) => {
     setActiveIndex(index);
     setRadius(100);
   };
@@ -268,7 +275,12 @@ export default function Reports() {
     },
   ];
 
-  function CustomizedXAxisTick(props) {
+  function CustomizedXAxisTick(props: {
+    x: any;
+    y: any;
+    stroke: any;
+    payload: any;
+  }) {
     const { x, y, stroke, payload } = props;
 
     return (
@@ -286,7 +298,12 @@ export default function Reports() {
     );
   }
 
-  function CustomizedYAxisTick(props) {
+  function CustomizedYAxisTick(props: {
+    x: any;
+    y: any;
+    stroke: any;
+    payload: any;
+  }) {
     const { x, y, stroke, payload } = props;
     // console.log(payload)
     return (
@@ -309,7 +326,7 @@ export default function Reports() {
       <div className="w-full py-3.5 px-6 sm:px-12 md:px-24 border-b border-b-primaryBorder">
         <DashboardSearchBar />
       </div>
-      <div className="bg-[#F2F2F2]">
+      <main className="bg-[#F2F2F2]">
         <div className="w-[95%] mx-auto">
           {/* first */}
           <div className="flex flex-wrap gap-5 mb-5">
@@ -503,31 +520,12 @@ export default function Reports() {
                   >
                     View more
                   </Button>
-                  <IconButton
-                    onClick={handleClick}
-                    sx={{ ml: 2 }}
-                    aria-controls={open ? "account-menu" : undefined}
-                    aria-haspopup="true"
-                    aria-expanded={open ? "true" : undefined}
-                  >
-                    <RiCalendarEventLine size={24} color="#5C4D58" />
-                  </IconButton>
+
+                  <DateSelect
+                    onChange={(newValue) => setDate(newValue)}
+                    value={date}
+                  />
                 </div>
-                <Menu
-                  id="basic-menu"
-                  anchorEl={anchorEl}
-                  open={open}
-                  onClose={handleClose}
-                  MenuListProps={{
-                    "aria-labelledby": "basic-button",
-                  }}
-                >
-                  <MenuItem onClick={handleClose}>
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                      <DateCalendar />
-                    </LocalizationProvider>
-                  </MenuItem>
-                </Menu>
               </div>
               <div className="h-[250px] w-full reports-page">
                 <LineChartComponent
@@ -665,26 +663,35 @@ export default function Reports() {
                     </div>
                     <div className="w-full h-[300px] md:h-[400px]">
                       <ResponsiveContainer width="100%" height="100%">
-                        <BarChart data={data1}>
-                          <XAxis
-                            tick={<CustomizedXAxisTick />}
-                            dataKey="month"
-                          />
+                        <BarChart
+                          data={data1}
+                          barSize={15}
+                          barCategoryGap="50%"
+                        >
+                          <XAxis dataKey="month" />
                           <YAxis
                             tickFormatter={(value) => `${value / 1000}k`}
                             domain={[0, "auto"]}
-                            dataKey="revenue"
-                            tick={<CustomizedYAxisTick />}
                           />
-                          <Tooltip formatter={(value) => `${value / 1000}k`} />
-                          <Bar barSize={14} dataKey="revenue" fill="#0095FF" />
+                          <Tooltip
+                            formatter={(value) =>
+                              typeof value === "number"
+                                ? `${value / 1000}k`
+                                : value
+                            }
+                          />
+                          <Legend
+                            content={() => {
+                              return (
+                                <div className="flex justify-center items-center gap-x-1.5 pt-3">
+                                  <span className="w-3 h-3 bg-[#0095FF] rounded-full "></span>{" "}
+                                  <span>Online Sales</span>
+                                </div>
+                              );
+                            }}
+                          />
+                          <Bar dataKey="revenue" fill="#0095FF" />
                         </BarChart>
-                        <div className="w-full flex justify-center">
-                          <div className="flex text-xs text-[#222B45] items-center gap-x-3">
-                            <div className="size-2 bg-[#0095FF] rounded-xl"></div>
-                            Online Sales
-                          </div>
-                        </div>
                       </ResponsiveContainer>
                     </div>
                   </div>
@@ -983,7 +990,7 @@ export default function Reports() {
             </div>
           )}
         </div>
-      </div>
+      </main>
     </div>
   );
 }

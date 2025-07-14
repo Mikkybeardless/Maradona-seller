@@ -18,8 +18,8 @@ import {
   MdVisibility,
   MdVisibilityOff,
 } from "react-icons/md";
-import CopyableText from "../../components/CopyableText";
-import PasswordBox from "../../components/PasswordBox";
+import CopyableText from "../../components/common/CopyableText";
+import PasswordBox from "../../components/common/PasswordBox";
 import ProfilePictureUpload from "../../components/ProfilePictureUpload";
 import DashboardSearchBar from "../../components/seller/DashboardSearchBar";
 
@@ -45,12 +45,13 @@ export default function ProfilePage() {
             <MdVerified color="#E9C505" size={26} />
           </div>
           <div className="flex flex-col justify-around h-[90px]">
-            <Typography fontWeight={600} size={"20px"}>
+            <Typography fontWeight={600} fontSize={"20px"}>
               RoseMary Sunday
             </Typography>
 
             <CopyableText
               textColor="#150A13"
+              variant="inherit"
               text="rosiesunday20.aj@gmail.com"
             />
 
@@ -98,7 +99,11 @@ export default function ProfilePage() {
           </div>
           <div className="flex justify-between w-[90%] mx-auto my-3">
             <p className="text-sm text-[#5C4D58]">Phone:</p>
-            <CopyableText textColor="#150A13" text="07056440321" />
+            <CopyableText
+              textColor="#150A13"
+              text="07056440321"
+              variant={undefined}
+            />
           </div>
           <div className="flex justify-between w-[90%] mx-auto my-3">
             <p className="text-sm text-[#5C4D58]">Address:</p>

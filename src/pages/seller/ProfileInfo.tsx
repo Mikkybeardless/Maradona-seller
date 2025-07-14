@@ -2,14 +2,13 @@ import { Box, Typography } from "@mui/material";
 import { CiLaptop, CiMobile3 } from "react-icons/ci";
 import { RiShieldKeyholeLine } from "react-icons/ri";
 import { PiPencilSimpleBold } from "react-icons/pi";
-import CopyableText from "../../components/CopyableText";
-import PasswordBox from "../../components/PasswordBox";
+import CopyableText from "../../components/common/CopyableText";
+import PasswordBox from "../../components/common/PasswordBox";
 import ProfilePictureUpload from "../../components/ProfilePictureUpload";
 import { useState } from "react";
 
 function ProfileInfo() {
-
-  const [isProfileEdit, setIsProfileEdit] = useState(false)
+  const [isProfileEdit, setIsProfileEdit] = useState(false);
 
   return (
     <div className="p-4 md:p-6 bg-white">
@@ -23,13 +22,17 @@ function ProfileInfo() {
           <Typography fontSize={{ xs: 12, md: 14 }}>
             Seller{" "}
             <span>
-              <CopyableText textColor="#5C4D58" variant="span" text="DS1234M" />
+              <CopyableText
+                textColor="#5C4D58"
+                text="DS1234M"
+                variant={undefined}
+              />
             </span>
           </Typography>
 
           <CopyableText
             textColor=""
-            variant=""
+            variant={undefined}
             text="rosiesunday20.aj@gmail.com"
           />
 
@@ -39,34 +42,41 @@ function ProfileInfo() {
           </Typography>
         </div>
       </div>
-      { isProfileEdit ?
-      <ProfilePassword />
-      :
-      <div>
-        {/* Personal Information  */}
-        <div className="mt-8 flex flex-col gap-y-8">
-          <div>
-            <p className="text-[#5C4D58] text-sm mb-2">First Name:</p>
-            <p className="font-medium text-lg">Rosemary</p>
+      {isProfileEdit ? (
+        <ProfilePassword />
+      ) : (
+        <div>
+          {/* Personal Information  */}
+          <div className="mt-8 flex flex-col gap-y-8">
+            <div>
+              <p className="text-[#5C4D58] text-sm mb-2">First Name:</p>
+              <p className="font-medium text-lg">Rosemary</p>
+            </div>
+            <div>
+              <p className="text-[#5C4D58] text-sm mb-2">Last Name:</p>
+              <p className="font-medium text-lg">Sunday</p>
+            </div>
+            <div>
+              <p className="text-[#5C4D58] text-sm mb-2">Email:</p>
+              <p className="font-medium text-lg">rosiesunday20.aj@gmail.com</p>
+            </div>
+            <div>
+              <p className="text-[#5C4D58] text-sm mb-2">Phone No:</p>
+              <p className="font-medium text-lg">08023456788</p>
+            </div>
           </div>
-          <div>
-            <p className="text-[#5C4D58] text-sm mb-2">Last Name:</p>
-            <p className="font-medium text-lg">Sunday</p>
-          </div>
-          <div>
-            <p className="text-[#5C4D58] text-sm mb-2">Email:</p>
-            <p className="font-medium text-lg">rosiesunday20.aj@gmail.com</p>
-          </div>
-          <div>
-            <p className="text-[#5C4D58] text-sm mb-2">Phone No:</p>
-            <p className="font-medium text-lg">08023456788</p>
-          </div>
-        </div>
 
-        <div className="flex justify-center lg:mt-20 mt-10 mb-10">
-          <div onClick={() => setIsProfileEdit(true)} className="bg-[#14199C] md:w-3/4 w-4/5 flex items-center justify-center p-4 text-white text-xl rounded-lg"><PiPencilSimpleBold /> <span className="ml-2 text-sm font-light">Edit Profile</span></div>
+          <div className="flex justify-center lg:mt-20 mt-10 mb-10">
+            <div
+              onClick={() => setIsProfileEdit(true)}
+              className="bg-[#14199C] md:w-3/4 w-4/5 flex items-center justify-center p-4 text-white text-xl rounded-lg"
+            >
+              <PiPencilSimpleBold />{" "}
+              <span className="ml-2 text-sm font-light">Edit Profile</span>
+            </div>
+          </div>
         </div>
-      </div>}
+      )}
     </div>
   );
 }
@@ -96,9 +106,9 @@ function ProfilePassword() {
 
       {/* Password Input Fields */}
       <Box className="mt-4 flex flex-col space-y-4">
-        <PasswordBox label="Old Password" className="w-full" />
-        <PasswordBox label="New Password" className="w-full" />
-        <PasswordBox label="Confirm New Password" className="w-full" />
+        <PasswordBox label="Old Password" />
+        <PasswordBox label="New Password" />
+        <PasswordBox label="Confirm New Password" />
       </Box>
 
       <Box className="mt-6">
@@ -123,7 +133,12 @@ function ProfilePassword() {
   );
 }
 
-function LoginSectionCom({ device, session }) {
+type LoginSectionComProps = {
+  device: "laptop" | "mobile";
+  session: number;
+};
+
+function LoginSectionCom({ device, session }: LoginSectionComProps) {
   return (
     <Box className="flex items-start bg-white p-3 rounded-md shadow-sm">
       {device === "laptop" ? <CiLaptop size={18} /> : <CiMobile3 size={18} />}

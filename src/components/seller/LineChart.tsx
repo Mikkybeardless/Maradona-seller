@@ -1,6 +1,5 @@
 import {
   CartesianGrid,
-  Legend,
   Line,
   LineChart,
   ResponsiveContainer,
@@ -19,56 +18,108 @@ type LineProps = {
   lineWidth: number;
 };
 
-interface ComponentProps {
-  chartData: any[];
+interface ComponentProps<T> {
+  chartData: T[];
   lines: LineProps[];
   legend?: boolean;
   tickCount?: number;
   gridShow?: boolean;
   paddingX?: { left: number; right: number };
+  customX?: boolean;
+  customY?: boolean;
 }
 
-function CustomizedXAxisTick(props)  {
-    const { x, y, stroke, payload } = props;
-
-    return (
-      <text x={x} y={y} dy={10} fill="#1137D0" fontWeight="bold" fontSize={10} textAnchor="middle">
-        {payload.value}
-      </text>
-      )
+interface XAxisTickProps {
+  x: number;
+  y: number;
+  stroke?: string;
+  payload: {
+    value: string | number;
+  };
 }
 
-function DefaultXAxisTick(props)  {
+function CustomizedXAxisTick(props: XAxisTickProps) {
   const { x, y, stroke, payload } = props;
 
   return (
-    <text x={x} y={y} dy={10} fill="#585858" fontWeight="bold" fontSize={10} textAnchor="middle">
+    <text
+      x={x}
+      y={y}
+      dy={10}
+      fill="#1137D0"
+      fontWeight="bold"
+      fontSize={10}
+      textAnchor="middle"
+    >
       {payload.value}
     </text>
-    )
+  );
 }
 
-function CustomizedYAxisTick(props)  {
+function DefaultXAxisTick(props: XAxisTickProps) {
   const { x, y, stroke, payload } = props;
+
+  return (
+    <text
+      x={x}
+      y={y}
+      dy={10}
+      fill="#585858"
+      fontWeight="bold"
+      fontSize={10}
+      textAnchor="middle"
+    >
+      {payload.value}
+    </text>
+  );
+}
+
+interface CustomizedYAxisTickProps {
+  x: number;
+  y: number;
+  payload: {
+    value: string | number;
+  };
+}
+
+function CustomizedYAxisTick(props: CustomizedYAxisTickProps) {
+  const { x, y, payload } = props;
 
   return (
     <text x={x} y={y} dx={-50} fill="#FD6100" fontWeight="bold" fontSize={10}>
       {payload.value}
     </text>
-    )
+  );
 }
 
-function DefaultYAxisTick(props)  {
+interface DefaultYAxisTickProps {
+  x: number;
+  y: number;
+  stroke?: string;
+  payload: {
+    value: string | number;
+  };
+}
+
+function DefaultYAxisTick(props: DefaultYAxisTickProps) {
   const { x, y, stroke, payload } = props;
 
   return (
-    <text x={x} y={y} dx={-30} fill="#585858" fontWeight="bold" fontSize={10} textAnchor="middle">
+    <text
+      x={x}
+      y={y}
+      dx={-30}
+      fill="#585858"
+      fontWeight="bold"
+      fontSize={10}
+      textAnchor="middle"
+    >
       {payload.value}
     </text>
-    )
+  );
 }
 
-export default function LineChartComponent({
+export default function LineChartComponent<T>({
   chartData,
   lines,
   legend,
@@ -76,8 +127,8 @@ export default function LineChartComponent({
   gridShow,
   paddingX,
   customX,
-  customY
-}: ComponentProps) {
+  customY,
+}: ComponentProps<T>) {
   return (
     <ResponsiveContainer
       width="100%"
@@ -101,15 +152,15 @@ export default function LineChartComponent({
           dataKey="xAxis"
           tickLine={false}
           tickSize={10}
-          padding={paddingX ? paddingX : {left: 5}}
-          tick={customX?<CustomizedXAxisTick />:<DefaultXAxisTick/>}
+          padding={paddingX ? paddingX : { left: 5 }}
+          tick={customX ? CustomizedXAxisTick : DefaultXAxisTick}
         />
         <YAxis
           name={"Time"}
           tickSize={2}
           tickCount={tickCount || 5}
           className="text-xs"
-          tick={customY?<CustomizedYAxisTick />:<DefaultYAxisTick/>}
+          tick={customY ? CustomizedYAxisTick : DefaultYAxisTick}
         />
         <Tooltip wrapperClassName="text-xs" />
 

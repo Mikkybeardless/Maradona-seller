@@ -4,30 +4,27 @@ import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import FacebookLogo from "../assets/facebook-logo.png";
 import GoogleLogo from "../assets/google-icon.svg";
-import { useSelector, useDispatch } from 'react-redux';
-import { registerUser } from "../redux/slices/userSlice";
-import { AppDispatch } from "../redux/store";
 
 interface SignUpProps {
   setSignUp: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function SignUp({ setSignUp }: SignUpProps) {
-  const dispatch = useDispatch<AppDispatch>();
-  const seller = useSelector((state: any) => state.users.users);
+  // const dispatch = useDispatch<AppDispatch>();
+  // const seller = useSelector((state: any) => state.users.users);
 
   const [createAccountFormData, setCreateAccountFormData] = useState({
     name: "Maina Vala",
-    email:"mhyelavala@gmail.com",
+    email: "mhyelavala@gmail.com",
     password: "mvala1234",
     password_confirmation: "mvala1234",
     shop_name: "Maina Ltd",
-    address: "123 avenue"
-  })
+    address: "123 avenue",
+  });
 
-  function handleCreateAccount(){
-    dispatch(registerUser(createAccountFormData))
-  }
+  // function handleCreateAccount(){
+  //   dispatch(registerUser(createAccountFormData))
+  // }
 
   const [country, setCountry] = useState("");
   const [region, setRegion] = useState("");
@@ -187,7 +184,7 @@ export default function SignUp({ setSignUp }: SignUpProps) {
 
       {/* Create Account Button */}
       <button
-        onClick={handleCreateAccount}
+        // onClick={handleCreateAccount}
         className="w-full sm:w-[70%] mx-auto py-3 rounded-lg mt-8 text-white bg-defaultOrange hover:bg-defaultOrangeHover transition"
       >
         Create account

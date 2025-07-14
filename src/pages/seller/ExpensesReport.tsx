@@ -12,6 +12,7 @@ import { GridColDef } from "@mui/x-data-grid";
 import { FaChevronRight, FaRegSquare, FaSquare } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import DashboardSearchBar from "../../components/seller/DashboardSearchBar";
+import { ReportTab } from "../../components/common/reportTabs";
 
 function ExpensesReport() {
   const rows = (): any[] => {
@@ -66,48 +67,12 @@ function ExpensesReport() {
         </div>
 
         {/* Filter Section */}
-        <div className="flex flex-wrap justify-between gap-4 sm:gap-7">
-          <div className="flex flex-wrap justify-between items-center gap-4 sm:gap-7">
-            <p className="flex items-center gap-2 text-[#585858] text-sm font-normal">
-              Sale Report <FaRegSquare />
-            </p>
-            <p className="flex items-center gap-2 text-[#585858] text-sm font-normal">
-              Revenue <FaRegSquare />
-            </p>
-            <p className="flex items-center gap-2 text-[#585858] text-sm font-normal">
-              Expense <FaSquare size={10} />
-            </p>
-            <p className="flex items-center gap-2 text-[#585858] text-sm font-normal">
-              Financial Tracking <FaRegSquare />
-            </p>
-          </div>
-          <div className="flex gap-4 flex-wrap">
-            <Button
-              sx={{
-                padding: "5px 8px",
-                background: "#ffffff",
-                border: "1px solid #5C4D58",
-                fontWeight: 400,
-                fontSize: "16px",
-                color: "#5C4D58",
-                textTransform: "capitalize",
-              }}
-            >
-              Print
-            </Button>
-            <select className="p-2 text-sm sm:text-[16px] rounded-lg border border-primaryBorder bg-white outline-none text-[#5C4D58]">
-              <option value="month">Month</option>
-            </select>
-            <select className="p-2 text-sm sm:text-[16px] rounded-lg border border-primaryBorder bg-white outline-none text-[#5C4D58]">
-              <option value="year">Year</option>
-            </select>
-          </div>
-        </div>
+        <ReportTab />
 
         {/* Table Component */}
-        <p className="font-semibold text-base sm:text-lg text-[#1E1A1C] mt-6 sm:mt-[30px] mb-4 sm:mb-[25px]">
+        <h3 className="font-semibold text-base sm:text-lg text-[#1E1A1C] mt-6 sm:mt-[30px] mb-4 sm:mb-[25px]">
           Expenses Report Table
-        </p>
+        </h3>
 
         <div className="overflow-x-auto">
           <TableContainer component={Paper} sx={{ border: "1px solid #ddd" }}>

@@ -1,13 +1,15 @@
 import { IconButton, Typography } from "@mui/material";
 import { MdContentCopy } from "react-icons/md";
 
+import type { TypographyProps } from "@mui/material";
+
 export default function CopyableText({
   textColor,
   variant,
   text,
 }: {
   textColor: string;
-  variant: string;
+  variant: TypographyProps["variant"];
   text: string;
 }) {
   const handleCopy = () => {

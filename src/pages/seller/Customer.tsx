@@ -17,14 +17,22 @@ export default function Customer() {
     { label: "Order Date", renderCell: (item: any) => item.date },
     { label: "Items Purchased", renderCell: (item: any) => item.purchased },
     { label: "Total Amount", renderCell: (item: any) => item.amount },
-    { label: "Status", renderCell: (item: any) =>
-      <span 
-        className={item.status === 'Completed'? 'text-[#008000]'
-        :item.status === 'Pending'? 'text-[#C38D00]'
-        :'text-[#FF0000]'}>
+    {
+      label: "Status",
+      renderCell: (item: any) => (
+        <span
+          className={
+            item.status === "Completed"
+              ? "text-[#008000]"
+              : item.status === "Pending"
+              ? "text-[#C38D00]"
+              : "text-[#FF0000]"
+          }
+        >
           {item.status}
-      </span>
-     },
+        </span>
+      ),
+    },
   ];
 
   const tableColumn2 = [
@@ -122,7 +130,9 @@ export default function Customer() {
                 Pending
               </span>
             </div>
-            <p className="line-clamp-1 text-xs font-medium">Toyota Camry, 2018</p>
+            <p className="line-clamp-1 text-xs font-medium">
+              Toyota Camry, 2018
+            </p>
             <span className="text-xs text-[#6D6D6D]">
               Purchased - Feb 16, 2024
             </span>
@@ -164,11 +174,16 @@ export default function Customer() {
         </div>
 
         {/* Stats Section */}
-        <div className="w-full rounded-lg mt-7 py-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border border-primaryBorder bg-white">
+        <div className="w-full rounded-lg mt-7 py-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 border border-primaryBorder bg-white">
           {/* Orders */}
           <div className="flex flex-col gap-y-2 px-5 py-4 border-b md:border-b-0 md:border-r border-primaryBorder">
             <p className="text-xs text-[#6D6D6D]">Orders</p>
             <p className="text-xl text-[#121488] font-medium">6</p>
+          </div>
+
+          <div className="flex flex-col gap-y-2 px-5 py-4 border-b md:border-b-0 md:border-r border-primaryBorder">
+            <p className="text-xs text-[#6D6D6D]">Pending Reviews</p>
+            <p className="text-xl text-[#121488] font-medium">8</p>
           </div>
 
           {/* Amount Spent */}
@@ -273,7 +288,10 @@ export default function Customer() {
               </div>
               <div className="flex flex-col p-4 py-3">
                 <p className="text-xs opacity-65">Joined</p>
-                <p className="text-sm">Sept 2, 2023 - <span className="opacity-65 font-light">6 months ago</span></p>
+                <p className="text-sm">
+                  Sept 2, 2023 -{" "}
+                  <span className="opacity-65 font-light">6 months ago</span>
+                </p>
               </div>
             </div>
 
@@ -284,8 +302,10 @@ export default function Customer() {
               </h3>
               <div className="flex flex-col p-4 py-3">
                 <div className="flex justify-between items-center">
-                <p className="text-xs opacity-65">Delivery address 1:</p>
-                <div className="text-[#FFFFFF] bg-[#14199C] text-[8px] py-1 px-2 rounded-2xl">Default</div>
+                  <p className="text-xs opacity-65">Delivery address 1:</p>
+                  <div className="text-[#FFFFFF] bg-[#14199C] text-[8px] py-1 px-2 rounded-2xl">
+                    Default
+                  </div>
                 </div>
                 <p className="text-sm">
                   Mubinu. Osogbo, Osun, Ifedayo, Osun State, Nigeria

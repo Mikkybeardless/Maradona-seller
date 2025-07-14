@@ -1,5 +1,4 @@
 import {
-  Button,
   Paper,
   Table,
   TableBody,
@@ -11,6 +10,7 @@ import {
 import { FaChevronRight, FaRegSquare, FaSquare } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import DashboardSearchBar from "../../components/seller/DashboardSearchBar";
+import { ReportTab } from "../../components/common/reportTabs";
 
 function FinancialTracking() {
   const rows = (): any[] => {
@@ -43,7 +43,7 @@ function FinancialTracking() {
       </div>
 
       {/* Page Content */}
-      <div className="w-full max-w-[1200px] mx-auto px-4 md:px-6 lg:px-8 mb-20 pt-12">
+      <main className="w-full max-w-[1200px] mx-auto px-4 md:px-6 lg:px-8 mb-20 pt-12">
         <div className="flex flex-wrap gap-3 md:gap-x-7 items-center mb-6">
           <Link
             to="/seller/reports"
@@ -57,42 +57,7 @@ function FinancialTracking() {
           </span>
         </div>
 
-        <div className="flex flex-wrap justify-between gap-4 md:items-center">
-          <div className="flex flex-wrap gap-3 md:gap-7">
-            {["Sale Report", "Revenue", "Expense", "Financial Tracking"].map(
-              (item, index) => (
-                <p
-                  key={index}
-                  className="flex items-center gap-2 text-[#585858] text-sm font-normal"
-                >
-                  {item}{" "}
-                  {index === 3 ? <FaSquare size={10} /> : <FaRegSquare />}
-                </p>
-              )
-            )}
-          </div>
-          <div className="flex gap-3 md:gap-4">
-            <Button
-              sx={{
-                padding: "5px 8px",
-                background: "#ffffff",
-                border: "1px solid #5C4D58",
-                fontWeight: 400,
-                fontSize: "14px",
-                color: "#5C4D58",
-                textTransform: "capitalize",
-              }}
-            >
-              Print
-            </Button>
-            <select className="p-2 text-sm md:p-2.5 md:text-base rounded-lg border border-primaryBorder bg-white outline-none text-[#5C4D58]">
-              <option value="month">Month</option>
-            </select>
-            <select className="p-2 text-sm md:p-2.5 md:text-base rounded-lg border border-primaryBorder bg-white outline-none text-[#5C4D58]">
-              <option value="year">Year</option>
-            </select>
-          </div>
-        </div>
+        <ReportTab />
 
         {/* Table Component */}
         <p className="font-semibold text-base text-[#1E1A1C] mt-6 mb-4">
@@ -147,7 +112,7 @@ function FinancialTracking() {
             </Table>
           </TableContainer>
         </div>
-      </div>
+      </main>
     </div>
   );
 }

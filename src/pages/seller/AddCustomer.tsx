@@ -5,9 +5,27 @@ import "react-international-phone/style.css";
 import DashboardSearchBar from "../../components/seller/DashboardSearchBar";
 
 export default function AddCustomer() {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    address: "",
+  });
   const [phone, setPhone] = useState<any>();
   const [country, setCountry] = useState("");
   const [region, setRegion] = useState("");
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Handle form submission logic here
+    console.log("Form submitted:", formData, phone, country, region);
+  };
 
   return (
     <div className="w-full h-full overflow-y-auto flex flex-col custom-scrollbar md-pb-10 pb-36 bg-[#F5F5F5]">
@@ -26,35 +44,50 @@ export default function AddCustomer() {
           {/* Name Fields */}
           <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
             <div className="flex flex-col gap-y-1.5">
-              <label className="text-sm">First name</label>
+              <label htmlFor="firstName" className="text-sm">
+                First name
+              </label>
               <input
                 type="text"
+                name="firstName"
                 className="rounded-lg p-3 outline-none border border-primaryBorder"
                 placeholder="First name"
+                onChange={handleInputChange}
+                value={formData.firstName}
               />
             </div>
             <div className="flex flex-col gap-y-1.5">
-              <label className="text-sm">Last name</label>
+              <label htmlFor="lastName" className="text-sm">
+                Last name
+              </label>
               <input
                 type="text"
+                name="lastName"
                 className="rounded-lg p-3 outline-none border border-primaryBorder"
                 placeholder="Last name"
+                onChange={handleInputChange}
+                value={formData.lastName}
               />
             </div>
           </div>
 
           {/* Email Field */}
           <div className="w-full flex flex-col gap-y-1.5">
-            <label className="text-sm">Email</label>
+            <label htmlFor="email" className="text-sm">
+              Email
+            </label>
             <input
               type="text"
+              name="email"
               className="rounded-lg p-3 outline-none border border-primaryBorder"
               placeholder="Email address"
+              onChange={handleInputChange}
+              value={formData.email}
             />
           </div>
 
           {/* Phone Input */}
-          <div className="w-full flex flex-col gap-y-1.5">  
+          <div className="w-full flex flex-col gap-y-1.5">
             <label className="text-sm">Phone Number</label>
             <div className="w-full flex items-end gap-x-6">
               <PhoneInput
@@ -64,8 +97,9 @@ export default function AddCustomer() {
                   buttonClassName: "!h-auto w-full py-3 !rounded-lg",
                 }}
                 defaultCountry="ng"
-                onChange={setPhone}
+                name="phone"
                 value={phone}
+                onChange={(val) => setPhone(val)}
                 inputClassName="w-full !h-auto !py-3 !rounded-lg outline-none !border !border-primaryBorder !text-base"
               />
             </div>
@@ -90,41 +124,45 @@ export default function AddCustomer() {
               classes="rounded-lg p-3 outline-none border border-primaryBorder"
               value={country}
               onChange={(val) => setCountry(val)}
-              defaultOptionLabel='Select'
+              defaultOptionLabel="Select"
             />
           </div>
-          
-          <div className="flex gap-x-2.5">
-          <div className="w-full flex flex-col gap-y-1.5">
-            <label className="text-sm">State</label>
-            <RegionDropdown
-              classes="rounded-lg p-3 outline-none border border-primaryBorder"
-              country={country}
-              value={region}
-              onChange={(val) => setRegion(val)}
-              defaultOptionLabel='Select'
-            />
+
+          <div className="flex flex-col md:flex-row gap-x-2.5">
+            <div className="w-full flex flex-col gap-y-1.5">
+              <label className="text-sm">State</label>
+              <RegionDropdown
+                classes="rounded-lg p-3 outline-none border border-primaryBorder"
+                country={country}
+                value={region}
+                onChange={(val) => setRegion(val)}
+                defaultOptionLabel="Select"
+              />
+            </div>
+            <div className="w-full flex flex-col gap-y-1.5">
+              <label className="text-sm">City</label>
+              <RegionDropdown
+                classes="rounded-lg p-3 outline-none border border-primaryBorder"
+                country={country}
+                value={region}
+                onChange={(val) => setRegion(val)}
+                defaultOptionLabel="Select"
+              />
+            </div>
           </div>
-          <div className="w-full flex flex-col gap-y-1.5">
-            <label className="text-sm">City</label>
-            <RegionDropdown
-              classes="rounded-lg p-3 outline-none border border-primaryBorder"
-              country={country}
-              value={region}
-              onChange={(val) => setRegion(val)}
-              defaultOptionLabel='Select'
-            />
-          </div>
-          </div>
-          
 
           {/* Address Input */}
           <div className="flex flex-col gap-y-1.5">
-            <label className="text-sm">Address:</label>
+            <label htmlFor="address" className="text-sm">
+              Address:
+            </label>
             <input
               type="text"
               className="rounded-lg p-3 outline-none border border-primaryBorder"
               placeholder="Address"
+              name="address"
+              onChange={handleInputChange}
+              value={formData.address}
             />
           </div>
         </div>
@@ -134,7 +172,10 @@ export default function AddCustomer() {
           <button className="px-4 py-2.5 text-sm rounded-lg border border-defaultOrange text-defaultOrange w-full md:w-auto">
             Cancel
           </button>
-          <button className="px-4 py-2.5 text-sm rounded-lg bg-defaultOrange text-white w-full md:w-auto">
+          <button
+            onClick={handleSubmit}
+            className="px-4 py-2.5 text-sm rounded-lg bg-defaultOrange text-white w-full md:w-auto"
+          >
             Save customer
           </button>
         </div>

@@ -54,6 +54,7 @@ export default function Order() {
         <div className="fixed z-30 flex justify-center items-center top-0 left-0 w-screen h-screen bg-black/50">
           <div
             ref={markModalRef}
+            aria-label="Mark Order Modal"
             className="w-full max-w-[90%] md:w-[35%] flex flex-col gap-y-7 rounded-2xl p-7 bg-white"
           >
             {/* Header Section */}
@@ -104,6 +105,7 @@ export default function Order() {
         <div className="fixed z-30 flex justify-center items-center top-0 left-0 w-screen h-screen bg-black/50">
           <div
             ref={cancelModalRef}
+            aria-label="Cancel Order Modal"
             className="w-full max-w-[90%] md:w-[40%] flex flex-col rounded-2xl p-5 md:p-7 bg-white"
           >
             {/* Header */}
@@ -171,6 +173,7 @@ export default function Order() {
         <div className="fixed z-30 flex justify-center items-center top-0 left-0 w-screen h-screen bg-black/50">
           <div
             ref={invoiceModalRef}
+            aria-label="Send Invoice Modal"
             className="w-full max-w-[90%] md:w-[40%] flex flex-col rounded-2xl p-5 md:p-7 bg-white"
           >
             {/* Header */}
@@ -215,17 +218,14 @@ export default function Order() {
         </div>
       )}
 
-      <div className="w-full h-full overflow-y-auto flex flex-col custom-scrollbar md-pb-10 pb-36 bg-[#F5F5F5]">
+      <main className="w-full h-full overflow-y-auto flex flex-col custom-scrollbar md-pb-10 pb-36 bg-[#F5F5F5]">
         <div className="w-full py-5 px-4 md:px-8 lg:px-24 border-b border-b-primaryBorder max-w-[1200px] mx-auto">
           <DashboardSearchBar />
         </div>
 
         <div className="px-4 md:px-8 lg:px-24 w-full mt-8 mb-8 flex flex-col flex-1">
           <div className="work-sans flex flex-wrap gap-x-2 md:gap-x-4 items-center">
-            <Link
-              to="/seller/orders"
-              className="text-xs"
-            >
+            <Link to="/seller/orders" className="text-xs">
               Orders
             </Link>
             <FaChevronRight size={12} />
@@ -300,7 +300,7 @@ export default function Order() {
             {/* Order & Payment Section */}
             <div className="w-full md:w-[70%] flex flex-col gap-y-5">
               {/* Order Details */}
-              <div className="w-full flex flex-col rounded-lg border border-primaryBorder bg-white">
+              <section className="w-full flex flex-col rounded-lg border border-primaryBorder bg-white">
                 <h4 className="py-4 px-4 flex gap-x-2 items-center font-medium text-sm sm:text-base">
                   Order ID: #1011
                   <span className="rounded-[100px] text-xs font-normal px-2 py-1 bg-[#E65800] text-white">
@@ -337,10 +337,13 @@ export default function Order() {
                     Mark as
                   </button>
                 </div>
-              </div>
+              </section>
 
               {/* Payment Details */}
-              <div className="w-full flex flex-col mb-4 rounded-lg border border-primaryBorder bg-white">
+              <section
+                id="payment-details"
+                className="w-full flex flex-col mb-4 rounded-lg border border-primaryBorder bg-white"
+              >
                 <h4 className="py-4 px-4 flex gap-x-2 items-center font-medium text-sm sm:text-base">
                   Payment
                   <span className="rounded-[100px] text-xs font-normal px-2 py-1 text-[#E65800] bg-[#FFF1E9]">
@@ -383,11 +386,14 @@ export default function Order() {
                     ₦250,000
                   </span>
                 </div>
-              </div>
+              </section>
             </div>
 
             {/* Customer & Delivery Details */}
-            <div className="w-full md:w-[30%] flex flex-col gap-y-5">
+            <section
+              id="customer-delivery-details"
+              className="w-full md:w-[30%] flex flex-col gap-y-5"
+            >
               {[
                 {
                   title: "Details",
@@ -438,10 +444,7 @@ export default function Order() {
 
                   <div className="flex flex-col p-4 gap-y-4 sm:gap-y-6">
                     {section.data.map((item, i) => (
-                      <div
-                        key={i}
-                        className="flex flex-col gap-y-1 text-xs"
-                      >
+                      <div key={i} className="flex flex-col gap-y-1 text-xs">
                         <p className="opacity-80">{item.label}</p>
                         <p className="">{item.value}</p>
                       </div>
@@ -449,10 +452,10 @@ export default function Order() {
                   </div>
                 </div>
               ))}
-            </div>
+            </section>
           </div>
         </div>
-      </div>
+      </main>
     </>
   );
 }

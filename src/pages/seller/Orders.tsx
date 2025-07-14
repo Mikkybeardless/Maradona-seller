@@ -2,8 +2,7 @@ import { Box } from "@mui/material";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import { GridColDef } from "@mui/x-data-grid";
-import { useRef, useState } from "react";
-import { CiSearch } from "react-icons/ci";
+import { useEffect, useRef, useState } from "react";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import { PiCoinVerticalDuotone } from "react-icons/pi";
 import { Link, useLocation } from "react-router-dom";
@@ -12,7 +11,11 @@ import DashboardSearchBar from "../../components/seller/DashboardSearchBar";
 import LineChartComponent from "../../components/seller/LineChart";
 import MuiTableComponent from "../../components/seller/TableComponent";
 import { generateLineChartData1SellerDashboard } from "../../helper/generateFillData";
-import { generateRandomNumber } from "../../helper/helperFunctions";
+import { Dayjs } from "dayjs";
+import { useDebounce } from "../../hooks/useDebounce";
+import { DateSelect } from "../../components/common/DateSelect";
+import { FilterGroup } from "../../components/common/FilterGroup";
+import { TableSearchInput } from "../../components/common/tableSearchInput";
 
 type UserTableType = {
   id: number;
@@ -24,66 +27,45 @@ type UserTableType = {
 };
 
 const rows = (): UserTableType[] => {
-  const loopArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-  const returnArray: UserTableType[] = [];
-  loopArray.forEach((num) => {
-    const randomNum = generateRandomNumber(4, 1);
-    returnArray.push({
-      id: 100 + num,
-      name: "Rosemary Sunday",
-      type: "House",
-      details: "3-bedroom house in Ikeja",
-      date: new Date().toUTCString(),
-      status:
-        randomNum === 1
-          ? "Pending"
-          : randomNum === 2
-          ? "Processed"
-          : randomNum === 3
-          ? "Cancelled"
-          : randomNum === 4
-          ? "Returned"
-          : "",
-    });
-  });
-  return returnArray;
+  const types = ["car", "house", "land"];
+  const statuses = ["Pending", "Processed", "Cancelled", "Returned"];
+
+  const rowData: UserTableType[] = Array.from({ length: 10 }, (_, index) => ({
+    id: index + 1,
+    name: `Rosemary Sunday ${index + 1}`,
+    type: types[index % 3], // Repeats 0, 1, 2 → House, Land, Car
+    status: statuses[index % 4], // Repeats 0, 1, 2, 3 → Published, Pending, Failed
+    details: `Details for Property ${index + 1}`,
+    date: new Date().toISOString(),
+  }));
+  return rowData;
 };
 
-const chartData = () => {
-  const monthArray = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
-  const returnArray: any[] = [];
-  monthArray.forEach((month) =>
-    returnArray.push({
-      name: month,
-      earnings: generateRandomNumber(900000, 100000),
-    })
-  );
-
-  return returnArray;
+export type IFilter = {
+  type: string;
+  status: string;
+  date: Dayjs | null;
+  modified: Dayjs | null;
 };
-
 export default function Orders() {
   const location = useLocation();
   const { pathname } = location;
   const [exportModal, setExportModal] = useState(false);
   const exportModalRef = useRef(null);
+  const [allRows, setAllRows] = useState<UserTableType[] | []>([]);
+  const [tableRows, setTableRows] = useState<UserTableType[]>(rows());
+  const [loading, setLoading] = useState(false);
 
   // State for tabs
   const [activeTab, setActiveTab] = useState("New");
-
+  const [filters, setFilters] = useState<IFilter>({
+    type: "",
+    status: "",
+    date: null,
+    modified: null,
+  });
+  const [searchQuery, setSearchQuery] = useState("");
+  const debouncedSearchQuery = useDebounce(searchQuery);
   useClickAway(exportModalRef, () => {
     setExportModal(false);
   });
@@ -100,8 +82,8 @@ export default function Orders() {
     { field: "id", headerName: "ID", flex: 0.3 },
     { field: "name", headerName: "Customer", flex: 0.9 },
     { field: "type", headerName: "Item type" },
-    { field: "details", headerName: "Item Details", flex: .8 },
-    { field: "date", headerName: "Order Date", flex: .8 },
+    { field: "details", headerName: "Item Details", flex: 0.8 },
+    { field: "date", headerName: "Order Date", flex: 0.8 },
     { field: "status", headerName: "Status" },
     {
       field: "Action",
@@ -134,33 +116,56 @@ export default function Orders() {
     },
   ];
 
-  // Filter rows based on the active tab (for non-analytical views)
-  const allRows = rows();
-  const filteredRows =
-    activeTab === "Analytics"
-      ? []
-      : allRows.filter((row) => {
-          switch (activeTab) {
-            case "New":
-              return row.status === "Pending";
-            case "Returned":
-              return row.status === "Returned";
-            case "Cancelled":
-              return row.status === "Cancelled";
-            case "Processed":
-              return row.status === "Processed";
-            default:
-              return true;
-          }
-        });
+  useEffect(() => {
+    async function fetchData() {
+      // const res = await fetch("/api/orders");
+
+      // const data = await res.json();
+      setAllRows(rows()); // ✅ you need this here
+      setTableRows(rows()); // ✅ you need this here
+    }
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const normalizedQuery = debouncedSearchQuery.toLowerCase();
+
+    const filtered = allRows.filter((row) => {
+      // Tab filter
+      const tabMatch =
+        activeTab === "Analytics"
+          ? false
+          : activeTab === "New"
+          ? row.status === "Pending"
+          : row.status === activeTab;
+
+      // Search filter (e.g., match against name or details)
+      const searchMatch =
+        row.name.toLowerCase().includes(normalizedQuery) ||
+        row.details.toLowerCase().includes(normalizedQuery);
+
+      // Custom filters
+      const typeMatch = filters.type ? row.type === filters.type : true;
+      const statusMatch = filters.status ? row.status === filters.status : true;
+      // const dateMatch = filters.date
+      //   ? row.date.startsWith(filters.date.toISOString().slice(0, 10))
+      //   : true;
+
+      // Combine
+      return tabMatch && searchMatch && typeMatch && statusMatch;
+    });
+
+    setTableRows(filtered);
+  }, [activeTab, filters, debouncedSearchQuery]);
 
   return (
-    <div className="w-full h-full overflow-y-auto flex flex-col custom-scrollbar md:pb-3 pb-32 ">
-
+    <main className="w-full h-full overflow-y-auto flex flex-col custom-scrollbar md:pb-3 pb-32 ">
       {/* Export Modal  */}
       {exportModal ? (
         <div className="w-screen h-screen flex justify-center items-center fixed top-0 left-0 z-30 bg-black/50 backdrop-blur-sm px-4">
           <div
+            aria-label="Export Modal"
             ref={exportModalRef}
             className="w-[95%] sm:w-[70%] md:w-[50%] lg:w-[30%] rounded-[24px] flex flex-col p-4 sm:p-6 md:p-8 bg-white"
           >
@@ -237,7 +242,10 @@ export default function Orders() {
 
       <div className="px-4 sm:px-12 md:px-24 w-full mt-3 flex flex-col flex-1">
         {/* Header Section */}
-        <div className="flex flex-wrap justify-between items-center gap-y-4">
+        <section
+          id="header"
+          className="flex flex-wrap justify-between items-center gap-y-4"
+        >
           <h1 className="text-2xl sm:text-3xl font-bold flex items-start">
             Orders
           </h1>
@@ -254,10 +262,13 @@ export default function Orders() {
               Export
             </button>
           </div>
-        </div>
+        </section>
 
         {/* Earnings Section */}
-        <div className="w-full flex flex-wrap justify-between items-end pb-3 mt-4 border-b border-b-primaryBorder">
+        <section
+          id="earnings"
+          className="w-full flex flex-wrap justify-between items-end pb-3 mt-4 border-b border-b-primaryBorder"
+        >
           <div className="flex flex-col gap-y-2">
             <div className="flex items-center gap-x-2">
               <PiCoinVerticalDuotone size={22} color="#686677" />
@@ -270,15 +281,15 @@ export default function Orders() {
               <span className="text-xs text-[#686677]">+5,300 this week</span>
             </div>
           </div>
-        </div>
+        </section>
 
-        <div className="mt-4">
+        <section id="tabs" className="mt-4">
           {/* Responsive Tabs Section */}
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
             <Tabs
               value={activeTab}
               onChange={(e, newValue) => setActiveTab(newValue)}
-              textColor="#040421"
+              textColor="primary"
               indicatorColor="primary"
               variant="scrollable"
               scrollButtons="auto"
@@ -286,36 +297,54 @@ export default function Orders() {
               <Tab
                 label="New"
                 value="New"
-                sx={activeTab === "New"?{ fontWeight: "bold", textTransform: "capitalize" }:{ textTransform: "capitalize" }}
+                sx={
+                  activeTab === "New"
+                    ? { fontWeight: "bold", textTransform: "capitalize" }
+                    : { textTransform: "capitalize" }
+                }
               />
               <Tab
                 label="Processed"
                 value="Processed"
-                sx={activeTab === "Processed"?{ fontWeight: "bold", textTransform: "capitalize" }:{ textTransform: "capitalize" }}
+                sx={
+                  activeTab === "Processed"
+                    ? { fontWeight: "bold", textTransform: "capitalize" }
+                    : { textTransform: "capitalize" }
+                }
               />
               <Tab
                 label="Cancelled"
                 value="Cancelled"
-                sx={activeTab === "Cancelled"?{ fontWeight: "bold", textTransform: "capitalize" }:{ textTransform: "capitalize" }}
+                sx={
+                  activeTab === "Cancelled"
+                    ? { fontWeight: "bold", textTransform: "capitalize" }
+                    : { textTransform: "capitalize" }
+                }
               />
               <Tab
                 label="Returned"
                 value="Returned"
-                sx={activeTab === "Returned"?{ fontWeight: "bold", textTransform: "capitalize" }:{ textTransform: "capitalize" }}
+                sx={
+                  activeTab === "Returned"
+                    ? { fontWeight: "bold", textTransform: "capitalize" }
+                    : { textTransform: "capitalize" }
+                }
               />
               <Tab
                 label="Analytics"
                 value="Analytics"
-                sx={activeTab === "Analytics"?{ fontWeight: "bold", textTransform: "capitalize" }:{ textTransform: "capitalize" }}
+                sx={
+                  activeTab === "Analytics"
+                    ? { fontWeight: "bold", textTransform: "capitalize" }
+                    : { textTransform: "capitalize" }
+                }
               />
             </Tabs>
           </Box>
-        </div>
-
-        
+        </section>
 
         {activeTab === "Analytics" ? (
-          <div className="w-full mt-5">
+          <section id="analytics" className="w-full mt-5">
             <div className="p-3.5 rounded-lg border border-primaryBorder mt-7">
               {/* Title & Select Dropdown (Responsive) */}
               <div className="flex flex-wrap w-full justify-between items-center gap-3">
@@ -330,9 +359,7 @@ export default function Orders() {
               <div className="mt-2 flex flex-wrap gap-x-8 gap-y-2 items-center">
                 <p className="text-xs text-[#585858]">
                   Total income:{" "}
-                  <div className="text-lg text-[#E65800]">
-                    ₦23,230,450
-                  </div>
+                  <div className="text-lg text-[#E65800]">₦23,230,450</div>
                 </p>
                 <p className="text-xs text-[#585858]">
                   Total expenditure:{" "}
@@ -365,78 +392,64 @@ export default function Orders() {
                 />
               </div>
             </div>
-          </div>
+          </section>
         ) : (
-
           <>
-        {/* Filters & Search Bar */}
-            <div className="mb-4" ><FiltersAndSearch/></div>
-            
+            {/* Filters & Search Bar */}
+            <div className="mb-4">
+              <FilterGroup
+                filters={filters}
+                onChange={(updated) => {
+                  setFilters((prev) => ({ ...prev, ...updated }));
+                }}
+                selects={[
+                  {
+                    name: "type",
+                    placeholder: "Category",
+                    options: [
+                      { label: "House", value: "house" },
+                      { label: "Cars", value: "cars" },
+                      { label: "Land", value: "land" },
+                    ],
+                  },
+                ]}
+                extraFilters={
+                  <>
+                    <DateSelect
+                      onChange={(date) => {
+                        setFilters((prev) => ({ ...prev, date }));
+                      }}
+                      value={filters.date}
+                    />
+                  </>
+                }
+                searchNode={
+                  <TableSearchInput
+                    searchQuery={searchQuery}
+                    setSearchQuery={setSearchQuery}
+                    placeholder="Search orders"
+                  />
+                }
+              />
+            </div>
+
             {/* Responsive Table */}
-            <div className="mt-3 flex flex-1 w-full overflow-x-auto">
+            <section
+              id="responsive-table"
+              className="mt-3 flex flex-1 w-full overflow-x-auto"
+            >
               <MuiTableComponent
                 columns={columns}
                 showCheckbox={false}
-                rows={filteredRows}
+                rows={tableRows}
                 paginationActive={true}
                 rowHeight={60}
                 pageSize={10}
               />
-            </div>
+            </section>
           </>
         )}
       </div>
-    </div>
+    </main>
   );
-}
-
-function FiltersAndSearch(){
-
-  return(
-    <div className="flex flex-wrap justify-between items-center gap-y-4 mt-5 w-full">
-      {/* Filters */}
-      <div className="flex flex-wrap gap-x-5 gap-y-3 items-center">
-
-        <div className="flex flex-col gap-y-1 pr-3 rounded-lg border border-primaryBorder bg-white outline-none">
-          <select className="p-2.5 work-sans text-sm outline-none">
-            <option>Customer</option>
-            <option>Rosie Sunday</option>
-          </select>
-        </div>
-
-        <div className="flex flex-col gap-y-1 pr-3 rounded-lg border border-primaryBorder bg-white outline-none">
-          <select className="p-2.5 work-sans text-sm outline-none">
-            <option>Status</option>
-            <option>Pending</option>
-            <option>Processed</option>
-            <option>Cancelled</option>
-            <option>Returned</option>
-          </select>
-        </div>
-
-        <div className="flex flex-col gap-y-1 pr-3 rounded-lg border border-primaryBorder bg-white outline-none">
-          <select className="p-2.5 work-sans text-sm outline-none ">
-            <option>Today</option>
-          </select>
-        </div>
-
-        <div className="flex flex-col gap-y-1 pr-3 rounded-lg border border-primaryBorder bg-white outline-none">
-          <select className="p-2.5 work-sans text-sm outline-none">
-            <option>Modified</option>
-          </select>
-        </div>
-
-      </div>
-
-      {/* Responsive Search Bar */}
-      <div className="flex items-center gap-x-2 px-3 w-full sm:w-auto sm:basis-[25%] rounded-lg border border-primaryBorder">
-        <CiSearch className="h-fit w-fit my-auto" size={24} />
-        <input
-          className="flex-1 py-2.5 outline-none border-none text-sm bg-transparent"
-          placeholder="Search"
-          type="text"
-        />
-      </div>
-    </div>
-  )
 }

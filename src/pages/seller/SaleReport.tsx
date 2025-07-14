@@ -1,5 +1,4 @@
 import {
-  Button,
   Paper,
   Table,
   TableBody,
@@ -13,6 +12,7 @@ import { GridColDef } from "@mui/x-data-grid";
 import { FaChevronRight, FaRegSquare, FaSquare } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import DashboardSearchBar from "../../components/seller/DashboardSearchBar";
+import { ReportTab } from "../../components/common/reportTabs";
 
 function SaleReport() {
   const isMobile = useMediaQuery("(max-width: 768px)");
@@ -66,43 +66,7 @@ function SaleReport() {
         </div>
 
         {/* Filters & Actions */}
-        <div className="flex flex-wrap justify-between gap-4 md:gap-0">
-          <div className="flex flex-wrap gap-4 md:gap-7">
-            <p className="flex items-center gap-2 text-[#585858] text-sm">
-              Sale Report <FaSquare size={10} />
-            </p>
-            <p className="flex items-center gap-2 text-[#585858] text-sm">
-              Revenue <FaRegSquare />
-            </p>
-            <p className="flex items-center gap-2 text-[#585858] text-sm">
-              Expense <FaRegSquare />
-            </p>
-            <p className="flex items-center gap-2 text-[#585858] text-sm">
-              Financial Tracking <FaRegSquare />
-            </p>
-          </div>
-          <div className="flex gap-4">
-            <Button
-              sx={{
-                padding: "5px 8px",
-                background: "#ffffff",
-                border: "1px solid #5C4D58",
-                fontWeight: 400,
-                fontSize: "16px",
-                color: "#5C4D58",
-                textTransform: "capitalize",
-              }}
-            >
-              Print
-            </Button>
-            <select className="p-2 text-sm md:text-base rounded-lg border border-primaryBorder bg-white outline-none text-[#5C4D58]">
-              <option value="name">Month</option>
-            </select>
-            <select className="p-2 text-sm md:text-base rounded-lg border border-primaryBorder bg-white outline-none text-[#5C4D58]">
-              <option value="name">Year</option>
-            </select>
-          </div>
-        </div>
+        <ReportTab />
 
         {/* Table Title */}
         <p className="font-semibold text-base md:text-lg text-[#1E1A1C] mt-6 mb-4">

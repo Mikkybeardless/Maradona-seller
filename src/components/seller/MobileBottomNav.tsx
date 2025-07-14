@@ -19,12 +19,16 @@ import { NavLink } from "react-router-dom";
 export default function MobileBottomNav() {
   const [moreOpen, setMoreOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
-  const moreMenuRef = useRef(null);
+  const moreMenuRef = useRef<HTMLDivElement>(null);
 
   // Close menu when clicking outside
   useEffect(() => {
-    function handleClickOutside(event) {
-      if (moreMenuRef.current && !moreMenuRef.current.contains(event.target)) {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        moreMenuRef.current &&
+        event.target &&
+        !moreMenuRef.current.contains(event.target as Node)
+      ) {
         setMoreOpen(false);
       }
     }

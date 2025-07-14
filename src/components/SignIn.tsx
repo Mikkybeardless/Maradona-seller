@@ -1,11 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 import FacebookLogo from "../assets/facebook-logo.png";
 import GoogleLogo from "../assets/google-icon.svg";
-import { useSelector, useDispatch } from 'react-redux';
-import {loginUser} from '../redux/slices/userSlice'
-import { AppDispatch } from "../redux/store";
 
 interface SignUpProps {
   setSignUp: React.Dispatch<React.SetStateAction<boolean>>;
@@ -15,32 +12,34 @@ export default function SignIn({ setSignUp }: SignUpProps) {
   const [togglePasswordShow, setTogglePasswordShow] = useState(false);
 
   const [loginFormData, setLoginFormData] = useState({
-    email:"mhyelavala@gmail.com",
+    email: "mhyelavala@gmail.com",
     password: "mvala1234",
     login_by: "email",
-    user_type: "seller"
-  })
+    user_type: "seller",
+  });
   const navigate = useNavigate();
 
-  
-  const dispatch = useDispatch<AppDispatch>();
-  const seller = useSelector((state: any) => state.users.users);
+  // const dispatch = useDispatch<AppDispatch>();
+  // const seller = useSelector((state: any) => state.users.users);
 
-  function handleLogin() {
-    dispatch(loginUser(loginFormData));
-  }
+  // function handleLogin() {
+  //   dispatch(loginUser(loginFormData));
+  //   goToHome();
+  // }
 
   // useEffect(()=>{
   //   dispatch(loginUser(loginFormData))
   // }, [dispatch])
 
-  function handleInputChange(e:any){
-    let inputField = e.target.name
-    let inputValue = e.target.value
+  function handleInputChange(
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) {
+    let inputField = e.target.name;
+    let inputValue = e.target.value;
     setLoginFormData({
       ...loginFormData,
-      [inputField]: inputValue
-    })
+      [inputField]: inputValue,
+    });
   }
 
   function goToHome() {
@@ -105,7 +104,7 @@ export default function SignIn({ setSignUp }: SignUpProps) {
       </Link>
 
       <button
-        onClick={handleLogin}
+        // onClick={handleLogin}
         className="w-full py-3 rounded-[8px] mt-8 text-white bg-defaultOrange hover:bg-defaultOrangeHover text-sm"
       >
         Login
@@ -128,7 +127,11 @@ export default function SignIn({ setSignUp }: SignUpProps) {
           className="flex justify-center items-center h-[48px] px-10 gap-x-3 rounded-[8px] border border-[#6D6D6D] hover:bg-black/5"
           type="button"
         >
-          <img className="w-[24px] h-[24px]" src={FacebookLogo} alt="google" />
+          <img
+            className="w-[24px] h-[24px]"
+            src={FacebookLogo}
+            alt="facebook"
+          />
           <span>Facebook</span>
         </button>
       </div>

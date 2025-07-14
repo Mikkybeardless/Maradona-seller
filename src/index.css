@@ -25,7 +25,9 @@ input {
   outline: none;
 }
 
-
+.accent-orange {
+  accent-color: #ea580c;
+}
 
 #product-qty-input::-webkit-outer-spin-button,
 #product-qty-input::-webkit-inner-spin-button {

@@ -11,7 +11,7 @@ import { CardItem } from "./PaymentMethods";
 
 function PromoAndAdsPayment() {
   const [cards, setCards] = useState([
-    { id: 1, bank: "Access", cvv: "**3", cardNumber: "6213", expDate: "12/34"},
+    { id: 1, bank: "Access", cvv: "**3", cardNumber: "6213", expDate: "12/34" },
     { id: 2, bank: "GTBank", cvv: "**7", cardNumber: "4321", expDate: "08/26" },
   ]);
   const [openModal, setOpenModal] = useState(false);
@@ -22,13 +22,21 @@ function PromoAndAdsPayment() {
   const navigate = useNavigate();
 
   const handleAddCard = (newCard: {
-    id: number;
-    bank: string;
+    nameOnCard: string;
     cvv: string;
     cardNumber: string;
     expDate: string;
   }) => {
-    setCards([...cards, { ...newCard, id: cards.length + 1 }]);
+    setCards([
+      ...cards,
+      {
+        id: cards.length + 1,
+        bank: newCard.nameOnCard,
+        cvv: newCard.cvv,
+        cardNumber: newCard.cardNumber,
+        expDate: newCard.expDate,
+      },
+    ]);
     setOpenModal(false);
   };
 
@@ -108,6 +116,7 @@ function PromoAndAdsPayment() {
           </div>
           {cards.map((card) => (
             <CardItem
+              nameOnCard={""}
               key={card.id}
               {...card}
               isSelected={selectedCardId === card.id}
@@ -156,7 +165,13 @@ function PromoAndAdsPayment() {
 
 export default PromoAndAdsPayment;
 
-function SuccessFailModal({ open, success, onClose }) {
+type SuccessFailModalProps = {
+  open: boolean;
+  success: boolean;
+  onClose: () => void;
+};
+
+function SuccessFailModal({ open, success, onClose }: SuccessFailModalProps) {
   return (
     <Modal open={open} onClose={onClose}>
       <Box

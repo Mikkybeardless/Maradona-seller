@@ -74,8 +74,10 @@ const columns: GridColDef[] = [
   {
     field: "status",
     headerName: "Status",
-    renderCell: ({row}) => (
-      <div className={row.status == 'Active'? 'text-[#008000]':'text-[#FF0000]'}>
+    renderCell: ({ row }) => (
+      <div
+        className={row.status == "Active" ? "text-[#008000]" : "text-[#FF0000]"}
+      >
         {row.status}
       </div>
     ),
@@ -180,7 +182,7 @@ export default function Promotions() {
           {/* Chart */}
           <div className="w-full md:w-[50%] h-[250px] sm:h-[300px] md:h-[350px]">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={data}>
+              <BarChart data={data} barSize={15} barCategoryGap="50%">
                 <XAxis
                   dataKey="time"
                   domain={[0, 7]}
@@ -204,13 +206,11 @@ export default function Promotions() {
                 <Tooltip />
                 <Bar
                   dataKey="userCount1"
-                  barSize={26}
                   fill="#E65800"
                   radius={[4, 4, 0, 0]}
                 />
                 <Bar
                   dataKey="userCount2"
-                  barSize={26}
                   fill="#008000"
                   radius={[4, 4, 0, 0]}
                 />
@@ -259,18 +259,9 @@ export default function Promotions() {
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-x-5 items-start sm:items-center w-full sm:w-auto">
             <div className="flex flex-col gap-y-1 pr-2.5 text-sm rounded-lg border border-primaryBorder bg-white">
               <select className="p-2.5 rounded-lg outline-none">
-                <option value="" disabled selected>From</option>
-                <option>From</option>
-              </select>
-            </div>
-            <div className="flex flex-col gap-y-1 pr-2.5 text-sm rounded-lg border border-primaryBorder bg-white">
-              <select className="p-2.5  rounded-lg outline-none">
-                <option value="" disabled selected>To</option>
-              </select>
-            </div>
-            <div className="flex flex-col gap-y-1 pr-2.5 text-sm rounded-lg border border-primaryBorder bg-white">
-              <select className="p-2.5 rounded-lg outline-none">
-                <option value="" disabled selected>Percentage</option>
+                <option value="" disabled selected>
+                  Percentage
+                </option>
               </select>
             </div>
           </div>

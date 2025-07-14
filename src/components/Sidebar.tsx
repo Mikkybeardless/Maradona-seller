@@ -7,7 +7,7 @@ import { PiSealPercent } from "react-icons/pi";
 import { TbLayoutDashboard } from "react-icons/tb";
 import { SlChart } from "react-icons/sl";
 import { LuWallet } from "react-icons/lu";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import logo from "../assets/logo.svg";
 import reports from "../assets/analytics-up.svg";
 import reports2 from "../assets/analytics-up2.svg";
@@ -19,8 +19,9 @@ import { BsBoxSeam } from "react-icons/bs";
 export default function Sidebar() {
   return (
     <div className="h-full basis-[15.5%] flex flex-col px-4 py-5 gap-y-3 border-r border-r-[#E6E6E6] bg-[#F5F5F5]">
-      <img className="h-[45px] w-fit" src={logo} alt="logo" />
-
+      <Link to="/" className="flex items-center gap-x-2">
+        <img className="h-[45px] w-fit" src={logo} alt="logo" />
+      </Link>
       <div className="flex flex-col gap-y-2.5 flex-1 w-full mt-7">
         <NavLink
           to="dashboard"
@@ -32,7 +33,10 @@ export default function Sidebar() {
             } rounded-[8px] p-2.5 px-3 flex items-center gap-x-3 text-sm w-full`
           }
         >
-          <TbLayoutDashboard size={24} className="transition-none flex-shrink-0" />
+          <TbLayoutDashboard
+            size={24}
+            className="transition-none flex-shrink-0"
+          />
           <span className="line-clamp-1">Dashboard</span>
         </NavLink>
 
@@ -106,7 +110,11 @@ export default function Sidebar() {
           }
         >
           {/* <SlChart size={24} className="transition-none flex-shrink-0" /> */}
-          {window.location.href.includes('seller/reports') ? <img src={reports2} alt="reports"/> : <img src={reports} alt="reports"/>}
+          {window.location.href.includes("seller/reports") ? (
+            <img src={reports2} alt="reports" />
+          ) : (
+            <img src={reports} alt="reports" />
+          )}
           <span className="line-clamp-1">Reports</span>
         </NavLink>
 
@@ -121,7 +129,11 @@ export default function Sidebar() {
           }
         >
           {/* <PiSealPercent size={24} className="transition-none flex-shrink-0" /> */}
-          {window.location.href.includes('seller/promotions') ? <img src={promotions2} alt="Promotions & Ads"/> : <img src={promotions} alt="Promotions & Ads"/>}
+          {window.location.href.includes("seller/promotions") ? (
+            <img src={promotions2} alt="Promotions & Ads" />
+          ) : (
+            <img src={promotions} alt="Promotions & Ads" />
+          )}
           <span className="line-clamp-1">Promotions & Ads</span>
         </NavLink>
 
@@ -149,7 +161,10 @@ export default function Sidebar() {
             } rounded-[8px] p-2.5 px-3 flex items-center gap-x-3 text-sm w-full`
           }
         >
-          <TbTruckDelivery size={24} className="transition-none flex-shrink-0" />
+          <TbTruckDelivery
+            size={24}
+            className="transition-none flex-shrink-0"
+          />
           <span className="line-clamp-1">Shipments</span>
         </NavLink>
 
