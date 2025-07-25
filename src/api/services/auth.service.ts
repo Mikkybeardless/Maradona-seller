@@ -16,6 +16,7 @@ interface DoPassReset {
   verification_code: string;
   password: string;
 }
+
 const authService = {
   login: (loginData: LoginData) => apiClient.post("/auth/login", loginData),
   logout: () => apiClient.get("/auth/logout"),
