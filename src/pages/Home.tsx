@@ -1,9 +1,6 @@
-import { useState } from "react";
-import { FiChevronRight } from "react-icons/fi";
 import { CiHeart, CiLocationOn } from "react-icons/ci";
 import { FaApple, FaGooglePlay } from "react-icons/fa6";
 import cardummy from "../assets/carshop.png";
-
 import IOSapp from "../assets/IOS-app-display.png";
 import QRcode from "../assets/qr-code.png";
 import HomeCarousel from "../components/HomeCarousel";
@@ -118,7 +115,7 @@ export default function Home() {
           </section>
 
           <section className="flex bg-[url('/home/growBusiness.png')] object-cover  mt-12">
-            <div className=" w-full md:w-[50%] bg-[#F2F2F2] pl-[110px] space-y-10 pr-[10px] py-10  rounded-br-[200px]">
+            <div className=" w-full md:w-[50%] bg-[#F2F2F2] md:pl-[110px] p-4 space-y-10 pr-[10px] py-10  rounded-br-[200px]">
               <h2 className="md:text-[56px]  font-bold tracking-[0.56px]">
                 Grow <span className="text-defaultOrange">Your Business</span>,
                 Reach More <span className="text-[#E65800]">Customers!</span>
@@ -159,7 +156,7 @@ export default function Home() {
             </div>
           </section>
 
-          <div className="bg-[#FFFFFF] px-[110px] py-10">
+          <div className="bg-[#FFFFFF] p-4 md:px-[110px] py-10">
             {/* how it works */}
             <section className=" ">
               {/* how it works */}
@@ -211,7 +208,7 @@ export default function Home() {
                 <div className="bg-[url('/home/team.png')] h-[437px] object-cover relative flex flex-col justify-end w-full md:w-[654px]">
                   <div className="h-[178px]  px-[30px] py-5 space-y-3 bg-[#00000080] text-white">
                     <h3 className="text-[18px] font-medium">Meet Our Team</h3>
-                    <p className="w-[465px]">
+                    <p className="md:w-[465px]">
                       Our dedicated professionals are committed to connecting
                       you with the best distress sale deals on lands, houses,
                       and cars. Together, we deliver excellence and trust
@@ -227,8 +224,8 @@ export default function Home() {
 
           {/* feature cat */}
           <section className="flex text-white">
-            <div className="w-full md:w-[50%] pl-[118px] pr-[78px] py-10 space-y-4 bg-[#040421]">
-              <h2 className="text-[60px] font-bold">Don&apos;t Miss Out!</h2>
+            <div className="w-full md:w-[50%] px-4 md:pl-[118px] md:pr-[78px] py-10 space-y-4 bg-[#040421]">
+              <h2 className="md:text-[60px] font-bold">Don&apos;t Miss Out!</h2>
               <p className="md:text-[25px]">
                 Join thousands of successful sellers today!
               </p>
@@ -236,12 +233,12 @@ export default function Home() {
                 Need Help? Contact our Support Team.
               </p>
 
-              <button className="bg-[#14199C]  text-white text-[24px] px-[56px] py-[24px] rounded-[15px]">
+              <button className="bg-[#14199C]  text-white md:text-[24px] px-[56px] md:py-[24px] py-3 rounded-[15px]">
                 Start Selling Now
               </button>
             </div>
 
-            <div className="w-full md:w-[50%] bg-[url('/home/male-holding-tablet.png')] bg-cover h-[400px] md:h-[500px] relative"></div>
+            <div className="hidden md:block md:w-[50%] bg-[url('/home/male-holding-tablet.png')] bg-cover h-[400px] md:h-[500px] relative"></div>
           </section>
 
           {/* download */}
@@ -302,45 +299,45 @@ export default function Home() {
   );
 }
 
-const FeatureCard = () => {
-  return (
-    <div>
-      <div className="bg-[#ffffff] flex flex-col rounded-md p-4 mb-4 relative">
-        {/* Heart Icon (Fixed Position) */}
-        <div className="absolute md:top-7 xs:top-2 left-5 bg-[#BDBDBD] rounded-full h-7 w-7 flex items-center justify-center">
-          <CiHeart className="w-4 h-4 text-white" />
-        </div>
+// const FeatureCard = () => {
+//   return (
+//     <div>
+//       <div className="bg-[#ffffff] flex flex-col rounded-md p-4 mb-4 relative">
+//         {/* Heart Icon (Fixed Position) */}
+//         <div className="absolute md:top-7 xs:top-2 left-5 bg-[#BDBDBD] rounded-full h-7 w-7 flex items-center justify-center">
+//           <CiHeart className="w-4 h-4 text-white" />
+//         </div>
 
-        {/* Image */}
-        <div className="flex justify-center">
-          <img
-            src={cardummy}
-            alt="dummycars"
-            className="w-[90%] h-auto object-contain"
-          />
-        </div>
-      </div>
+//         {/* Image */}
+//         <div className="flex justify-center">
+//           <img
+//             src={cardummy}
+//             alt="dummycars"
+//             className="w-[90%] h-auto object-contain"
+//           />
+//         </div>
+//       </div>
 
-      <div>
-        <p className="font-bold text-[15px] text-[#14199C] mb-[10px]">
-          ₦ 1,750,000
-        </p>
-        <p className="font-normal text-[15px] text-[#040421] mb-[10px]">
-          Toyota Tacoma Access Cab 2006 Blue
-        </p>
-        <p className="flex items-center gap-x-1 font-normal text-sm text-[#454545] mb-[15px]">
-          <CiLocationOn size={14} color="#E65800" />
-          Ikoyi, Lagos
-        </p>
-        <div className="flex gap-x-2">
-          <p className="text-xs font-medium text-[#02999D] p-2 bg-[#E0F2FB] rounded-[8px]">
-            Automatic
-          </p>
-          <p className="text-xs font-medium text-[#02999D] p-2 bg-[#E0F2FB] rounded-[8px]">
-            Automatic
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-};
+//       <div>
+//         <p className="font-bold text-[15px] text-[#14199C] mb-[10px]">
+//           ₦ 1,750,000
+//         </p>
+//         <p className="font-normal text-[15px] text-[#040421] mb-[10px]">
+//           Toyota Tacoma Access Cab 2006 Blue
+//         </p>
+//         <p className="flex items-center gap-x-1 font-normal text-sm text-[#454545] mb-[15px]">
+//           <CiLocationOn size={14} color="#E65800" />
+//           Ikoyi, Lagos
+//         </p>
+//         <div className="flex gap-x-2">
+//           <p className="text-xs font-medium text-[#02999D] p-2 bg-[#E0F2FB] rounded-[8px]">
+//             Automatic
+//           </p>
+//           <p className="text-xs font-medium text-[#02999D] p-2 bg-[#E0F2FB] rounded-[8px]">
+//             Automatic
+//           </p>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };

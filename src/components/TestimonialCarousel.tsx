@@ -103,7 +103,7 @@ const Carousel = () => {
   }, []);
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    <div className="max-w-4xl mx-auto  py-3 md:p-6">
       <div className="relative overflow-hidden  rounded-2xl shadow-2xl">
         {/* Main carousel container */}
         <div
