@@ -9,15 +9,17 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
-import { FaBars, FaRegBell, FaRegHeart, FaRegUser } from "react-icons/fa6";
-import { GrCart } from "react-icons/gr";
+import { FaBars, FaRegUser } from "react-icons/fa6";
 import { CiSearch } from "react-icons/ci";
 import logo from "../assets/logo.svg";
 import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const navigate = useNavigate();
+  const { isAuthenticated } = useSelector((state: RootState) => state.auth);
 
   function goToLogin() {
     navigate("/login?signup=false");
@@ -29,10 +31,6 @@ export default function Navbar() {
 
   function goToHome() {
     navigate("/");
-  }
-
-  function goToHelp() {
-    navigate("/contact");
   }
 
   return (
@@ -56,7 +54,7 @@ export default function Navbar() {
               Home
             </a>
             <a
-              href="#about"
+              href="#services"
               className="hover:text-defaultOrange text-xs sm:text-sm cursor-pointer"
             >
               Our Services
@@ -73,56 +71,58 @@ export default function Navbar() {
             >
               Testimonials
             </a>
-            <a
-              onClick={() => goToHelp()}
+            <Link
+              to="/help"
               className="hover:text-defaultOrange text-xs sm:text-sm cursor-pointer"
             >
               Help
-            </a>
+            </Link>
           </div>
         </div>
 
         {/* Right side - Icons & Buttons */}
         <div className="flex gap-2 xs:gap-3 sm:gap-4 md:gap-4 items-center">
-          <Link to="/seller/dashboard">
+          {/* <Link to="/seller/dashboard">
             <FaRegUser className="w-4 h-4 cursor-pointer hover:text-defaultOrange" />
-          </Link>
-          <FaRegHeart className="w-4 h-4 cursor-pointer hover:text-defaultOrange" />
+          </Link> */}
+          {/* <FaRegHeart className="w-4 h-4 cursor-pointer hover:text-defaultOrange" />
           <FaRegBell className="w-4 h-4 cursor-pointer hover:text-defaultOrange" />
-          <GrCart className="w-4 h-4 cursor-pointer hover:text-defaultOrange" />
+          <GrCart className="w-4 h-4 cursor-pointer hover:text-defaultOrange" /> */}
 
           {/* Desktop Login/Register Buttons (Hidden on small screens) */}
           <div className="hidden md:flex gap-3 lg:gap-4">
-            <Button
-              onClick={() => goToLogin()}
-              variant="contained"
-              sx={{
-                background: "#E65800",
-                color: "#FFFFFF",
-                fontSize: "12px",
-                fontWeight: 700,
-                height: "35px",
-                borderRadius: "6px",
-              }}
-            >
-              Login
-            </Button>
-
-            <Link to="/seller/dashboard">
+            {isAuthenticated ? (
+              <Link to="/seller/dashboard">
+                <Button
+                  variant="outlined"
+                  sx={{
+                    borderColor: "#14199C",
+                    color: "#14199C",
+                    fontSize: "12px",
+                    fontWeight: 700,
+                    height: "35px",
+                    borderRadius: "6px",
+                  }}
+                >
+                  Dashboard
+                </Button>
+              </Link>
+            ) : (
               <Button
-                variant="outlined"
+                onClick={() => goToLogin()}
+                variant="contained"
                 sx={{
-                  borderColor: "#14199C",
-                  color: "#14199C",
+                  background: "#E65800",
+                  color: "#FFFFFF",
                   fontSize: "12px",
                   fontWeight: 700,
                   height: "35px",
                   borderRadius: "6px",
                 }}
               >
-                Dashboard
+                Login
               </Button>
-            </Link>
+            )}
           </div>
         </div>
 
@@ -158,36 +158,39 @@ export default function Navbar() {
               Help
             </a>
 
-            {/* Mobile Login/Register Buttons */}
-            <Button
-              variant="contained"
-              sx={{
-                background: "#E65800",
-                color: "#FFFFFF",
-                fontSize: "14px",
-                fontWeight: 700,
-                height: "38px",
-                borderRadius: "8px",
-                width: "100%",
-              }}
-            >
-              Login
-            </Button>
-            <Link to="/sellers/dashboard">
+            {/* Mobile Login/Dashboard Buttons */}
+            {isAuthenticated ? (
+              <Link to="/seller/dashboard">
+                <Button
+                  variant="outlined"
+                  sx={{
+                    borderColor: "#14199C",
+                    color: "#14199C",
+                    fontSize: "12px",
+                    fontWeight: 700,
+                    height: "35px",
+                    borderRadius: "6px",
+                  }}
+                >
+                  Dashboard
+                </Button>
+              </Link>
+            ) : (
               <Button
-                variant="outlined"
+                variant="contained"
                 sx={{
-                  borderColor: "#14199C",
-                  color: "#14199C",
-                  fontSize: "12px",
+                  background: "#E65800",
+                  color: "#FFFFFF",
+                  fontSize: "14px",
                   fontWeight: 700,
-                  height: "35px",
-                  borderRadius: "6px",
+                  height: "38px",
+                  borderRadius: "8px",
+                  width: "100%",
                 }}
               >
-                Dashboard
+                Login
               </Button>
-            </Link>
+            )}
           </div>
         </Drawer>
       </nav>

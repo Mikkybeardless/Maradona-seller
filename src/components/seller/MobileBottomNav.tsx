@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { BsBoxSeam, BsCart3 } from "react-icons/bs";
+import { BsCart3 } from "react-icons/bs";
 import {
-  FaBars,
   FaChevronUp,
   FaCog,
   FaCreditCard,
@@ -9,7 +8,7 @@ import {
   FaLock,
   FaUser,
 } from "react-icons/fa";
-import { LuUsers2 } from "react-icons/lu";
+// import { LuUsers2 } from "react-icons/lu";
 import { LuWallet } from "react-icons/lu";
 import { CgMenuRight } from "react-icons/cg";
 import { RiLineChartLine } from "react-icons/ri";
@@ -95,7 +94,7 @@ export default function MobileBottomNav() {
 
         {/* Wallet  */}
         <NavLink
-          to="/seller/wallet"
+          to="/seller/dashboard"
           className={({ isActive }) =>
             `flex flex-col items-center ${
               isActive ? "text-[#e65800]" : "text-gray-700"

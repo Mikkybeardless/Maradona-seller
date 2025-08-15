@@ -5,167 +5,107 @@ import {
   InputLabel,
   FormControl,
 } from "@mui/material";
-import { GridColDef } from "@mui/x-data-grid";
-import { useRef, useState } from "react";
+import { GridRowParams } from "@mui/x-data-grid";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { BiEditAlt } from "react-icons/bi";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { CiSearch } from "react-icons/ci";
-import { FaChevronRight, FaNairaSign, FaRegEye } from "react-icons/fa6";
+import { FaChevronRight, FaRegEye } from "react-icons/fa6";
 import { GoTrash } from "react-icons/go";
-import { TbCurrencyNaira } from "react-icons/tb";
-import { HiSortDescending } from "react-icons/hi";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useClickAway } from "react-use";
-import Car from "../../assets/Dashboard-Car-3.png";
 import DashboardSearchBar from "../../components/seller/DashboardSearchBar";
-import MuiTableComponent from "../../components/seller/TableComponent";
-import { generateRandomNumber } from "../../helper/helperFunctions";
-import { IoMdAdd } from "react-icons/io";
+import MuiTableComponent from "../../components/table/TableComponent";
+import productService from "../../api/services/product.service";
+import { useDebounce } from "../../hooks/useDebounce";
+import { ProductColumns } from "../../components/table/columns";
+import { FaPlus } from "react-icons/fa";
+import { TableSearchInput } from "../../components/common/tableSearchInput";
 
-type ProductTableType = {
-  id: any;
-  img: string;
-  productName: string;
-  category: string;
-  price: number;
-  location: string;
-  description: string;
-  stock: number;
-  status: string;
+type IFilter = {
+  type: string;
+  status: "pending" | "published";
 };
-
-const rows = (): ProductTableType[] => {
-  const loopArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-  const returnArray: ProductTableType[] = [];
-  loopArray.forEach((num) => {
-    const statusPicker = generateRandomNumber(3, 1);
-    returnArray.push({
-      id: num,
-      img: Car,
-      productName: "Toyota Camry LE (2024)",
-      category: "Cars",
-      price: generateRandomNumber(5000000, 100000),
-      location: "Lagos, Nigeria",
-      description:
-        "A well-maintained 2019 Toyota Corolla with low mileage and excellent fuel efficiency.",
-      stock: generateRandomNumber(10, 0),
-      status:
-        statusPicker === 1
-          ? "Published"
-          : statusPicker === 2
-          ? "Archived"
-          : statusPicker === 3
-          ? "Draft"
-          : "",
-    });
-  });
-  return returnArray;
-};
-
-function renderStatusColor(status: string) {
-  if (status.toLowerCase() === "published")
-    return "bg-[#E8F8E8] text-[#0C560B]";
-  else if (status.toLowerCase() === "archived")
-    return "bg-[#FEF3B8] text-[#D7B813]";
-  else if (status.toLowerCase() === "draft")
-    return "bg-[#DAE9FB] text-[#0B283E]";
-}
 
 export default function Products() {
   const location = useLocation();
   const { pathname } = location;
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const dotsPopupRef = useRef(null);
-
+  const [filters, setFilters] = useState<IFilter>({
+    type: "",
+    status: "published",
+  });
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("All");
-  const [searchTerm, setSearchTerm] = useState("");
-
-  const open = Boolean(anchorEl);
-  const id = open ? "simple-popper" : undefined;
-
-  useClickAway(dotsPopupRef, () => {
-    setAnchorEl(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const debouncedSearchQuery = useDebounce(searchQuery);
+  const [productData, setProductData] = useState({
+    rows: [],
+    pagination: {
+      page: 1,
+      pageSize: 10,
+    },
+    totalRowCount: 0,
+    loading: false,
   });
 
-  const handleClick = (event: any) => {
-    setAnchorEl(anchorEl ? null : event.currentTarget);
+  const fetchData = useCallback(async () => {
+    setProductData((prev) => ({ ...prev, loading: true }));
+    try {
+      const res = await productService.getProductsByStatus(filters.status, {
+        page: productData.pagination.page,
+        per_page: productData.pagination.pageSize,
+        search: debouncedSearchQuery,
+        type: filters.type,
+      });
+      if (res.status === 200) {
+        setProductData((prev) => ({
+          ...prev,
+          rows: res.data.data,
+          pagination: {
+            page: res.data.current_page,
+            pageSize: res.data.per_page,
+          },
+          totalRowCount: res.data.total,
+          loading: false,
+        }));
+      }
+    } catch (error) {
+      console.error("Error fetching seller product data:", error);
+    } finally {
+      setProductData((prev) => ({ ...prev, loading: false }));
+    }
+  }, [
+    JSON.stringify(filters),
+    JSON.stringify(productData.pagination),
+    debouncedSearchQuery,
+  ]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  const handleTableSelectionChange = (selectedRows: any[]) => {
+    console.log("Selected Rows:", selectedRows);
   };
-
-  const columns: GridColDef[] = [
-    { field: "productName", headerName: "Product", type: "string", flex: 0.35 },
-    {
-      field: "price",
-      headerName: "Price(₦)",
-      renderCell: ({ row }) => {
-        return (
-          <div className="w-full h-full items-center flex justify-center">
-            <span className="flex items-center gap-y-3 text-sm">
-              ₦{row.price}
-            </span>
-          </div>
-        );
-      },
-    },
-    { field: "location", headerName: "Location", type: "string", flex: 0.35 },
-    { field: "category", headerName: "Category" },
-    { field: "description", headerName: "Description", flex: 0.5 },
-    {
-      field: "status",
-      headerName: "Status",
-      renderCell: ({ row }) => {
-        return (
-          <div className="w-full h-full items-center flex justify-center">
-            <span
-              className={`${renderStatusColor(
-                row.status
-              )} rounded-[100px] !text-xs px-2.5 py-1`}
-            >
-              {row.status}
-            </span>
-          </div>
-        );
-      },
-      flex: 0.25,
-    },
-    {
-      field: "Action",
-      renderCell: () => {
-        return (
-          <div className="h-full w-full relative z-10 flex justify-center items-center overflow-visible">
-            <BsThreeDotsVertical
-              aria-describedby={id}
-              type="button"
-              onClick={handleClick}
-              size={16}
-              className="cursor-pointer"
-            />
-            <Popper
-              ref={dotsPopupRef}
-              className="p-3 text-sm z-10 flex gap-x-4 items-center rounded-lg border border-primaryBorder bg-white"
-              id={id}
-              open={open}
-              anchorEl={anchorEl}
-            >
-              <Link to={`/${pathname.split("/")[1]}/products/product`}>
-                <FaRegEye size={18} />
-              </Link>
-
-              <BiEditAlt size={18} />
-              <GoTrash size={18} />
-            </Popper>
-          </div>
-        );
-      },
-    },
-  ];
-
-  const filteredRows = rows().filter((row) => {
-    return (
-      (activeTab === "All" ||
-        row.status.toLowerCase() === activeTab.toLowerCase()) &&
-      row.productName.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  });
+  const handleRowClick = (params: GridRowParams) => {
+    console.log("Row clicked:", params.row);
+    navigate(`/seller/products/product/${params.row.id}`);
+  };
+  const handleTabClick = (tab: string) => {
+    setActiveTab(tab);
+    switch (tab) {
+      case "All":
+        setFilters((prev) => ({ ...prev, status: "published" }));
+        break;
+      case "Published":
+        setFilters((prev) => ({ ...prev, status: "published" }));
+        break;
+      case "Draft":
+        setFilters((prev) => ({ ...prev, status: "pending" }));
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
     <div className="w-full h-full overflow-y-auto flex flex-col custom-scrollbar pb-10 bg-[#FAFAFA]">
@@ -182,24 +122,21 @@ export default function Products() {
           <span className="text-xs">Products</span>
         </div>
 
-        <div className="flex flex-col sm:flex-row sm:justify-between items-center mt-6 gap-y-3">
-          {/* Title */}
-          <h1 className="text-2xl sm:text-3xl font-bold">Products</h1>
-
-          {/* Add Product Button */}
+        <div className="flex justify-between items-center mt-1">
+          <h1 className="text-3xl font-bold">Products</h1>
           <Link
-            to={`/${pathname.split("/")[1]}/products/add-product`}
-            className="flex items-center rounded-lg px-6 sm:px-6 py-3 sm:py-3 text-white text-sm bg-defaultOrange hover:bg-defaultOrangeHover w-full sm:w-auto text-center"
+            to={`/seller/products/add-product`}
+            className="rounded-lg px-3 py-1 md:px-5 md:py-3 flex gap-x-3 items-center text-white text-sm bg-defaultOrange hover:bg-defaultOrangeHover"
           >
-            <span className="text-lg mr-4">
-              <IoMdAdd />
-            </span>{" "}
-            Add product
+            <FaPlus size={20} /> Add product
           </Link>
         </div>
 
         {/* Tabs */}
-        <div className="flex flex-wrap justify-center sm:justify-start gap-x-2 sm:gap-x-4 mt-4 border-b border-[#E6E6E6]">
+        <section
+          id="tabs"
+          className="flex flex-wrap justify-center sm:justify-start gap-x-2 sm:gap-x-4 mt-4 border-b border-[#E6E6E6]"
+        >
           {[`All`, `Published`, `Draft`].map((tab) => (
             <button
               key={tab}
@@ -208,14 +145,17 @@ export default function Products() {
                   ? "border-b-4 border-[#14199C]"
                   : "text-gray-500"
               }`}
-              onClick={() => setActiveTab(tab)}
+              onClick={() => handleTabClick(tab)}
             >
               {tab} <span className="ml-1">23</span>
             </button>
           ))}
-        </div>
+        </section>
 
-        <div className="flex flex-wrap justify-between items-center mt-5 w-full gap-4">
+        <section
+          id="filter-section"
+          className="flex flex-wrap justify-between items-center mt-5 w-full gap-4"
+        >
           {/* Filters Section */}
           <div className="flex flex-wrap gap-3 sm:gap-x-5 items-center">
             <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
@@ -226,6 +166,12 @@ export default function Products() {
                 labelId="category-label"
                 label="Category"
                 className="text-[#040421]"
+                onChange={(e) =>
+                  setFilters((prev) => ({
+                    ...prev,
+                    type: e.target.value as string,
+                  }))
+                }
               >
                 <MenuItem value="Cars">Cars</MenuItem>
                 <MenuItem value="Houses">Houses</MenuItem>
@@ -235,26 +181,114 @@ export default function Products() {
           </div>
 
           {/* Search Input */}
-          <div className="flex gap-x-2 px-3 w-full sm:w-auto rounded-lg border border-primaryBorder">
-            <CiSearch className="h-fit w-fit my-auto" size={24} />
-            <input
-              className="flex-1 py-2.5 outline-none border-none text-sm bg-transparent"
-              placeholder="Search"
-              type="text"
-            />
-          </div>
-        </div>
-
-        <div className="mt-3 flex flex-1 w-full overflow-hidden bg-white">
-          <MuiTableComponent
-            columns={columns}
-            rows={filteredRows}
-            paginationActive={true}
-            rowHeight={60}
-            pageSize={10}
+          <TableSearchInput
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+            placeholder="Search products"
           />
-        </div>
+        </section>
+
+        <section
+          id="table"
+          className="mt-3 flex flex-1 w-full overflow-hidden bg-white"
+        >
+          <MuiTableComponent
+            columns={ProductColumns}
+            rows={productData.rows}
+            onRowClick={handleRowClick}
+            loading={productData.loading}
+            currentPage={productData.pagination.page}
+            totalRowCount={productData.totalRowCount}
+            onPageChange={(model) => {
+              setProductData((prev) => ({
+                ...prev,
+                pagination: {
+                  page: model.page,
+                  pageSize: model.pageSize,
+                },
+              }));
+            }}
+            showCheckbox={true}
+            onSelect={handleTableSelectionChange}
+            rowHeight={60}
+            pageSize={productData.pagination.pageSize}
+          />
+        </section>
       </div>
     </div>
   );
 }
+
+export const ProductActionCellComponent = ({ row }: { row: any }) => {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const dotsPopupRef = useRef(null);
+  const open = Boolean(anchorEl);
+  const id = open ? `popper-${row.id}` : undefined;
+
+  useClickAway(dotsPopupRef, () => {
+    setAnchorEl(null);
+  });
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setAnchorEl(anchorEl ? null : event.currentTarget);
+  };
+
+  const handleDelete = (id: number) => {
+    console.log("deleting product with id:", id);
+  };
+
+  const handleEdit = (id: number) => {
+    console.log("editing product id:", id);
+  };
+
+  return (
+    <div className="h-full w-full relative z-10 flex justify-center items-center overflow-visible">
+      <button
+        aria-describedby={id}
+        type="button"
+        onClick={handleClick}
+        className="cursor-pointer bg-transparent border-none p-2 m-0 rounded-full hover:bg-gray-100"
+        style={{ lineHeight: 0 }}
+      >
+        <BsThreeDotsVertical size={16} />
+      </button>
+      <Popper
+        ref={dotsPopupRef}
+        className="p-3 text-sm z-10 flex gap-x-4 items-center rounded-lg border border-primaryBorder bg-white"
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        placement="bottom-end"
+        style={{ zIndex: 1300 }}
+        modifiers={[
+          {
+            name: "offset",
+            options: {
+              offset: [0, 8],
+            },
+          },
+          {
+            name: "preventOverflow",
+            options: {
+              boundary: "viewport",
+              padding: 8,
+            },
+          },
+        ]}
+      >
+        <Link to={`/products/product/${row.id}`}>
+          <FaRegEye size={18} />
+        </Link>
+        <button onClick={() => handleEdit(row.id)}>
+          <BiEditAlt size={18} />
+        </button>
+
+        <button onClick={() => handleDelete(row.id)}>
+          <GoTrash size={18} />
+        </button>
+      </Popper>
+    </div>
+  );
+};

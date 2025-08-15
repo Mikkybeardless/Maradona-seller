@@ -9,13 +9,14 @@ import { Link, useLocation } from "react-router-dom";
 import { useClickAway } from "react-use";
 import DashboardSearchBar from "../../components/seller/DashboardSearchBar";
 import LineChartComponent from "../../components/seller/LineChart";
-import MuiTableComponent from "../../components/seller/TableComponent";
+import MuiTableComponent from "../../components/table/TableComponent";
 import { generateLineChartData1SellerDashboard } from "../../helper/generateFillData";
 import { Dayjs } from "dayjs";
 import { useDebounce } from "../../hooks/useDebounce";
 import { DateSelect } from "../../components/common/DateSelect";
 import { FilterGroup } from "../../components/common/FilterGroup";
 import { TableSearchInput } from "../../components/common/tableSearchInput";
+import { ExportModal } from "../../components/modals/export-modal";
 
 type UserTableType = {
   id: number;
@@ -55,7 +56,7 @@ export default function Orders() {
   const [allRows, setAllRows] = useState<UserTableType[] | []>([]);
   const [tableRows, setTableRows] = useState<UserTableType[]>(rows());
   const [loading, setLoading] = useState(false);
-
+  const [selectedData, setSelectedData] = useState<UserTableType[]>([]);
   // State for tabs
   const [activeTab, setActiveTab] = useState("New");
   const [filters, setFilters] = useState<IFilter>({
@@ -162,76 +163,13 @@ export default function Orders() {
   return (
     <main className="w-full h-full overflow-y-auto flex flex-col custom-scrollbar md:pb-3 pb-32 ">
       {/* Export Modal  */}
-      {exportModal ? (
-        <div className="w-screen h-screen flex justify-center items-center fixed top-0 left-0 z-30 bg-black/50 backdrop-blur-sm px-4">
-          <div
-            aria-label="Export Modal"
-            ref={exportModalRef}
-            className="w-[95%] sm:w-[70%] md:w-[50%] lg:w-[30%] rounded-[24px] flex flex-col p-4 sm:p-6 md:p-8 bg-white"
-          >
-            <h2 className="text-base sm:text-lg md:text-2xl font-bold">
-              Export Products
-            </h2>
-            <h6 className="font-medium mt-3 sm:mt-5">Export</h6>
-
-            {/* Export Options */}
-            <div className="flex flex-col gap-y-2 mt-2">
-              {[
-                { id: "export-select1", label: "Current page" },
-                { id: "export-select2", label: "All products" },
-                {
-                  id: "export-select3",
-                  label: "Selection(0 products selected)",
-                },
-              ].map((option) => (
-                <div
-                  key={option.id}
-                  className="flex gap-x-2 sm:gap-x-3 items-center text-sm"
-                >
-                  <input type="radio" name="export-select" id={option.id} />
-                  <label htmlFor={option.id} className="opacity-70">
-                    {option.label}
-                  </label>
-                </div>
-              ))}
-            </div>
-
-            <h6 className="font-medium mt-3 sm:mt-5">Export As</h6>
-
-            {/* Export Format Options */}
-            <div className="flex flex-col gap-y-2 mt-2">
-              {[
-                { id: "export-as1", label: "CSV" },
-                { id: "export-as2", label: "PDF" },
-                { id: "export-as3", label: "Plain Text" },
-              ].map((option) => (
-                <div
-                  key={option.id}
-                  className="flex gap-x-2 sm:gap-x-3 items-center text-sm"
-                >
-                  <input type="radio" name="export-as" id={option.id} />
-                  <label htmlFor={option.id} className="opacity-70">
-                    {option.label}
-                  </label>
-                </div>
-              ))}
-            </div>
-
-            {/* Buttons */}
-            <div className="mt-3 sm:mt-5 flex items-center justify-end gap-x-2 sm:gap-x-3 text-sm">
-              <button
-                onClick={closeExportModal}
-                className="rounded-lg hover:underline"
-              >
-                Cancel
-              </button>
-              <button className="px-4 sm:px-5 py-2 sm:py-3 rounded-lg text-white bg-defaultOrange">
-                Export
-              </button>
-            </div>
-          </div>
-        </div>
-      ) : null}
+      <ExportModal
+        isOpen={exportModal}
+        onClose={closeExportModal}
+        allData={rows()}
+        selectedData={selectedData}
+        filename="orders-data"
+      />
 
       {/* Export Modal End  */}
 
@@ -442,7 +380,6 @@ export default function Orders() {
                 columns={columns}
                 showCheckbox={false}
                 rows={tableRows}
-                paginationActive={true}
                 rowHeight={60}
                 pageSize={10}
               />

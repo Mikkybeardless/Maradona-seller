@@ -3,17 +3,44 @@ import { useState } from "react";
 import { BsCamera } from "react-icons/bs";
 
 import defaultPic from "../assets/profilePic.png";
+import profileService from "../api/services/profile.service";
+import { toast } from "react-toastify";
+
+interface ProfilePictureUploadProps {
+  apiImage?: string | null;
+  onUpdating?: (updating: boolean) => void;
+}
 
 const DEFAULT_IMAGE = defaultPic;
 
-export default function ProfilePictureUpload() {
-  const [image, setImage] = useState<string>(DEFAULT_IMAGE);
+export default function ProfilePictureUpload({
+  apiImage,
+  onUpdating = () => {},
+}: ProfilePictureUploadProps) {
+  const [image, setImage] = useState<string>(apiImage || DEFAULT_IMAGE);
 
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = event.target.files?.[0];
+    // send to api
     if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setImage(imageUrl);
+      const formData = new FormData();
+      formData.append("profile_pic", file);
+      try {
+        onUpdating(true); // Call the onUpdate function to notify parent component
+        const response = await profileService.updateProfile(formData);
+        if (response.status === 200) {
+          toast.success("Profile picture updated successfully");
+          console.log("Profile picture updated successfully:", response.data);
+        }
+      } catch (error) {
+        toast.error("An error occurred. Please try again.");
+        console.error("Error updating profile picture:", error);
+      } finally {
+        setImage(URL.createObjectURL(file));
+        onUpdating(false); // Call the onUpdating function to notify parent component
+      }
     }
   };
 

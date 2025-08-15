@@ -1,14 +1,15 @@
 import { GridColDef } from "@mui/x-data-grid";
 import { useRef, useState } from "react";
 import { CiSearch } from "react-icons/ci";
-import { FaRegEye } from "react-icons/fa6";
+// import { FaRegEye } from "react-icons/fa6";
 import { HiSortDescending } from "react-icons/hi";
 import { Link, useLocation } from "react-router-dom";
 import { useClickAway } from "react-use";
 import DashboardSearchBar from "../../components/seller/DashboardSearchBar";
-import MuiTableComponent from "../../components/seller/TableComponent";
+import MuiTableComponent from "../../components/table/TableComponent";
 import { formatPrice } from "../../helper/helperFunctions";
 import { IoMdAdd } from "react-icons/io";
+import { ExportModal } from "../../components/modals/export-modal";
 
 type UserTableType = {
   id: number;
@@ -37,6 +38,7 @@ export default function Customers() {
   const location = useLocation();
   const { pathname } = location;
   const [exportModal, setExportModal] = useState(false);
+  const [selectedData, setSelectedData] = useState<UserTableType[]>([]);
   const [sortCriteria, setSortCriteria] = useState<string>("name");
   const [sortOrder, setSortOrder] = useState<string>("asc");
 
@@ -70,7 +72,7 @@ export default function Customers() {
     { field: "id", headerName: "ID", flex: 0.2, sortable: false },
     { field: "phone", headerName: "Phone", flex: 1, sortable: false },
     { field: "location", headerName: "Location", flex: 1, sortable: false },
-    { field: "orders", headerName: "Order(s)", flex: .5 },
+    { field: "orders", headerName: "Order(s)", flex: 0.5 },
     {
       field: "totalSpent",
       headerName: "Total Spent",
@@ -80,8 +82,12 @@ export default function Customers() {
     {
       field: "status",
       headerName: "Status",
-      renderCell: ({row}) => (
-        <div className={row.status == 'Active'? 'text-[#008000]':'text-[#FF0000]'}>
+      renderCell: ({ row }) => (
+        <div
+          className={
+            row.status == "Active" ? "text-[#008000]" : "text-[#FF0000]"
+          }
+        >
           {row.status}
         </div>
       ),
@@ -92,9 +98,7 @@ export default function Customers() {
       field: "Action",
       renderCell: () => (
         <div className="h-full text-[#0000FF] relative flex justify-center items-center">
-          <Link to={`/${pathname.split("/")[1]}/customers/customer`}>
-            View
-          </Link>
+          <Link to={`/${pathname.split("/")[1]}/customers/customer`}>View</Link>
         </div>
       ),
       flex: 0.5,
@@ -104,24 +108,13 @@ export default function Customers() {
 
   return (
     <div className="w-full h-full overflow-y-auto flex flex-col custom-scrollbar pb-7 bg-[#F5F5F5]">
-      {exportModal && (
-        <div className="w-screen h-screen flex justify-center items-center fixed top-0 left-0 z-30 bg-black/50 backdrop-blur-sm px-4">
-          <div
-            ref={exportModalRef}
-            className="w-[90%] sm:w-[70%] md:w-[50%] lg:w-[30%] rounded-[24px] flex flex-col p-6 sm:p-8 bg-white"
-          >
-            <h2 className="text-lg sm:text-xl md:text-2xl font-bold">
-              Export Customers
-            </h2>
-            <button
-              onClick={() => setExportModal(false)}
-              className="mt-5 px-4 sm:px-5 py-2 sm:py-3 rounded-lg text-white bg-defaultOrange"
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      )}
+      <ExportModal
+        isOpen={exportModal}
+        onClose={() => setExportModal(false)}
+        allData={generateRows()}
+        selectedData={selectedData}
+        filename="orders-data"
+      />
 
       <div className="w-full py-3 sm:py-4 px-4 sm:px-6 md:px-8 lg:px-24 border-b border-b-[#E3E3E3]">
         <DashboardSearchBar />
@@ -141,7 +134,10 @@ export default function Customers() {
               to={`/${pathname.split("/")[1]}/customers/add-customer`}
               className="flex items-center rounded-lg px-3 py-2 sm:py-2.5 text-white text-sm bg-defaultOrange hover:bg-defaultOrangeHover"
             >
-             <span className="text-lg mr-2"><IoMdAdd /></span> Add Customer
+              <span className="text-lg mr-2">
+                <IoMdAdd />
+              </span>{" "}
+              Add Customer
             </Link>
           </div>
         </div>
@@ -196,7 +192,6 @@ export default function Customers() {
           <MuiTableComponent
             columns={columns}
             rows={sortedRows}
-            paginationActive={true}
             rowHeight={60}
             pageSize={10}
           />

@@ -14,20 +14,22 @@ function Security() {
         Two Factor Authentication
       </p>
       <p className="text-sm text-center sm:text-left max-w-md sm:max-w-lg">
-        Enter the email address you used to sign up and we’ll send you
+        Enter the email address you used to sign up and we&apos;ll send you
         instructions to reset your password.
       </p>
 
       <div className="mt-[30px] flex flex-col">
         <div className="">
-          <p className="font-inter font-medium text-base text-[#040421] mb-[8px]">Email</p>
+          <p className="font-inter font-medium text-base text-[#040421] mb-[8px]">
+            Email
+          </p>
           <TextField
             id="outlined-basic"
             label="Email"
             variant="outlined"
             fullWidth
             sx={{
-              borderColor: "#EAE6E9"
+              borderColor: "#EAE6E9",
             }}
           />
         </div>
@@ -43,7 +45,7 @@ function Security() {
             fontSize: "16px",
             fontWeight: 700,
             padding: "12px",
-            borderRadius: "5px"
+            borderRadius: "5px",
           }}
           onClick={handleNext}
         >

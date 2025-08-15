@@ -8,7 +8,7 @@ import "react-international-phone/style.css";
 import { Link, useLocation } from "react-router-dom";
 import { useClickAway } from "react-use";
 import DashboardSearchBar from "../../components/seller/DashboardSearchBar";
-import MuiTableComponent from "../../components/seller/TableComponent";
+import MuiTableComponent from "../../components/table/TableComponent";
 import StateCitySelector from "../../components/common/StateCitySelector";
 import { DateSelect } from "../../components/common/DateSelect";
 import { FilterGroup } from "../../components/common/FilterGroup";
@@ -672,7 +672,6 @@ export default function Shipments() {
                 columns={columns}
                 rows={rows.filter((row) => row.status === "Active")}
                 showCheckbox={false}
-                paginationActive={true}
                 rowHeight={60}
                 pageSize={10}
               />
@@ -681,7 +680,6 @@ export default function Shipments() {
                 columns={columns}
                 rows={rows.filter((row) => row.status === "Complete")}
                 showCheckbox={false}
-                paginationActive={true}
                 rowHeight={60}
                 pageSize={10}
               />

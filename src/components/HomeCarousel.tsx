@@ -12,7 +12,7 @@ export default function HomeCarousel() {
   const navigate = useNavigate();
 
   const handleGotoSellerDashboard = () => {
-    navigate("/seller/dashboard");
+    navigate("/login");
   };
   return (
     <div className="bg-[#F7F7F7] relative w-full flex flex-col md:flex-row items-center px-4 sm:px-[8%] ">

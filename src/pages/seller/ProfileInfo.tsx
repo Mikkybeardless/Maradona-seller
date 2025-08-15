@@ -5,26 +5,72 @@ import { PiPencilSimpleBold } from "react-icons/pi";
 import CopyableText from "../../components/common/CopyableText";
 import PasswordBox from "../../components/common/PasswordBox";
 import ProfilePictureUpload from "../../components/ProfilePictureUpload";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import profileService from "../../api/services/profile.service";
+import { LoadingSkeleton } from "../../components/common/skeleton";
 
 function ProfileInfo() {
+  const [isLoading, setIsLoading] = useState(false);
   const [isProfileEdit, setIsProfileEdit] = useState(false);
+  const [userData, setUserData] = useState<ApiSeller>({
+    id: 0,
+    email: "",
+    name: "",
+    email_verified_at: "",
+    type: "",
+    created_at: "",
+    updated_at: "",
+    seller_profile: {
+      id: 0,
+      user_id: "",
+      email: "",
+      profile_pic: "",
+      is_approved: false,
+      phone: "",
+      shop_name: "",
+      created_at: "",
+      updated_at: "",
+    },
+  });
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        setIsLoading(true);
 
-  return (
+        const response = await profileService.getShopProfile();
+        if (response.status === 200) {
+          console.log("User profile data:", response.data);
+          setUserData(response.data.user);
+        }
+      } catch (error) {
+        console.error("Error fetching user profile:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchUser();
+  }, []);
+
+  return isLoading ? (
+    <LoadingSkeleton />
+  ) : (
     <div className="p-4 md:p-6 bg-white">
       <div className="flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-6">
         <ProfilePictureUpload />
         <div className="text-center md:text-left space-y-1 md:space-y-2">
           <Typography fontWeight={600} fontSize={{ xs: 14, md: 16 }}>
-            RoseMary Sunday
+            {userData.name}
           </Typography>
 
-          <Typography fontSize={{ xs: 12, md: 14 }}>
+          <Typography
+            className="flex justify-between"
+            fontSize={{ xs: 12, md: 14 }}
+          >
             Seller{" "}
             <span>
               <CopyableText
                 textColor="#5C4D58"
-                text="DS1234M"
+                text={String(userData.seller_profile.id)}
                 variant={undefined}
               />
             </span>
@@ -33,7 +79,7 @@ function ProfileInfo() {
           <CopyableText
             textColor=""
             variant={undefined}
-            text="rosiesunday20.aj@gmail.com"
+            text={userData.email}
           />
 
           {/* Location (Not Copyable) */}
@@ -49,31 +95,29 @@ function ProfileInfo() {
           {/* Personal Information  */}
           <div className="mt-8 flex flex-col gap-y-8">
             <div>
-              <p className="text-[#5C4D58] text-sm mb-2">First Name:</p>
-              <p className="font-medium text-lg">Rosemary</p>
-            </div>
-            <div>
-              <p className="text-[#5C4D58] text-sm mb-2">Last Name:</p>
-              <p className="font-medium text-lg">Sunday</p>
+              <p className="text-[#5C4D58] text-sm mb-2">Name:</p>
+              <p className="font-medium text-lg">{userData.name}</p>
             </div>
             <div>
               <p className="text-[#5C4D58] text-sm mb-2">Email:</p>
-              <p className="font-medium text-lg">rosiesunday20.aj@gmail.com</p>
+              <p className="font-medium text-lg">{userData.email}</p>
             </div>
             <div>
               <p className="text-[#5C4D58] text-sm mb-2">Phone No:</p>
-              <p className="font-medium text-lg">08023456788</p>
+              <p className="font-medium text-lg">
+                {userData.seller_profile.phone || "N/A"}
+              </p>
             </div>
           </div>
 
           <div className="flex justify-center lg:mt-20 mt-10 mb-10">
-            <div
+            <button
               onClick={() => setIsProfileEdit(true)}
               className="bg-[#14199C] md:w-3/4 w-4/5 flex items-center justify-center p-4 text-white text-xl rounded-lg"
             >
               <PiPencilSimpleBold />{" "}
               <span className="ml-2 text-sm font-light">Edit Profile</span>
-            </div>
+            </button>
           </div>
         </div>
       )}
@@ -82,6 +126,26 @@ function ProfileInfo() {
 }
 
 function ProfilePassword() {
+  const [oldPassword, setOldPassword] = useState("old password");
+  const [passwordData, setPasswordData] = useState({
+    new: "",
+    confirm: "",
+  });
+
+  const handlePasswordChange = (
+    newPassword: string,
+    type: "new" | "confirm"
+  ) => {
+    // Handle password change logic here
+    console.log("Password:", newPassword);
+    setPasswordData((prev) => ({ ...prev, [type]: newPassword }));
+  };
+
+  const handleOldPasswordChange = (newPassword: string) => {
+    // Handle password change logic here
+    console.log("New Password:", newPassword);
+    setOldPassword(newPassword);
+  };
   return (
     <div className="mt-6 md:my-[30px]">
       <Box className="p-4 md:p-6 bg-[#F7F7F7] flex flex-col md:flex-row justify-between items-start md:items-center">
@@ -105,10 +169,25 @@ function ProfilePassword() {
       </Box>
 
       {/* Password Input Fields */}
-      <Box className="mt-4 flex flex-col space-y-4">
-        <PasswordBox label="Old Password" />
-        <PasswordBox label="New Password" />
-        <PasswordBox label="Confirm New Password" />
+      <Box className="mt-4 flex flex-col  space-y-4">
+        <PasswordBox
+          label="Old Password"
+          placeholder="Enter old password"
+          value={oldPassword}
+          onChange={handleOldPasswordChange}
+        />
+        <PasswordBox
+          label="New Password"
+          placeholder="Enter new password"
+          value={passwordData.new}
+          onChange={(val) => handlePasswordChange(val, "new")}
+        />
+        <PasswordBox
+          label="Confirm New Password"
+          placeholder="Confirm new password"
+          value={passwordData.confirm}
+          onChange={(val) => handlePasswordChange(val, "confirm")}
+        />
       </Box>
 
       <Box className="mt-6">

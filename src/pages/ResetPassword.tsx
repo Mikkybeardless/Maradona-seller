@@ -4,10 +4,21 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import OTPInput from "react-otp-input";
 import { Link } from "react-router-dom";
 import Done from "../assets/done-animation.json";
+import authService from "../api/services/auth.service";
+import { toast } from "react-toastify";
+import { Spinner } from "../components/common/spinner";
+import axios from "axios";
 
 export default function ResetPassword() {
   const [phase, setPhase] = useState(1);
   const [otp, setOtp] = useState("");
+  const [email, setEmail] = useState("");
+  const [passwordData, setPasswordData] = useState({
+    newPassword: "",
+    confirmPassword: "",
+  });
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [time, setTime] = useState(60);
 
   useEffect(() => {
@@ -20,6 +31,68 @@ export default function ResetPassword() {
 
     return () => clearInterval(interval);
   }, [time]);
+  const handleGetOtp = async () => {
+    setIsLoading(true);
+    if (!email) {
+      setError("Please fill in all fields");
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      const response = await authService.reqPasswordReset({ email });
+      if (response.status == 200) {
+        toast.success("Check your email for otp code");
+        setPhase(2);
+      }
+    } catch (error: any) {
+      console.error("Error sending password reset code:", error);
+
+      if (error.response?.status === 404) {
+        toast.error("Email not found");
+      } else {
+        toast.error("Error sending password reset code");
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleConfirmReset = async () => {
+    const { newPassword, confirmPassword } = passwordData;
+    setIsLoading(true);
+    if (!otp || !newPassword) {
+      setError("Please fill in all fields");
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      const response = await authService.doPassReset({
+        email: email,
+        otp,
+        password: newPassword,
+        password_confirmation: confirmPassword,
+      });
+      if (response.status == 200) {
+        toast.success("Password reset successful");
+        setPhase(4);
+      }
+    } catch (error: unknown) {
+      console.error("Error sending password reset code:", error);
+      const status =
+        axios.isAxiosError(error) && error.response
+          ? error.response.status
+          : undefined;
+      if (status === 404) {
+        toast.error("Email not found");
+      } else {
+        toast.error("Error sending password reset code");
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="w-screen h-screen flex flex-col justify-center items-center bg-[#F5F5F5] px-4">
@@ -30,24 +103,33 @@ export default function ResetPassword() {
           </h1>
 
           <p className="text-secondaryTextColor text-sm text-center mt-2.5 max-w-[90%]">
-          Enter the email address you used to sign up and we’ll send you instructions to reset your password
+            Enter the email address you used to sign up and we&apos;ll send you
+            instructions to reset your password
           </p>
 
           <div className="flex flex-col gap-y-1.5 mt-8 w-full">
-            <label>Email:</label>
+            <label htmlFor="email">Email:</label>
             <input
+              id="email"
               className="w-full rounded-lg p-3 border border-primaryBorder"
               type="email"
               placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
           <button
-            onClick={() => setPhase(2)}
-            className="mt-8 w-full rounded-lg py-3 sm:py-4 text-white bg-defaultOrange hover:bg-defaultOrangeHover"
+            onClick={handleGetOtp}
+            className="mt-8 w-full flex items-center justify-center rounded-lg py-3 sm:py-4 text-white bg-defaultOrange hover:bg-defaultOrangeHover"
           >
-            Reset Password
+            {isLoading ? <Spinner /> : "Reset"}
           </button>
+          {error && (
+            <>
+              <p className="text-red-500 text-sm mt-2">{error}</p>
+            </>
+          )}
         </div>
       ) : phase === 2 ? (
         <div className="w-full sm:w-[90%] md:w-[70%] lg:w-[35%] flex flex-col items-center p-6 sm:p-12 rounded-2xl bg-white shadow-md">
@@ -76,17 +158,20 @@ export default function ResetPassword() {
 
           <p className="text-secondaryTextColor text-sm text-center mt-5">
             Didn't get a code?
-            <span className="font-medium cursor-pointer hover:underline">
+            <button
+              onClick={handleGetOtp}
+              className="font-medium flex items-center justify-center cursor-pointer hover:underline"
+            >
               {" "}
-              Resend
-            </span>
+              {isLoading ? <Spinner /> : "Resend"}
+            </button>
           </p>
 
           <button
             onClick={() => setPhase(3)}
-            className="mt-8 w-full rounded-lg py-3 sm:py-4 text-white bg-defaultOrange hover:bg-defaultOrangeHover"
+            className="mt-8 w-full flex items-center justify-center rounded-lg py-3 sm:py-4 text-white bg-defaultOrange hover:bg-defaultOrangeHover"
           >
-            Verify
+            {isLoading ? <Spinner /> : "Verify"}
           </button>
         </div>
       ) : phase === 3 ? (
@@ -96,8 +181,16 @@ export default function ResetPassword() {
           </h1>
 
           <div className="flex flex-col gap-y-1.5 mt-8 w-full">
-            <label>New password:</label>
+            <label htmlFor="new-password">New password:</label>
             <input
+              id="new-password"
+              value={passwordData.newPassword}
+              onChange={(e) =>
+                setPasswordData({
+                  ...passwordData,
+                  newPassword: e.target.value,
+                })
+              }
               className="w-full rounded-lg p-3 border border-primaryBorder"
               type="password"
               placeholder="New password"
@@ -105,8 +198,16 @@ export default function ResetPassword() {
           </div>
 
           <div className="flex flex-col gap-y-1.5 mt-4 w-full">
-            <label>Confirm password:</label>
+            <label htmlFor="confirm-password">Confirm password:</label>
             <input
+              id="confirm-password"
+              value={passwordData.confirmPassword}
+              onChange={(e) =>
+                setPasswordData({
+                  ...passwordData,
+                  confirmPassword: e.target.value,
+                })
+              }
               className="w-full rounded-lg p-3 border border-primaryBorder"
               type="password"
               placeholder="Confirm password"
@@ -114,11 +215,16 @@ export default function ResetPassword() {
           </div>
 
           <button
-            onClick={() => setPhase(4)}
-            className="mt-10 w-full rounded-lg py-3 sm:py-4 text-white bg-defaultOrange hover:bg-defaultOrangeHover"
+            onClick={handleConfirmReset}
+            className="mt-10 w-full flex items-center justify-center rounded-lg py-3 sm:py-4 text-white bg-defaultOrange hover:bg-defaultOrangeHover"
           >
-            Reset Password
+            {isLoading ? <Spinner /> : "Reset Password"}
           </button>
+          {error && (
+            <>
+              <p className="text-red-500 text-sm mt-2">{error}</p>
+            </>
+          )}
         </div>
       ) : phase === 4 ? (
         <div className="w-full sm:w-[90%] md:w-[70%] lg:w-[35%] flex flex-col items-center">

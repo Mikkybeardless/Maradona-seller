@@ -1,30 +1,33 @@
 import { GridColDef } from "@mui/x-data-grid";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { CiSearch } from "react-icons/ci";
 import { FaPlus } from "react-icons/fa6";
 import { IoCloudUploadOutline } from "react-icons/io5";
-import MuiTableComponent from "../../components/seller/TableComponent";
+import MuiTableComponent from "../../components/table/TableComponent";
+import { toast } from "react-toastify";
+import profileService from "../../api/services/profile.service";
+import ReactQuill from "react-quill";
 
-const documentsRow = (): any[] => {
-  const loopArray = [1, 2, 3, 4, 5];
-  const returnArray: any[] = [];
-  loopArray.forEach((num) => {
-    returnArray.push({
-      id: num,
-      name: "image5.jpg",
-      details: {
-        processed: "$undefined",
-        vendor: "sed",
-        date: new Date().toLocaleDateString(),
-        ref: "100" + num,
-      },
-      uploadedBy: "Rosemary Sunday",
-      uploadedOn: new Date(),
-    });
-  });
-  return returnArray;
-};
+// const documentsRow = (): any[] => {
+//   const loopArray = [1, 2, 3, 4, 5];
+//   const returnArray: any[] = [];
+//   loopArray.forEach((num) => {
+//     returnArray.push({
+//       id: num,
+//       name: "image5.jpg",
+//       details: {
+//         processed: "$undefined",
+//         vendor: "sed",
+//         date: new Date().toLocaleDateString(),
+//         ref: "100" + num,
+//       },
+//       uploadedBy: "Rosemary Sunday",
+//       uploadedOn: new Date(),
+//     });
+//   });
+//   return returnArray;
+// };
 
 const documentsColumn: GridColDef[] = [
   { field: "name", headerName: "File Name", flex: 1, sortable: false },
@@ -50,6 +53,9 @@ export default function Documents() {
   const [embedModal, setEmbedModal] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [embedURL, setEmbedURL] = useState("");
+  const [docsData, setDocsData] = useState<Docs[]>([]);
+  const [isloading, setIsLoading] = useState(true);
+  const [desc, setDesc] = useState("");
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: {
@@ -68,21 +74,38 @@ export default function Documents() {
     },
   });
 
+  const fetchData = useCallback(async () => {
+    try {
+      const response = await profileService.getShopDocs();
+      if (response.status === 200) {
+        setDocsData(response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching documents:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+  useEffect(() => {
+    // Fetch documents data when the component mounts
+    fetchData();
+  }, []);
+
   function removeFile(index: number) {
     setUploadedFiles(uploadedFiles.filter((_, i) => i !== index));
   }
 
   function saveEmbedURL() {
     if (!embedURL.trim()) {
-      alert("Please enter a valid URL.");
+      toast.error("Please enter a valid URL.");
       return;
     }
     setEmbedModal(false);
   }
 
   async function uploadFiles() {
-    if (uploadedFiles.length === 0) {
-      alert("No files selected.");
+    if (uploadedFiles.length === 0 || desc.trim() === "") {
+      toast.error("No files selected or description is empty.");
       return;
     }
 
@@ -90,23 +113,21 @@ export default function Documents() {
     uploadedFiles.forEach((file) => {
       formData.append("files", file);
     });
+    formData.append("details", desc);
 
     try {
-      const response = await fetch("", {
-        method: "POST",
-        body: formData,
-      });
+      const response = await profileService.uploadShopDocs(formData);
 
-      if (response.ok) {
-        alert("Files uploaded successfully!");
+      if (response.status === 201) {
+        toast.success("Files uploaded successfully!");
         setUploadedFiles([]);
         setUploadModal(false);
       } else {
-        alert("Upload failed.");
+        toast.error("Upload failed.");
       }
     } catch (error) {
       console.error("Upload error:", error);
-      alert("An error occurred while uploading.");
+      toast.error("An error occurred while uploading.");
     }
   }
 
@@ -173,6 +194,19 @@ export default function Documents() {
                   </button>
                 </div>
               ))}
+            </div>
+
+            <div className="w-full">
+              <h5 className="text-sm mb-2 font-medium">File Description</h5>
+              <ReactQuill
+                onChange={(...args) => {
+                  const editor = args[3];
+                  const text = editor.getText().trim();
+                  setDesc(text);
+                }}
+                theme="snow"
+                className="!rounded-lg"
+              />
             </div>
 
             <div className="flex justify-end gap-x-3 text-sm mt-4">
@@ -252,8 +286,9 @@ export default function Documents() {
           <div className="w-full min-h-[300px] sm:min-h-[400px] md:min-h-[500px]">
             <MuiTableComponent
               columns={documentsColumn}
-              rows={documentsRow()}
-              paginationActive={true}
+              rows={docsData}
+              loading={isloading}
+              showCheckbox={false}
               rowHeight={80}
               pageSize={10}
             />

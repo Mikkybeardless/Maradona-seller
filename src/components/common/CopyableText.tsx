@@ -2,6 +2,7 @@ import { IconButton, Typography } from "@mui/material";
 import { MdContentCopy } from "react-icons/md";
 
 import type { TypographyProps } from "@mui/material";
+import { toast } from "react-toastify";
 
 export default function CopyableText({
   textColor,
@@ -14,6 +15,10 @@ export default function CopyableText({
 }) {
   const handleCopy = () => {
     navigator.clipboard.writeText(text);
+    toast.success("Text copied to clipboard!", {
+      position: "top-center",
+      autoClose: 1000,
+    });
   };
 
   return (

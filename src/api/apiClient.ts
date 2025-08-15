@@ -1,12 +1,12 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-const API_BASE_URL = "/api/v2";
+const API_BASE = import.meta.env.VITE_API_URL;
+const systemKey = import.meta.env.VITE_SYSTEM_KEY;
 const apiClient = axios.create({
   headers: {
-    "System-Key": "1234",
-    "Content-Type": "application/json",
+    "System-Key": systemKey,
   },
-  baseURL: API_BASE_URL,
+  baseURL: API_BASE,
 });
 
 // Request interceptor for adding auth token
@@ -20,20 +20,5 @@ apiClient.interceptors.request.use(
   },
   (error) => Promise.reject(error)
 );
-
-// Response interceptor for handling errors
-// apiClient.interceptors.response.use(
-//   (response) => response,
-//   (error) => {
-//     // Handle common errors (401, 403, etc.)
-//     if (error.response?.status === 401 || error.response?.status === 403) {
-//       // Redirect to login or refresh token
-//       // Cookies.remove("token");
-//       localStorage.removeItem("token");
-//       // window.location.href = "/login";
-//     }
-//     return Promise.reject(error);
-//   }
-// );
 
 export default apiClient;

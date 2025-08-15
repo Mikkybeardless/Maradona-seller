@@ -13,7 +13,7 @@ import {
   YAxis,
 } from "recharts";
 import DashboardSearchBar from "../../components/seller/DashboardSearchBar";
-import MuiTableComponent from "../../components/seller/TableComponent";
+import MuiTableComponent from "../../components/table/TableComponent";
 
 const rows = (): any[] => {
   const loopArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
@@ -282,7 +282,7 @@ export default function Promotions() {
           <MuiTableComponent
             columns={columns}
             rows={rows()}
-            paginationActive={true}
+            // paginationActive={true}
             rowHeight={60}
             showCheckbox={false}
             pageSize={10}

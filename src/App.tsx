@@ -46,6 +46,7 @@ import SellerForm from "./pages/SellerForm";
 import AgentForm from "./pages/AgentForm";
 import InvestorForm from "./pages/InvestorForm";
 import TrackOrder from "./pages/seller/TrackOrder";
+import HelpCentre from "./pages/Help";
 
 function App() {
   return (
@@ -62,6 +63,7 @@ function App() {
           <Route path="investor-form" element={<InvestorForm />} />
           <Route path="terms" element={<Terms />} />
           <Route path="reset-password" element={<ResetPassword />} />
+          <Route path="help" element={<HelpCentre />} />
         </Route>
 
         <Route path="seller" element={<LoggedInAuthenticator />}>

@@ -1,6 +1,6 @@
-import { CiHeart, CiLocationOn } from "react-icons/ci";
+// import { CiHeart, CiLocationOn } from "react-icons/ci";
 import { FaApple, FaGooglePlay } from "react-icons/fa6";
-import cardummy from "../assets/carshop.png";
+// import cardummy from "../assets/carshop.png";
 import IOSapp from "../assets/IOS-app-display.png";
 import QRcode from "../assets/qr-code.png";
 import HomeCarousel from "../components/HomeCarousel";
@@ -14,18 +14,6 @@ import "swiper/css/scrollbar";
 import Carousel from "../components/TestimonialCarousel";
 
 export default function Home() {
-  // const [mobileOpen, setMobileOpen] = useState(false);
-  // const settings = {
-  //   dots: true,
-  //   infinite: true,
-  //   speed: 500,
-  //   slidesToShow: 1,
-  //   slidesToScroll: 1,
-  //   arrows: true,
-  //   centerMode: true,
-  //   centerPadding: "50px",
-  // };
-
   return (
     <div className="w-full h-screen overflow-y-auto overflow-x-hidden custom-scrollbar flex flex-col bg-[#F7F7F7]">
       <div className=" w-full">
@@ -36,7 +24,7 @@ export default function Home() {
             <HomeCarousel />
           </div>
           {/* service */}
-          <section className="px-4 sm:px-8 lg:px-[8%]">
+          <section id="services" className="px-4 sm:px-8 lg:px-[8%]">
             {/* Service Section */}
             <div className="flex flex-col md:flex-row justify-between gap-10 md:gap-24 my-10 items-center">
               {/* Left Side */}
@@ -114,7 +102,10 @@ export default function Home() {
             </div>
           </section>
 
-          <section className="flex bg-[url('/home/growBusiness.png')] object-cover  mt-12">
+          <section
+            id="featured-categories"
+            className="flex bg-[url('/home/growBusiness.png')] object-cover  mt-12"
+          >
             <div className=" w-full md:w-[50%] bg-[#F2F2F2] md:pl-[110px] p-4 space-y-10 pr-[10px] py-10  rounded-br-[200px]">
               <h2 className="md:text-[56px]  font-bold tracking-[0.56px]">
                 Grow <span className="text-defaultOrange">Your Business</span>,
@@ -200,11 +191,14 @@ export default function Home() {
             </section>
 
             {/* testimonials */}
-            <section className=" bg-[#FFFFFF] mt-12 space-y-3">
+            <section
+              id="testimonials"
+              className=" bg-[#FFFFFF] mt-12 space-y-3"
+            >
               <h2 className="text-[32px] font-semibold">Testimonials</h2>
               <p>Here&apos;s what our top clients have to say about us</p>
 
-              <div className="flex flex-col md:flex-row w-full">
+              <div className="flex flex-col  md:flex-row w-full">
                 <div className="bg-[url('/home/team.png')] h-[437px] object-cover relative flex flex-col justify-end w-full md:w-[654px]">
                   <div className="h-[178px]  px-[30px] py-5 space-y-3 bg-[#00000080] text-white">
                     <h3 className="text-[18px] font-medium">Meet Our Team</h3>
@@ -223,7 +217,7 @@ export default function Home() {
           </div>
 
           {/* feature cat */}
-          <section className="flex text-white">
+          <section className="flex mt-12 md:mt-0 text-white">
             <div className="w-full md:w-[50%] px-4 md:pl-[118px] md:pr-[78px] py-10 space-y-4 bg-[#040421]">
               <h2 className="md:text-[60px] font-bold">Don&apos;t Miss Out!</h2>
               <p className="md:text-[25px]">
@@ -292,52 +286,7 @@ export default function Home() {
 
         {/* Footer  */}
         <Footer />
-
-        {/* Padding at the bottom of the page */}
       </div>
     </div>
   );
 }
-
-// const FeatureCard = () => {
-//   return (
-//     <div>
-//       <div className="bg-[#ffffff] flex flex-col rounded-md p-4 mb-4 relative">
-//         {/* Heart Icon (Fixed Position) */}
-//         <div className="absolute md:top-7 xs:top-2 left-5 bg-[#BDBDBD] rounded-full h-7 w-7 flex items-center justify-center">
-//           <CiHeart className="w-4 h-4 text-white" />
-//         </div>
-
-//         {/* Image */}
-//         <div className="flex justify-center">
-//           <img
-//             src={cardummy}
-//             alt="dummycars"
-//             className="w-[90%] h-auto object-contain"
-//           />
-//         </div>
-//       </div>
-
-//       <div>
-//         <p className="font-bold text-[15px] text-[#14199C] mb-[10px]">
-//           ₦ 1,750,000
-//         </p>
-//         <p className="font-normal text-[15px] text-[#040421] mb-[10px]">
-//           Toyota Tacoma Access Cab 2006 Blue
-//         </p>
-//         <p className="flex items-center gap-x-1 font-normal text-sm text-[#454545] mb-[15px]">
-//           <CiLocationOn size={14} color="#E65800" />
-//           Ikoyi, Lagos
-//         </p>
-//         <div className="flex gap-x-2">
-//           <p className="text-xs font-medium text-[#02999D] p-2 bg-[#E0F2FB] rounded-[8px]">
-//             Automatic
-//           </p>
-//           <p className="text-xs font-medium text-[#02999D] p-2 bg-[#E0F2FB] rounded-[8px]">
-//             Automatic
-//           </p>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };

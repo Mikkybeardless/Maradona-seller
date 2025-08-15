@@ -1,31 +1,29 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import FacebookLogo from "../assets/facebook-logo.png";
 import GoogleLogo from "../assets/google-icon.svg";
+import { toast } from "react-toastify";
+import authService from "../api/services/auth.service";
+import { Spinner } from "./common/spinner";
 
 interface SignUpProps {
   setSignUp: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function SignUp({ setSignUp }: SignUpProps) {
-  // const dispatch = useDispatch<AppDispatch>();
-  // const seller = useSelector((state: any) => state.users.users);
-
-  const [createAccountFormData, setCreateAccountFormData] = useState({
-    name: "Maina Vala",
-    email: "mhyelavala@gmail.com",
-    password: "mvala1234",
-    password_confirmation: "mvala1234",
-    shop_name: "Maina Ltd",
-    address: "123 avenue",
-  });
-
-  // function handleCreateAccount(){
-  //   dispatch(registerUser(createAccountFormData))
-  // }
-
+  const initialFormData = {
+    name: "",
+    email: "",
+    password: "",
+    password_confirmation: "",
+    // shop_name: "",
+    // address: "",
+  };
+  const [createAccountFormData, setCreateAccountFormData] =
+    useState(initialFormData);
+  const [isLoading, setIsLoading] = useState(false);
   const [country, setCountry] = useState("");
   const [region, setRegion] = useState("");
   const [togglePasswordShow, setTogglePasswordShow] = useState({
@@ -33,10 +31,6 @@ export default function SignUp({ setSignUp }: SignUpProps) {
     signUp2: false,
   });
   const navigate = useNavigate();
-
-  function goToHome() {
-    navigate("/");
-  }
 
   function handleToggleSignUp1() {
     setTogglePasswordShow({
@@ -52,6 +46,58 @@ export default function SignUp({ setSignUp }: SignUpProps) {
     });
   }
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setCreateAccountFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+  const handleCreateAccount = async () => {
+    setIsLoading(true);
+    const apiData = {
+      ...createAccountFormData,
+      type: "seller",
+    };
+    // Convert to FormData
+    const formData = new FormData();
+    for (const [key, value] of Object.entries(apiData)) {
+      // Global empty check for all fields
+      if (value.trim() === "") {
+        const capitalized = key.charAt(0).toUpperCase() + key.slice(1);
+        toast.error(`The field "${capitalized}" cannot be empty.`);
+        setIsLoading(false);
+        return;
+      }
+      // Append the rest
+      formData.append(key, value as string | Blob);
+    }
+    for (const [key, value] of formData.entries()) {
+      console.log(key, value);
+    }
+    try {
+      setIsLoading(true);
+      const response = await authService.register(formData);
+      if (response.status === 201) {
+        toast.success("SignUp successful!");
+        setCreateAccountFormData(initialFormData);
+        navigate("/login");
+      }
+    } catch (err: any) {
+      toast.error(() => {
+        switch (err.status) {
+          case 500:
+            return `Failed to sign up.\nCheck your internet connection`;
+          default:
+            return "An error occurred. Please try again.";
+        }
+      });
+      console.error("Error adding product:", err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="w-full md:w-[70%] flex flex-col py-10 px-4 md:px-0">
       <h1 className="text-xl md:text-2xl font-bold text-center">
@@ -64,46 +110,58 @@ export default function SignUp({ setSignUp }: SignUpProps) {
       {/* Input Fields */}
       <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
         <div className="flex flex-col gap-y-1.5">
-          <label>First name:</label>
+          <label htmlFor="name">Name:</label>
           <input
             className="p-3 px-4 rounded-lg border border-[#DED9DD] outline-none bg-white"
             type="text"
-            placeholder="First name"
+            id="name"
+            name="name"
+            value={createAccountFormData.name}
+            onChange={handleInputChange}
+            placeholder="Name"
           />
         </div>
-        <div className="flex flex-col gap-y-1.5">
+        {/* <div className="flex flex-col gap-y-1.5">
           <label>Last name:</label>
           <input
             className="p-3 px-4 rounded-lg border border-[#DED9DD] outline-none bg-white"
             type="text"
             placeholder="Last name"
           />
-        </div>
+        </div> */}
         <div className="flex flex-col gap-y-1.5">
-          <label>Email:</label>
+          <label htmlFor="email">Email:</label>
           <input
             className="p-3 px-4 rounded-lg border border-[#DED9DD] outline-none bg-white"
             type="email"
+            id="email"
+            name="email"
+            value={createAccountFormData.email}
+            onChange={handleInputChange}
             placeholder="Email"
           />
         </div>
-        <div className="flex flex-col gap-y-1.5">
+        {/* <div className="flex flex-col gap-y-1.5">
           <label>Choose username:</label>
           <input
             className="p-3 px-4 rounded-lg border border-[#DED9DD] outline-none bg-white"
             type="text"
             placeholder="Choose username"
           />
-        </div>
+        </div> */}
 
         {/* Password Fields */}
         <div className="w-full flex flex-col gap-y-1.5">
-          <label>Password</label>
+          <label htmlFor="password">Password</label>
           <div className="w-full flex items-center gap-2 px-4 py-3 rounded-lg border border-[#DED9DD] bg-white">
             <input
               className="outline-none flex-1"
               type={!togglePasswordShow.signUp1 ? "password" : "text"}
               placeholder="Type"
+              id="password"
+              name="password"
+              value={createAccountFormData.password}
+              onChange={handleInputChange}
             />
             {!togglePasswordShow.signUp1 ? (
               <FaRegEye
@@ -121,12 +179,16 @@ export default function SignUp({ setSignUp }: SignUpProps) {
           </div>
         </div>
         <div className="w-full flex flex-col gap-y-1.5">
-          <label>Confirm Password</label>
+          <label htmlFor="password_confirmation">Confirm Password</label>
           <div className="w-full flex items-center gap-2 px-4 py-3 rounded-lg border border-[#DED9DD] bg-white">
             <input
               className="outline-none flex-1"
               type={!togglePasswordShow.signUp2 ? "password" : "text"}
               placeholder="Type"
+              id="password_confirmation"
+              name="password_confirmation"
+              value={createAccountFormData.password_confirmation}
+              onChange={handleInputChange}
             />
             {!togglePasswordShow.signUp2 ? (
               <FaRegEye
@@ -184,10 +246,10 @@ export default function SignUp({ setSignUp }: SignUpProps) {
 
       {/* Create Account Button */}
       <button
-        // onClick={handleCreateAccount}
-        className="w-full sm:w-[70%] mx-auto py-3 rounded-lg mt-8 text-white bg-defaultOrange hover:bg-defaultOrangeHover transition"
+        onClick={handleCreateAccount}
+        className="w-full sm:w-[70%] mx-auto flex items-center justify-center py-3 rounded-lg mt-8 text-white bg-defaultOrange hover:bg-defaultOrangeHover transition"
       >
-        Create account
+        {isLoading ? <Spinner /> : "Create account"}
       </button>
 
       {/* Divider */}
