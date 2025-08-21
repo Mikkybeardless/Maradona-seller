@@ -31,7 +31,7 @@ export default function Products() {
   const { pathname } = location;
   const [filters, setFilters] = useState<IFilter>({
     type: "",
-    status: "published",
+    status: "pending",
   });
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("All");
@@ -57,6 +57,7 @@ export default function Products() {
         type: filters.type,
       });
       if (res.status === 200) {
+        console.log("res data", res.data.data);
         setProductData((prev) => ({
           ...prev,
           rows: res.data.data,
